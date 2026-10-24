@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Fiches projet</title>
+<style>
+body{font-family:Arial,sans-serif;max-width:900px;margin:auto;padding:15px;background:#f4f4f4}
+h1{color:#1a3d6d}
+.carte{background:#fff;border-radius:8px;padding:15px;margin-bottom:15px;box-shadow:0 1px 4px #ccc}
+label{display:block;margin-top:8px;font-weight:bold}
+input,textarea{width:100%;padding:7px;box-sizing:border-box;margin-top:3px}
+button{background:#1a3d6d;color:#fff;border:none;padding:9px 14px;border-radius:5px;margin-top:10px;cursor:pointer}
+button.suppr{background:#b22}
+table{width:100%;border-collapse:collapse;margin-top:10px}
+td,th{border-bottom:1px solid #ddd;padding:6px;text-align:left;font-size:14px}
+.retard{color:#b22;font-weight:bold}
+.fait{color:#2a2;text-decoration:line-through}
+a{color:#1a3d6d}
+</style>
+</head>
+<body>
+<a href="index.html">← Retour à la veille</a>
+<h1>Fiches projet</h1>
+
+<div class="carte">
+<h2>Nouvelle affaire</h2>
+<label>Nom de l'affaire</label><input id="nom">
+<label>Client</label><input id="client">
+<label>Lieu</label><input id="lieu">
+<label>Date de l'événement</label><input id="date" type="date">
+<label>Date de remise de l'offre</label><input id="remise" type="date">
+<label>Contraintes du site</label><textarea id="contraintes" rows="3"></textarea>
+<button onclick="creer()">Créer la fiche et le rétroplanning</button>
+</div>
+
+<div id="liste"></div>
+
+<script>
+const ETAPES=[
+ {t:"Demande des plans et notes de calcul au bureau d'études",j:-100,r:"Commercial"},
+ {t:"Dossier pour la commission de sécurité",j:-90,r:"Bureau d'études"},
+ {t:"Réception du PGC du coordonnateur SPS",j:-45,r:"Commercial"},
+ {t:"PPSPS rédigé",j:-30,r:"Chef de chantier"},
+ {t:"Plan de prévention signé",j:-15,r:"Chef de chantier"},
+ {t:"Liste matériel et plannings camions",j:-10,r:"Logistique"},
+ {t:"Début du montage",j:-3,r:"Chef de chantier"},
+ {t:"Événement",j:0,r:"Tous"},
+ {t:"Démontage",j:1,r:"Chef de chantier"}
+];
+function lire(){return JSON.parse(localStorage.getItem("fiches")||"[]")}
+function ecrire(f){localStorage.setItem("fiches",JSON.stringify(f));afficher()}
+function decale(d,j){const x=new Date(d);x.setDate(x.getDate()+j);return x.toISOString().slice(0,10)}
+function fr(d){return d?d.split("-").reverse().join("/"):""}
+function creer(){
+ const v=id=>document.getElementById(id).value;
+ if(!v("nom")||!v("date")){alert("Il faut au moins le nom et la date de l'événement");return}
+ const etapes=ETAPES.map(e=>({t:e.t,r:e.r,d:decale(v("date"),e.j),ok:false}));
+ if(v("remise"))etapes.unshift({t:"Remise de l'offre",r:"Commercial",d:v("remise"),ok:false});
+ etapes.sort((a,b)=>a.d.localeCompare(b.d));
+ const f=lire();
+ f.push({nom:v("nom"),client:v("client"),lieu:v("lieu"),date:v("date"),contraintes:v("contraintes"),etapes});
+ ecrire(f);
+ ["nom","client","lieu","date","remise","contraintes"].forEach(id=>document.getElementById(id).value="");
+}
+function cocher(i,k){const f=lire();f[i].etapes[k].ok=!f[i].etapes[k].ok;ecrire(f)}
+function respo(i,k,val){const f=lire();f[i].etapes[k].r=val;localStorage.setItem("fiches",JSON.stringify(f))}
+function supprimer(i){if(confirm("Supprimer cette fiche ?")){const f=lire();f.splice(i,1);ecrire(f)}}
+function afficher(){
+ const auj=new Date().toISOString().slice(0,10);
+ document.getElementById("liste").innerHTML=lire().map((p,i)=>`
+ <div class="carte">
+ <h2>${p.nom}</h2>
+ <p><b>Client :</b> ${p.client} — <b>Lieu :</b> ${p.lieu} — <b>Événement :</b> ${fr(p.date)}</p>
+ <p><b>Contraintes :</b> ${p.contraintes||"—"}</p>
+ <table><tr><th></th><th>Étape</th><th>Échéance</th><th>Responsable</th></tr>
+ ${p.etapes.map((e,k)=>`<tr class="${e.ok?"fait":(e.d<auj?"retard":"")}">
+ <td><input type="checkbox" ${e.ok?"checked":""} onclick="cocher(${i},${k})"></td>
+ <td>${e.t}</td><td>${fr(e.d)}</td>
+ <td><input value="${e.r}" onchange="respo(${i},${k},this.value)"></td></tr>`).join("")}
+ </table>
+ <button class="suppr" onclick="supprimer(${i})">Supprimer la fiche</button>
+ </div>`).join("");
+}
+afficher();
+</script>
+</body>
+</html>
