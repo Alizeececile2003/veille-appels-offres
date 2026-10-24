@@ -15,7 +15,7 @@ MOTS_CLES = ["tribune mobile", "gradin", "podium", "chapiteau", "echafaudage",
              "festival", "evenementiel", "evenementielle", "structure temporaire"]
 
 # Expressions qui disqualifient une annonce
-EXCLUSIONS = ["salle des fetes", "manifestation d'interet"]
+EXCLUSIONS = ["salle des fetes", "manifestation d'interet", "stand de tir", "materiel electrique", "accueil physique", "maitrise d'oeuvre", "maitrise d'œuvre", "conception graphique", "communication visuelle"]
 
 def motif(m):
     return r"\b" + r"s?\s+".join(re.escape(x) for x in m.split()) + r"s?\b"
