@@ -43,21 +43,6 @@
   "famille": "Marchés entre 90 k€ et seuils européens"
  },
  {
-  "id": "26-100183",
-  "objet": "Locations d'engins et de matériels, de véhicules utilitaires, de mobilier, de matériels divers pour les réceptions et évènements ainsi que l'achat de matériels de festivités sans impression, de vid...",
-  "acheteur": "Mairie Tours",
-  "departement": "37 41",
-  "parution": "2026-10-17",
-  "date_limite": "2026-11-16T10:00:00+00:00",
-  "lien": "https://www.boamp.fr/pages/avis/?q=idweb:26-100183",
-  "mots": [
-   "festivites"
-  ],
-  "statut": "pertinent",
-  "procedure": "Procédure Ouverte",
-  "famille": "Marchés européens"
- },
- {
   "id": "26-102783",
   "objet": "M.2026-45 Fourniture et mise en oeuvre du stand de la Communauté d'Agglomération de la Provence Verte Foire de Brignoles - Edition 2027",
   "acheteur": "CA Provence Verte",
@@ -83,6 +68,21 @@
   "lien": "https://www.boamp.fr/pages/avis/?q=idweb:26-101470",
   "mots": [],
   "statut": "à vérifier",
+  "procedure": "Procédure Ouverte",
+  "famille": "Marchés européens"
+ },
+ {
+  "id": "26-102891",
+  "objet": "Organisation de l’Évènement « Festival des Entrepreneurs du 12 et 13 mai 2027 » de la CCI Marne Ardennes sur le Site de Reims",
+  "acheteur": "CCI Marne Ardennes",
+  "departement": "8 51",
+  "parution": "2026-10-24",
+  "date_limite": "2026-11-23T11:00:00+00:00",
+  "lien": "https://www.boamp.fr/pages/avis/?q=idweb:26-102891",
+  "mots": [
+   "festival"
+  ],
+  "statut": "pertinent",
   "procedure": "Procédure Ouverte",
   "famille": "Marchés européens"
  },
@@ -350,6 +350,19 @@
    "evenementielle"
   ],
   "statut": "pertinent",
+  "procedure": "Procédure Ouverte",
+  "famille": "Marchés européens"
+ },
+ {
+  "id": "26-102896",
+  "objet": "2026_000606_BCOM",
+  "acheteur": "MINARM/SGA/SDPAMG",
+  "departement": "75 78 77 91 92 93 94 95",
+  "parution": "2026-10-24",
+  "date_limite": "",
+  "lien": "https://www.boamp.fr/pages/avis/?q=idweb:26-102896",
+  "mots": [],
+  "statut": "à vérifier",
   "procedure": "Procédure Ouverte",
   "famille": "Marchés européens"
  },
