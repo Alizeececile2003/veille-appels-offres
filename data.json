@@ -1,14 +1,194 @@
 [
  {
-  "id": "26-101499",
-  "objet": "Location de matériel de dispensation de thérapie et matériel d’oxygénothérapie pour les Hospices Civils de Beaune",
-  "acheteur": "Hospices Civils de Beaune",
-  "departement": "21",
-  "parution": "2026-10-19",
-  "date_limite": "2026-11-09T17:00:00+00:00",
-  "lien": "https://www.boamp.fr/pages/avis/?q=idweb:26-101499",
+  "id": "26-101423",
+  "objet": "Conception, fabrication en usine et livraison de structures modulaires mobiles ou mobil-homes destinées à l'hébergement de personnels saisonniers et de salariés",
+  "acheteur": "REGIE DES ACTIVITES TOURISTIQUES ET COMERCIALES DE CARCANS",
+  "departement": "33 34 13",
+  "parution": "2026-10-20",
+  "date_limite": "2026-11-03T10:00:00+00:00",
+  "lien": "https://www.boamp.fr/pages/avis/?q=idweb:26-101423",
   "mots": [
-   "location de matériel"
+   "abri"
+  ],
+  "statut": "pertinent"
+ },
+ {
+  "id": "26-101390",
+  "objet": "Fourniture et pose de deux toitures rétractables pour abris à sel au CER de Marquette",
+  "acheteur": "Métropole européenne de Lille",
+  "departement": "59",
+  "parution": "2026-10-19",
+  "date_limite": "2026-11-05T12:00:00+00:00",
+  "lien": "https://www.boamp.fr/pages/avis/?q=idweb:26-101390",
+  "mots": [
+   "abri"
+  ],
+  "statut": "pertinent"
+ },
+ {
+  "id": "26-101309",
+  "objet": "Conception, la fabrication et la livraison d’un chariot cavalier réduit (échelle 1/5ème) robotisé et instrumenté pour le laboratoire CRIStAL dans le cadre du CPER RITMEA.",
+  "acheteur": "Université de Lille",
+  "departement": "59",
+  "parution": "2026-10-20",
+  "date_limite": "2026-11-06T12:00:00+00:00",
+  "lien": "https://www.boamp.fr/pages/avis/?q=idweb:26-101309",
+  "mots": [
+   "abri"
+  ],
+  "statut": "pertinent"
+ },
+ {
+  "id": "26-101254",
+  "objet": "Conception et fabrication d'une maquette pédagogique interactive sur l'adaptation des territoires côtiers de la Manche au changement climatique",
+  "acheteur": "Département de la Manche",
+  "departement": "50",
+  "parution": "2026-10-20",
+  "date_limite": "2026-11-12T11:00:00+00:00",
+  "lien": "https://www.boamp.fr/pages/avis/?q=idweb:26-101254",
+  "mots": [
+   "abri"
+  ],
+  "statut": "pertinent"
+ },
+ {
+  "id": "26-103016",
+  "objet": "Installation de 2 centrales photovoltaïque sur ombrières de parking sur le Campus Joseph Aiguier à Marseille",
+  "acheteur": "CENTRE NATIONAL DE LA RECHERCHE SCIEN",
+  "departement": "4 6 13 83 84",
+  "parution": "2026-10-22",
+  "date_limite": "2026-11-12T12:00:00+00:00",
+  "lien": "https://www.boamp.fr/pages/avis/?q=idweb:26-103016",
+  "mots": [],
+  "statut": "à vérifier"
+ },
+ {
+  "id": "26-101745",
+  "objet": "Prestations de régie technique culturelle pour les besoins du Musée d'art contemporain (CAPC) de la Ville de Bordeaux",
+  "acheteur": "Ville de Bordeaux",
+  "departement": "33",
+  "parution": "2026-10-21",
+  "date_limite": "2026-11-12T15:00:00+00:00",
+  "lien": "https://www.boamp.fr/pages/avis/?q=idweb:26-101745",
+  "mots": [
+   "régie"
+  ],
+  "statut": "pertinent"
+ },
+ {
+  "id": "26-103614",
+  "objet": "Fabrication de l'exposition permanente de la Maison du Fromage de la vallée de Munster - espace Hoïstock",
+  "acheteur": "CC Vallée de Munster",
+  "departement": "68",
+  "parution": "2026-10-23",
+  "date_limite": "2026-11-13T12:00:00+00:00",
+  "lien": "https://www.boamp.fr/pages/avis/?q=idweb:26-103614",
+  "mots": [
+   "abri"
+  ],
+  "statut": "pertinent"
+ },
+ {
+  "id": "26-101948",
+  "objet": "Accord-cadre à bons de commande passé selon une procédure \nadaptée - Fournitures de porte-verres pour l'édition 2027 de Bordeaux \nFête le Vin",
+  "acheteur": "OFFICE TOURISME BORDEAUX METROPOLE",
+  "departement": "33 40",
+  "parution": "2026-10-20",
+  "date_limite": "2026-11-13T12:00:00+00:00",
+  "lien": "https://www.boamp.fr/pages/avis/?q=idweb:26-101948",
+  "mots": [
+   "fête"
+  ],
+  "statut": "pertinent"
+ },
+ {
+  "id": "26-101887",
+  "objet": "Accord-cadre à bons de commande passé selon une procédure\nadaptée - Fournitures de verres de dégustation pour l'édition 2027 de\nBordeaux Fête le Vin",
+  "acheteur": "OFFICE TOURISME BORDEAUX METROPOLE",
+  "departement": "33 40",
+  "parution": "2026-10-20",
+  "date_limite": "2026-11-13T12:00:00+00:00",
+  "lien": "https://www.boamp.fr/pages/avis/?q=idweb:26-101887",
+  "mots": [
+   "fête"
+  ],
+  "statut": "pertinent"
+ },
+ {
+  "id": "26-103538",
+  "objet": "Travaux de dépose de la passerelle des Sablons à Chatillon",
+  "acheteur": "Vallée Sud - Grand Paris (92)",
+  "departement": "92",
+  "parution": "2026-10-23",
+  "date_limite": "2026-11-13T15:00:00+00:00",
+  "lien": "https://www.boamp.fr/pages/avis/?q=idweb:26-103538",
+  "mots": [
+   "passerelle"
+  ],
+  "statut": "pertinent"
+ },
+ {
+  "id": "26-102181",
+  "objet": "Travaux d'aménagement du Pôle d'Echanges Multimodal (Pem) de Maringouins - Vrd et Abris",
+  "acheteur": "Communauté d'agglomération du centre littoral (Cacl)",
+  "departement": "973",
+  "parution": "2026-10-20",
+  "date_limite": "2026-11-13T18:00:00+00:00",
+  "lien": "https://www.boamp.fr/pages/avis/?q=idweb:26-102181",
+  "mots": [
+   "abri"
+  ],
+  "statut": "pertinent"
+ },
+ {
+  "id": "26-100183",
+  "objet": "Locations d'engins et de matériels, de véhicules utilitaires, de mobilier, de matériels divers pour les réceptions et évènements ainsi que l'achat de matériels de festivités sans impression, de vid...",
+  "acheteur": "Mairie Tours",
+  "departement": "37 41",
+  "parution": "2026-10-17",
+  "date_limite": "2026-11-16T10:00:00+00:00",
+  "lien": "https://www.boamp.fr/pages/avis/?q=idweb:26-100183",
+  "mots": [
+   "festivités"
+  ],
+  "statut": "pertinent"
+ },
+ {
+  "id": "26-100694",
+  "objet": "Maitrise d'oeuvre d'une passerelle modes doux sur l'Arve",
+  "acheteur": "COMMUNAUTE DE COMMUNES ARVE ET SALEVE",
+  "departement": "74",
+  "parution": "2026-10-18",
+  "date_limite": "2026-11-16T11:00:00+00:00",
+  "lien": "https://www.boamp.fr/pages/avis/?q=idweb:26-100694",
+  "mots": [
+   "passerelle"
+  ],
+  "statut": "pertinent"
+ },
+ {
+  "id": "26-100623",
+  "objet": "MAINTENANCE DES MATERIELS ET EQUIPEMENTS DE LA CUISINE CENTRALE  DU CH GABRIEL DEPLANTE A RUMILLY",
+  "acheteur": "Centre Hospitalier Annecy Genevois",
+  "departement": "74",
+  "parution": "2026-10-18",
+  "date_limite": "2026-11-16T11:00:00+00:00",
+  "lien": "https://www.boamp.fr/pages/avis/?q=idweb:26-100623",
+  "mots": [
+   "abri"
+  ],
+  "statut": "pertinent"
+ },
+ {
+  "id": "26-100377",
+  "objet": "Fourniture de matériaux et produits nécessaires à la régie de la SIP - SIP RENOV",
+  "acheteur": "Société immobilière picarde d'HLM",
+  "departement": "80",
+  "parution": "2026-10-17",
+  "date_limite": "2026-11-16T11:00:00+00:00",
+  "lien": "https://www.boamp.fr/pages/avis/?q=idweb:26-100377",
+  "mots": [
+   "régie"
   ],
   "statut": "pertinent"
  },
@@ -26,80 +206,182 @@
   "statut": "pertinent"
  },
  {
-  "id": "26-101222",
-  "objet": "Prestation de travaux de rénovation extérieure du bâtiment de la salle de spectacle « L’Artea » de la ville de Carnoux-en-Provence.",
-  "acheteur": "Commune de Carnoux en Provence (13)",
-  "departement": "13",
-  "parution": "2026-10-19",
-  "date_limite": "2026-11-16T16:00:00+00:00",
-  "lien": "https://www.boamp.fr/pages/avis/?q=idweb:26-101222",
+  "id": "26-103167",
+  "objet": "Extension et rénovation énergétique de la salle des fêtes de Ste Dode",
+  "acheteur": "Sivom de Miélan Marciac",
+  "departement": "32",
+  "parution": "2026-10-23",
+  "date_limite": "2026-11-16T12:00:00+00:00",
+  "lien": "https://www.boamp.fr/pages/avis/?q=idweb:26-103167",
   "mots": [
-   "spectacle"
+   "fête"
   ],
   "statut": "pertinent"
  },
  {
-  "id": "26-100701",
-  "objet": "Prestations de location de matériels roulants, engins et équipements divers pour l'UTCD de Florac - secteur Sud-Est",
-  "acheteur": "Département de la Lozère",
-  "departement": "48",
-  "parution": "2026-10-18",
-  "date_limite": "2026-11-17T11:00:00+00:00",
-  "lien": "https://www.boamp.fr/pages/avis/?q=idweb:26-100701",
-  "mots": [
-   "location de matériel"
-  ],
-  "statut": "pertinent"
- },
- {
-  "id": "26-102824",
-  "objet": "Changement des projecteurs dans la salle de spectacle du carré des Docks",
-  "acheteur": "Spl des Docks",
-  "departement": "76",
+  "id": "26-103030",
+  "objet": "Fourniture, fabrication et livraison de repas en liaison froide pour le CCAS de la Ville de Poissy (2 lots)",
+  "acheteur": "Centre Communal d’Action Sociale (CCAS) de la Ville de Poissy",
+  "departement": "78 95",
   "parution": "2026-10-22",
-  "date_limite": "2026-11-18T16:00:00+00:00",
-  "lien": "https://www.boamp.fr/pages/avis/?q=idweb:26-102824",
+  "date_limite": "2026-11-16T12:00:00+00:00",
+  "lien": "https://www.boamp.fr/pages/avis/?q=idweb:26-103030",
   "mots": [
-   "spectacle"
+   "abri"
   ],
   "statut": "pertinent"
  },
  {
-  "id": "26-100624",
-  "objet": "Renouvellement de la tribune téléscopique du centre culture de l'Orangerie",
-  "acheteur": "Mairie de Roissy-en-France",
-  "departement": "95",
+  "id": "26-101184",
+  "objet": "Hébergement, restauration et briefing des officiers accompagnateurs et des renforts du bureau des salons pour la période de 2027 à 2030",
+  "acheteur": "SGA / SDPAMG",
+  "departement": "75 92 93 77 78 91 94 95",
+  "parution": "2026-10-20",
+  "date_limite": "2026-11-16T12:00:00+00:00",
+  "lien": "https://www.boamp.fr/pages/avis/?q=idweb:26-101184",
+  "mots": [
+   "salon"
+  ],
+  "statut": "pertinent"
+ },
+ {
+  "id": "26-101201",
+  "objet": "Fournitures et/ou poses d'adhésifs sur les TCP / VL de la Régie Régionale des Transports Publics Occitanie Sud",
+  "acheteur": "RRT 66",
+  "departement": "66",
+  "parution": "2026-10-19",
+  "date_limite": "2026-11-17T12:00:00+00:00",
+  "lien": "https://www.boamp.fr/pages/avis/?q=idweb:26-101201",
+  "mots": [
+   "régie"
+  ],
+  "statut": "pertinent"
+ },
+ {
+  "id": "26-101122",
+  "objet": "Entretiens des abris voyageurs et mise en place de la publicité institutionnelle - RELANCE",
+  "acheteur": "Département du Loir-et-Cher",
+  "departement": "41",
+  "parution": "2026-10-18",
+  "date_limite": "2026-11-17T15:00:00+00:00",
+  "lien": "https://www.boamp.fr/pages/avis/?q=idweb:26-101122",
+  "mots": [
+   "abri"
+  ],
+  "statut": "pertinent"
+ },
+ {
+  "id": "26-102498",
+  "objet": "Mission de maîtrise d’œuvre : Aménagement d’un accès technique permanent au château de Commequiers (monument historique classé)",
+  "acheteur": "Pays de Saint Gilles Croix de Vie Agglomération (85)",
+  "departement": "85",
+  "parution": "2026-10-21",
+  "date_limite": "2026-11-18T12:00:00+00:00",
+  "lien": "https://www.boamp.fr/pages/avis/?q=idweb:26-102498",
+  "mots": [],
+  "statut": "à vérifier"
+ },
+ {
+  "id": "26-101183",
+  "objet": "Fourniture de repas fabriqués dans la cuisine du Syndicat et livraison en liaison chaude",
+  "acheteur": "SITE en VAL de NOYE",
+  "departement": "80",
+  "parution": "2026-10-20",
+  "date_limite": "2026-11-19T10:00:00+00:00",
+  "lien": "https://www.boamp.fr/pages/avis/?q=idweb:26-101183",
+  "mots": [
+   "abri"
+  ],
+  "statut": "pertinent"
+ },
+ {
+  "id": "26-101595",
+  "objet": "Gardiennage et surveillance d'équipements, d'installations et de personnes lors de manifestations et mission de médiation sur autre sites sensibles pour la Ville d'Olivet",
+  "acheteur": "Mairie d'Olivet - Service Commande Publique",
+  "departement": "45",
+  "parution": "2026-10-21",
+  "date_limite": "2026-11-19T11:00:00+00:00",
+  "lien": "https://www.boamp.fr/pages/avis/?q=idweb:26-101595",
+  "mots": [
+   "manifestation"
+  ],
+  "statut": "pertinent"
+ },
+ {
+  "id": "26-102177",
+  "objet": "Prestations de communication et de production de contenus - Projet PASSERELLES - INTERREG France-Suisse 2021-2027",
+  "acheteur": "SYNDICAT MIXTE DU MONT D'OR",
+  "departement": "25 39 90",
+  "parution": "2026-10-20",
+  "date_limite": "2026-11-19T12:00:00+00:00",
+  "lien": "https://www.boamp.fr/pages/avis/?q=idweb:26-102177",
+  "mots": [
+   "passerelle"
+  ],
+  "statut": "pertinent"
+ },
+ {
+  "id": "26-101436",
+  "objet": "Nettoyage et désinfection des réservoirs d'eau potable de la Régie AN DOUR",
+  "acheteur": "SERVICE PUBLIC DE L'EAU - AN DOUR",
+  "departement": "29",
+  "parution": "2026-10-19",
+  "date_limite": "2026-11-19T12:00:00+00:00",
+  "lien": "https://www.boamp.fr/pages/avis/?q=idweb:26-101436",
+  "mots": [
+   "régie"
+  ],
+  "statut": "pertinent"
+ },
+ {
+  "id": "26-102976",
+  "objet": "Travaux de remise en peinture de Garde-corps et de structures métalliques des ouvrages d'art du département de la Gironde - 2 Lots - Réf 2404",
+  "acheteur": "Conseil Départemental de la Gironde",
+  "departement": "33",
+  "parution": "2026-10-22",
+  "date_limite": "2026-11-19T16:00:00+00:00",
+  "lien": "https://www.boamp.fr/pages/avis/?q=idweb:26-102976",
+  "mots": [
+   "garde-corps"
+  ],
+  "statut": "pertinent"
+ },
+ {
+  "id": "26-100961",
+  "objet": "Accord-cadre d'assistance à maîtrise d'ouvrage pour le cadrage, la programmation, le montage opérationnel, la préparation et le suivi de projets d'aménagement, d'infrastructures et d'interfaces port-v",
+  "acheteur": "Port autonome de Strasbourg",
+  "departement": "67",
   "parution": "2026-10-18",
   "date_limite": "2026-11-20T11:00:00+00:00",
-  "lien": "https://www.boamp.fr/pages/avis/?q=idweb:26-100624",
+  "lien": "https://www.boamp.fr/pages/avis/?q=idweb:26-100961",
   "mots": [
-   "tribune"
+   "montage"
   ],
   "statut": "pertinent"
  },
  {
-  "id": "26-102923",
-  "objet": "MAINTENANCE, DÉPANNAGE ET TRAVAUX SUR PORTAILS, PORTES AUTOMATIQUES, RIDEAUX MÉTALLIQUES, PORTES SECTIONNELLES, BARRIÈRES LEVANTES, PORTES BASCULANTES ET OUVRE-PORTES AUTOMATIQUES",
-  "acheteur": "Université Jean Moulin Lyon 3",
-  "departement": "69 1",
+  "id": "26-102783",
+  "objet": "M.2026-45 Fourniture et mise en oeuvre du stand de la Communauté d'Agglomération de la Provence Verte Foire de Brignoles - Edition 2027",
+  "acheteur": "CA Provence Verte",
+  "departement": "83",
   "parution": "2026-10-22",
   "date_limite": "2026-11-20T12:00:00+00:00",
-  "lien": "https://www.boamp.fr/pages/avis/?q=idweb:26-102923",
+  "lien": "https://www.boamp.fr/pages/avis/?q=idweb:26-102783",
   "mots": [
-   "barrière"
+   "foire"
   ],
   "statut": "pertinent"
  },
  {
-  "id": "26-101885",
-  "objet": "ORGANISATION DE SPECTACLES PYROTECHNIQUES POUR LES ANNEES 2026, 2027, 2028 ET 2029",
-  "acheteur": "Ville de Trith Saint Léger",
-  "departement": "59",
-  "parution": "2026-10-20",
+  "id": "26-101688",
+  "objet": "Conception, fabrication et installation d'un barrage anti sargasses sur le site de Pointe Jacques, au François",
+  "acheteur": "Gip Sargasses - Prévention et Gestion des Sargasses en Martinique",
+  "departement": "972",
+  "parution": "2026-10-19",
   "date_limite": "2026-11-20T12:00:00+00:00",
-  "lien": "https://www.boamp.fr/pages/avis/?q=idweb:26-101885",
+  "lien": "https://www.boamp.fr/pages/avis/?q=idweb:26-101688",
   "mots": [
-   "spectacle"
+   "abri"
   ],
   "statut": "pertinent"
  },
@@ -124,19 +406,8 @@
   "parution": "2026-10-21",
   "date_limite": "2026-11-20T17:00:00+00:00",
   "lien": "https://www.boamp.fr/pages/avis/?q=idweb:26-101470",
-  "mots": [],
-  "statut": "à vérifier"
- },
- {
-  "id": "26-101573",
-  "objet": "Maîtrise d'oeuvre pour la construction d'un pôle culturel à Talmont Saint Hilaire comprenant une salle de spectacle de 500 places et un cinéma de deux salles (200 et 80 places).",
-  "acheteur": "Communauté de Communes Vendée Grand Littoral (85)",
-  "departement": "85",
-  "parution": "2026-10-21",
-  "date_limite": "2026-11-23T11:00:00+00:00",
-  "lien": "https://www.boamp.fr/pages/avis/?q=idweb:26-101573",
   "mots": [
-   "spectacle"
+   "manifestation"
   ],
   "statut": "pertinent"
  },
@@ -154,6 +425,46 @@
   "statut": "pertinent"
  },
  {
+  "id": "26-103501",
+  "objet": "Le présent marché a pour objet de confier à un prestataire l'organisation de la cérémonie des Voeux du Maire à la population qui aura lieu le lundi 11 janvier 2027.",
+  "acheteur": "Mairie de Thiais",
+  "departement": "94 92",
+  "parution": "2026-10-23",
+  "date_limite": "2026-11-23T12:00:00+00:00",
+  "lien": "https://www.boamp.fr/pages/avis/?q=idweb:26-103501",
+  "mots": [
+   "cérémonie"
+  ],
+  "statut": "pertinent"
+ },
+ {
+  "id": "26-103649",
+  "objet": "26m0351pa - Location, Montage Et Demontage D'Une Grande Roue Pour La Foire De Toulouse Au Meett - Marché à Tranche Ferme Pour 2027 Et à Tranches Optionnelles Pour 2028, 2029 Et 203",
+  "acheteur": "Toulouse Métropole",
+  "departement": "31",
+  "parution": "2026-10-23",
+  "date_limite": "2026-11-23T12:00:00+00:00",
+  "lien": "https://www.boamp.fr/pages/avis/?q=idweb:26-103649",
+  "mots": [
+   "montage",
+   "foire"
+  ],
+  "statut": "pertinent"
+ },
+ {
+  "id": "26-101898",
+  "objet": "Marché de prestations de services d'assurances pour la Régie du port des Marines de Cogolin",
+  "acheteur": "REGIE PORT PLAISANCE MARINES COGOLIN",
+  "departement": "83",
+  "parution": "2026-10-20",
+  "date_limite": "2026-11-23T12:00:00+00:00",
+  "lien": "https://www.boamp.fr/pages/avis/?q=idweb:26-101898",
+  "mots": [
+   "régie"
+  ],
+  "statut": "pertinent"
+ },
+ {
   "id": "26-102782",
   "objet": "SERVICE DE LOCATION, TRANSPORT ET INSTALLATION DE MATÉRIELS DE FESTIVITÉS POUR LA COMMUNE DE SAINT-LAURENT-DU-VAR - RELANCE",
   "acheteur": "Ville de Saint Laurent du Var (06)",
@@ -161,19 +472,34 @@
   "parution": "2026-10-23",
   "date_limite": "2026-11-23T21:00:00+00:00",
   "lien": "https://www.boamp.fr/pages/avis/?q=idweb:26-102782",
-  "mots": [],
-  "statut": "à vérifier"
+  "mots": [
+   "festivités"
+  ],
+  "statut": "pertinent"
  },
  {
-  "id": "26-101651",
-  "objet": "Location de matériels de travaux publics sans chauffeur pour les besoins des services départementaux",
-  "acheteur": "Conseil Départemental du Lot-et-Garonne",
-  "departement": "47",
-  "parution": "2026-10-21",
+  "id": "26-102000",
+  "objet": "Prestation de lavage -désinfection-curage et de maintenance préventive et curative de colonnes aériennes et enterrées, bacs et abris-bac de biodéchets sur la commune d'Etampes",
+  "acheteur": "CA Etampois Sud Essonne",
+  "departement": "91 45 28 78",
+  "parution": "2026-10-22",
   "date_limite": "2026-11-24T11:00:00+00:00",
-  "lien": "https://www.boamp.fr/pages/avis/?q=idweb:26-101651",
+  "lien": "https://www.boamp.fr/pages/avis/?q=idweb:26-102000",
   "mots": [
-   "location de matériel"
+   "abri"
+  ],
+  "statut": "pertinent"
+ },
+ {
+  "id": "26-102087",
+  "objet": "REMPLACEMENT D'UNE POMPE À CHALEUR ET RACCORDEMENT SUR PLANCHER CHAUFFANT POUR LE CENTRE AQUATIQUE DE LA COMMUNE DE SAINT-BARTHELEMY-D'ANJOU",
+  "acheteur": "Ville de Saint Barthélemy d'Anjou (49)",
+  "departement": "49",
+  "parution": "2026-10-20",
+  "date_limite": "2026-11-24T17:00:00+00:00",
+  "lien": "https://www.boamp.fr/pages/avis/?q=idweb:26-102087",
+  "mots": [
+   "plancher"
   ],
   "statut": "pertinent"
  },
@@ -186,6 +512,7 @@
   "date_limite": "2026-11-25T11:00:00+00:00",
   "lien": "https://www.boamp.fr/pages/avis/?q=idweb:26-102435",
   "mots": [
+   "manifestation",
    "événementiel"
   ],
   "statut": "pertinent"
@@ -199,7 +526,73 @@
   "date_limite": "2026-11-25T11:00:00+00:00",
   "lien": "https://www.boamp.fr/pages/avis/?q=idweb:26-101725",
   "mots": [
+   "régie",
    "festival"
+  ],
+  "statut": "pertinent"
+ },
+ {
+  "id": "26-102653",
+  "objet": "27srp01 - Travaux de garde-corps sur routes départementales",
+  "acheteur": "Département de l'Ardèche",
+  "departement": "7",
+  "parution": "2026-10-22",
+  "date_limite": "2026-11-27T12:00:00+00:00",
+  "lien": "https://www.boamp.fr/pages/avis/?q=idweb:26-102653",
+  "mots": [
+   "garde-corps"
+  ],
+  "statut": "pertinent"
+ },
+ {
+  "id": "26-101984",
+  "objet": "Moe pour la réhabilitation et l'extension de la salle des fêtes Jean Morel de la Commune de Servoz",
+  "acheteur": "Mairie De Servoz",
+  "departement": "74",
+  "parution": "2026-10-20",
+  "date_limite": "2026-11-27T12:00:00+00:00",
+  "lien": "https://www.boamp.fr/pages/avis/?q=idweb:26-101984",
+  "mots": [
+   "fête"
+  ],
+  "statut": "pertinent"
+ },
+ {
+  "id": "26-102441",
+  "objet": "Fourniture et livraison de matériaux divers  (bétons, matériaux de construction divers,  éléments modulaires de voirie en béton préfabriqués)  2026-2029 - Relance du Lot n° 05 : Fourniture et livraiso",
+  "acheteur": "Rennes Métropole",
+  "departement": "35",
+  "parution": "2026-10-23",
+  "date_limite": "2026-11-27T15:00:00+00:00",
+  "lien": "https://www.boamp.fr/pages/avis/?q=idweb:26-102441",
+  "mots": [
+   "abri"
+  ],
+  "statut": "pertinent"
+ },
+ {
+  "id": "26-102109",
+  "objet": "Prestation de traiteur pour les manifestations et évènements organisés par les services de la Commune de Villeneuve-La-Garenne (92390)",
+  "acheteur": "Mairie de Villeneuve-la-Garenne",
+  "departement": "92",
+  "parution": "2026-10-22",
+  "date_limite": "2026-11-30T11:00:00+00:00",
+  "lien": "https://www.boamp.fr/pages/avis/?q=idweb:26-102109",
+  "mots": [
+   "manifestation"
+  ],
+  "statut": "pertinent"
+ },
+ {
+  "id": "26-101257",
+  "objet": "AVIS DE PUBLICITÉ POUR APPEL À MANIFESTATION D'INTÉRÊT : Exploitation d'un bar-restaurant sur le site de l'aérodrome d'Alençon",
+  "acheteur": "Ville d'Alençon",
+  "departement": "61 72",
+  "parution": "2026-10-19",
+  "date_limite": "2026-11-30T12:00:00+00:00",
+  "lien": "https://www.boamp.fr/pages/avis/?q=idweb:26-101257",
+  "mots": [
+   "manifestation"
   ],
   "statut": "pertinent"
  },
@@ -213,6 +606,32 @@
   "lien": "https://www.boamp.fr/pages/avis/?q=idweb:26-100282",
   "mots": [
    "festival"
+  ],
+  "statut": "pertinent"
+ },
+ {
+  "id": "26-103244",
+  "objet": "Fabrication et pose de la scénographie et de la signalétique pour le Centre culturel Bernard Pivot Cavea",
+  "acheteur": "Communaute De Communes Saône Beaujolais",
+  "departement": "69",
+  "parution": "2026-10-23",
+  "date_limite": "2026-12-04T12:00:00+00:00",
+  "lien": "https://www.boamp.fr/pages/avis/?q=idweb:26-103244",
+  "mots": [
+   "abri"
+  ],
+  "statut": "pertinent"
+ },
+ {
+  "id": "26-102192",
+  "objet": "Site de la station de traitement des eaux usées à Doubs - Travaux d'installation d'un dégrilleur sous abri et d'un piège à cailloux",
+  "acheteur": "Communauté de Communes du Grand Pontarlier",
+  "departement": "25",
+  "parution": "2026-10-21",
+  "date_limite": "2026-12-04T12:00:00+00:00",
+  "lien": "https://www.boamp.fr/pages/avis/?q=idweb:26-102192",
+  "mots": [
+   "abri"
   ],
   "statut": "pertinent"
  },
@@ -243,84 +662,6 @@
   "statut": "pertinent"
  },
  {
-  "id": "26-102491",
-  "objet": "Prestations de Maintenance et d'entretien multitechnique du MAILLON Théâtre de STRASBOURG - Scène européenne",
-  "acheteur": "Ville de Strasbourg",
-  "departement": "67",
-  "parution": "2026-10-23",
-  "date_limite": "",
-  "lien": "https://www.boamp.fr/pages/avis/?q=idweb:26-102491",
-  "mots": [
-   "scène"
-  ],
-  "statut": "pertinent"
- },
- {
-  "id": "26-102252",
-  "objet": "Maintenance technique des installations du Centre hospitalier d'Ajaccio et son annexe EUGENIE  CFA-Portes sectionnelles, barrières et portails",
-  "acheteur": "Centre Hospitalier d'Ajaccio Notre Dame de la Miséricorde",
-  "departement": "20A",
-  "parution": "2026-10-22",
-  "date_limite": "",
-  "lien": "https://www.boamp.fr/pages/avis/?q=idweb:26-102252",
-  "mots": [
-   "barrière"
-  ],
-  "statut": "pertinent"
- },
- {
-  "id": "26-101758",
-  "objet": "Location-entretien de vêtements de travail et de linge plat, nettoyage de vêtements et location de matériels pour les services de la Métropole de Lyon",
-  "acheteur": "Métropole de Lyon",
-  "departement": "69",
-  "parution": "2026-10-21",
-  "date_limite": "",
-  "lien": "https://www.boamp.fr/pages/avis/?q=idweb:26-101758",
-  "mots": [
-   "location de matériel"
-  ],
-  "statut": "pertinent"
- },
- {
-  "id": "26-102407",
-  "objet": "Réalisation de prestations de services de maintenance et de travaux ponctuels de réparation des portillons, portails, barrières (…) des sites de la Caf de l’Essonne",
-  "acheteur": "CAF DE L'ESSONNE",
-  "departement": "91",
-  "parution": "2026-10-21",
-  "date_limite": "",
-  "lien": "https://www.boamp.fr/pages/avis/?q=idweb:26-102407",
-  "mots": [
-   "barrière"
-  ],
-  "statut": "pertinent"
- },
- {
-  "id": "26-101306",
-  "objet": "Location de matériel de standiste destiné à l’organisation des événements de l’Université d’Aix-Marseille.",
-  "acheteur": "UNIVERSITE D'AIX MARSEILLE",
-  "departement": "13",
-  "parution": "2026-10-20",
-  "date_limite": "",
-  "lien": "https://www.boamp.fr/pages/avis/?q=idweb:26-101306",
-  "mots": [
-   "location de matériel"
-  ],
-  "statut": "pertinent"
- },
- {
-  "id": "26-101625",
-  "objet": "TRAVAUX D'AMENAGEMENT DU STADE LEO LAGRANGE A FOURMIES - PHASE 2 - TRIBUNES VESTIAIRES ET CLUB HOUSE",
-  "acheteur": "Commune de Fourmies (59)",
-  "departement": "59",
-  "parution": "2026-10-19",
-  "date_limite": "",
-  "lien": "https://www.boamp.fr/pages/avis/?q=idweb:26-101625",
-  "mots": [
-   "tribune"
-  ],
-  "statut": "pertinent"
- },
- {
   "id": "26-100726",
   "objet": "LOCATION DE STRUCTURES (TYPE CTS) POUR LES MANIFESTATIONS EVENEMENTIELLES DE LA VILLE D'AUBAGNE",
   "acheteur": "MAIRIE D'AUBAGNE",
@@ -329,20 +670,279 @@
   "date_limite": "",
   "lien": "https://www.boamp.fr/pages/avis/?q=idweb:26-100726",
   "mots": [
+   "manifestation",
    "evenementiel"
   ],
   "statut": "pertinent"
  },
  {
-  "id": "26-100502",
-  "objet": "Acquisition de barrières de sécurité",
-  "acheteur": "Ville d'Ajaccio",
-  "departement": "20A",
+  "id": "26-103314",
+  "objet": "FESTIVITES DE NOEL 2026",
+  "acheteur": "Mairie de Salon de Provence",
+  "departement": "13 30 34 83",
+  "parution": "2026-10-23",
+  "date_limite": "",
+  "lien": "https://www.boamp.fr/pages/avis/?q=idweb:26-103314",
+  "mots": [
+   "festivites"
+  ],
+  "statut": "pertinent"
+ },
+ {
+  "id": "26-103659",
+  "objet": "Conception et réalisation du parcours « centre historique en lumière » dans le cadre des fêtes de fin d'année 2026",
+  "acheteur": "Ville d'ANNECY",
+  "departement": "74",
+  "parution": "2026-10-23",
+  "date_limite": "",
+  "lien": "https://www.boamp.fr/pages/avis/?q=idweb:26-103659",
+  "mots": [
+   "fête"
+  ],
+  "statut": "pertinent"
+ },
+ {
+  "id": "26-102529",
+  "objet": "Festivités de Noël",
+  "acheteur": "Ville Rodez",
+  "departement": "12",
+  "parution": "2026-10-23",
+  "date_limite": "",
+  "lien": "https://www.boamp.fr/pages/avis/?q=idweb:26-102529",
+  "mots": [
+   "festivités"
+  ],
+  "statut": "pertinent"
+ },
+ {
+  "id": "26-102717",
+  "objet": "La conception, la fabrication, la mise à disposition, l'installation et le démontage, ainsi que la maintenance de stands destinés à l'aménagement du pavillon AUVERGNE-RHONE-ALPES au Salon Internationa",
+  "acheteur": "CHAMBRE REGIONALE D'AGRICULTURE D'AUVERGNE-RHONE ALPES",
+  "departement": "69",
+  "parution": "2026-10-23",
+  "date_limite": "",
+  "lien": "https://www.boamp.fr/pages/avis/?q=idweb:26-102717",
+  "mots": [
+   "abri",
+   "montage",
+   "salon"
+  ],
+  "statut": "pertinent"
+ },
+ {
+  "id": "26-102890",
+  "objet": "Salon de Provence - BA701 - Rénovation de la centrale électrique de secours",
+  "acheteur": "SID Sud-Est",
+  "departement": "13",
+  "parution": "2026-10-22",
+  "date_limite": "",
+  "lien": "https://www.boamp.fr/pages/avis/?q=idweb:26-102890",
+  "mots": [
+   "salon"
+  ],
+  "statut": "pertinent"
+ },
+ {
+  "id": "26-102316",
+  "objet": "TRAITEMENT ANTIPARASITAIRE DES INSTALLATIONS DE LA REGIE LIGNE D'AZUR",
+  "acheteur": "Régie Ligne d'Azur (06)",
+  "departement": "6",
+  "parution": "2026-10-22",
+  "date_limite": "",
+  "lien": "https://www.boamp.fr/pages/avis/?q=idweb:26-102316",
+  "mots": [
+   "regie"
+  ],
+  "statut": "pertinent"
+ },
+ {
+  "id": "26-102180",
+  "objet": "Transport de matériaux routiers sur les RN de Guyane, pour les besoins des travaux en régie de la DGTM",
+  "acheteur": "DGTM GUYANE",
+  "departement": "973",
+  "parution": "2026-10-22",
+  "date_limite": "",
+  "lien": "https://www.boamp.fr/pages/avis/?q=idweb:26-102180",
+  "mots": [
+   "régie"
+  ],
+  "statut": "pertinent"
+ },
+ {
+  "id": "26-103029",
+  "objet": "La conception graphique pour le service des Éditions de l’ENSA-PLV: la mise en page, la révision et la conception graphique de maquettes, ainsi que le suivi de la fabrication d’ouvrages d’architecture",
+  "acheteur": "ENSA-PLV",
+  "departement": "75 77 91 92 93 94 95",
+  "parution": "2026-10-22",
+  "date_limite": "",
+  "lien": "https://www.boamp.fr/pages/avis/?q=idweb:26-103029",
+  "mots": [
+   "abri"
+  ],
+  "statut": "pertinent"
+ },
+ {
+  "id": "26-102246",
+  "objet": "Maintenance préventive, curative et prédictive des équipements de la régie de l'eau et de l'assainissement du Genevois",
+  "acheteur": "Communauté de Communes du Genevois",
+  "departement": "74",
+  "parution": "2026-10-22",
+  "date_limite": "",
+  "lien": "https://www.boamp.fr/pages/avis/?q=idweb:26-102246",
+  "mots": [
+   "régie"
+  ],
+  "statut": "pertinent"
+ },
+ {
+  "id": "26-102497",
+  "objet": "SIGNALÉTIQUE PATRIMONIALE ET PLANS D'ORIENTATION ET D'INFORMATION\nLe présent accord-cadre porte sur la conception, la fabrication, la fourniture et la pose des équipements de signalétique composant...",
+  "acheteur": "Ville de Vittel",
+  "departement": "88",
+  "parution": "2026-10-21",
+  "date_limite": "",
+  "lien": "https://www.boamp.fr/pages/avis/?q=idweb:26-102497",
+  "mots": [
+   "abri"
+  ],
+  "statut": "pertinent"
+ },
+ {
+  "id": "26-101783",
+  "objet": "Services d’impressions, de fabrications et de livraison de supports pour la ville d’Aubervilliers",
+  "acheteur": "Ville d&#039;Aubervilliers",
+  "departement": "93",
+  "parution": "2026-10-21",
+  "date_limite": "",
+  "lien": "https://www.boamp.fr/pages/avis/?q=idweb:26-101783",
+  "mots": [
+   "abri"
+  ],
+  "statut": "pertinent"
+ },
+ {
+  "id": "26-102080",
+  "objet": "Base Navale de Toulon – Accueil infrastructure MFM (Provisoire) – Acquisition, installation d’une Structure Métallo-Textile (SMT) et travaux TCE",
+  "acheteur": "MINARM/SGA/SID/SID MED/SD-AC",
+  "departement": "83",
+  "parution": "2026-10-20",
+  "date_limite": "",
+  "lien": "https://www.boamp.fr/pages/avis/?q=idweb:26-102080",
+  "mots": [],
+  "statut": "à vérifier"
+ },
+ {
+  "id": "26-101750",
+  "objet": "Prestations de services de soins de thanatopraxie et de toilettes de défunts pour les besoins de la régie des pompes funèbres de la Ville d'Arles",
+  "acheteur": "Ville d'Arles",
+  "departement": "13",
+  "parution": "2026-10-20",
+  "date_limite": "",
+  "lien": "https://www.boamp.fr/pages/avis/?q=idweb:26-101750",
+  "mots": [
+   "régie"
+  ],
+  "statut": "pertinent"
+ },
+ {
+  "id": "26-102161",
+  "objet": "Missions d'Ingénierie Géotechnique - réalisation d'une passerelle de franchissement de la rivière Camopi en Guyane - Bourg de Camopi",
+  "acheteur": "Collectivite Territoriale De Guyane",
+  "departement": "973",
+  "parution": "2026-10-20",
+  "date_limite": "",
+  "lien": "https://www.boamp.fr/pages/avis/?q=idweb:26-102161",
+  "mots": [
+   "passerelle"
+  ],
+  "statut": "pertinent"
+ },
+ {
+  "id": "26-102120",
+  "objet": "Conception, fabrication et installation d'un barrage anti sargasses sur le site de Pointe Jacques, au François",
+  "acheteur": "Gip Sargasses - Prévention et Gestion des Sargasses en Martinique",
+  "departement": "972",
+  "parution": "2026-10-20",
+  "date_limite": "",
+  "lien": "https://www.boamp.fr/pages/avis/?q=idweb:26-102120",
+  "mots": [
+   "abri"
+  ],
+  "statut": "pertinent"
+ },
+ {
+  "id": "26-100813",
+  "objet": "PRESTATIONS DE CONTROLES PERIODIQUES ET PONCTUELS DES EQUIPEMENTS DE LA REGIE DES TRANSPORTS METROPOLITAINS (4 LOTS)",
+  "acheteur": "RTM - Régie des Transports Métropolitains",
+  "departement": "13",
   "parution": "2026-10-18",
   "date_limite": "",
-  "lien": "https://www.boamp.fr/pages/avis/?q=idweb:26-100502",
+  "lien": "https://www.boamp.fr/pages/avis/?q=idweb:26-100813",
   "mots": [
-   "barrière"
+   "regie"
+  ],
+  "statut": "pertinent"
+ },
+ {
+  "id": "26-100552",
+  "objet": "Travaux pour l'installation de Auvents pour l'accueil et la sécurisation des passagers et des usagers du Port de Commerce d'Ajaccio",
+  "acheteur": "Etablissement Public du Commerce et de l'Industrie de Corse",
+  "departement": "20B",
+  "parution": "2026-10-18",
+  "date_limite": "",
+  "lien": "https://www.boamp.fr/pages/avis/?q=idweb:26-100552",
+  "mots": [],
+  "statut": "à vérifier"
+ },
+ {
+  "id": "26-100730",
+  "objet": "Construction d'une passerelle piétons et cycles au-dessus des voies SNCF dans la commune de Thiais (94) - Phase candidature.",
+  "acheteur": "Mairie de Thiais",
+  "departement": "94 92 91",
+  "parution": "2026-10-18",
+  "date_limite": "",
+  "lien": "https://www.boamp.fr/pages/avis/?q=idweb:26-100730",
+  "mots": [
+   "passerelle"
+  ],
+  "statut": "pertinent"
+ },
+ {
+  "id": "26-100269",
+  "objet": "Acquisition d'une cellule de fabrication hybride pour Sigma Clermont au sein de Clermont Auvergne INP",
+  "acheteur": "CLERMONT AUVERGNE INP",
+  "departement": "63",
+  "parution": "2026-10-17",
+  "date_limite": "",
+  "lien": "https://www.boamp.fr/pages/avis/?q=idweb:26-100269",
+  "mots": [
+   "abri"
+  ],
+  "statut": "pertinent"
+ },
+ {
+  "id": "26-100441",
+  "objet": "Acquisition d'une machine de fabrication additive métallique par\nprocédé WLAM",
+  "acheteur": "Université de Toulouse",
+  "departement": "31",
+  "parution": "2026-10-17",
+  "date_limite": "",
+  "lien": "https://www.boamp.fr/pages/avis/?q=idweb:26-100441",
+  "mots": [
+   "abri"
+  ],
+  "statut": "pertinent"
+ },
+ {
+  "id": "26-100238",
+  "objet": "CONCOURS DE MAITRISE D'OEUVRE POUR LA CONSTRUCTION D'UNE SALLE DES FETES",
+  "acheteur": "Mairie de Roost-Warendin",
+  "departement": "59",
+  "parution": "2026-10-17",
+  "date_limite": "",
+  "lien": "https://www.boamp.fr/pages/avis/?q=idweb:26-100238",
+  "mots": [
+   "fete"
   ],
   "statut": "pertinent"
  }
