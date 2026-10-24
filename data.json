@@ -30,19 +30,6 @@
   "famille": "Marchés européens"
  },
  {
-  "id": "26-102980",
-  "objet": "Rédaction d'une énigme et conception graphique dans le cadre de l'évènement RE LYON NOUS 2027 2028 et 2029",
-  "acheteur": "Ville de Lyon",
-  "departement": "69",
-  "parution": "2026-10-22",
-  "date_limite": "2026-11-13T12:00:00+00:00",
-  "lien": "https://www.boamp.fr/pages/avis/?q=idweb:26-102980",
-  "mots": [],
-  "statut": "à vérifier",
-  "procedure": "Procédure Adaptée",
-  "famille": "Marchés <90 k€ (MAPA)"
- },
- {
   "id": "26-101459",
   "objet": "Organisation et gestion d'une patinoire mobile à Amboise",
   "acheteur": "Mairie D'Amboise",
@@ -71,21 +58,6 @@
   "famille": "Marchés européens"
  },
  {
-  "id": "26-100473",
-  "objet": "Maintenance des stands de tir",
-  "acheteur": "SGAMI NORD",
-  "departement": "59 62 60 80",
-  "parution": "2026-10-18",
-  "date_limite": "2026-11-16T12:00:00+00:00",
-  "lien": "https://www.boamp.fr/pages/avis/?q=idweb:26-100473",
-  "mots": [
-   "stand"
-  ],
-  "statut": "pertinent",
-  "procedure": "Procédure Ouverte",
-  "famille": "Marchés européens"
- },
- {
   "id": "26-102783",
   "objet": "M.2026-45 Fourniture et mise en oeuvre du stand de la Communauté d'Agglomération de la Provence Verte Foire de Brignoles - Edition 2027",
   "acheteur": "CA Provence Verte",
@@ -102,21 +74,6 @@
   "famille": "Marchés <90 k€ (MAPA)"
  },
  {
-  "id": "26-100842",
-  "objet": "Supports de communication visuelle et événementielle pour le département de la Seine-Maritime",
-  "acheteur": "Département de la Seine-Maritime",
-  "departement": "76",
-  "parution": "2026-10-18",
-  "date_limite": "2026-11-20T15:00:00+00:00",
-  "lien": "https://www.boamp.fr/pages/avis/?q=idweb:26-100842",
-  "mots": [
-   "evenementielle"
-  ],
-  "statut": "pertinent",
-  "procedure": "Procédure Ouverte",
-  "famille": "Marchés européens"
- },
- {
   "id": "26-101470",
   "objet": "La présente consultation a pour objet l'organisation d'animations sur la voie publique dans le cadre des manifestations « MAGIC PLAZA » organisées par Les 2 Alpes Tourisme chaque semaine durant les va",
   "acheteur": "Office de Tourisme des 2 ALPES",
@@ -127,19 +84,6 @@
   "mots": [],
   "statut": "à vérifier",
   "procedure": "Procédure Ouverte",
-  "famille": "Marchés européens"
- },
- {
-  "id": "26-101573",
-  "objet": "Maîtrise d'oeuvre pour la construction d'un pôle culturel à Talmont Saint Hilaire comprenant une salle de spectacle de 500 places et un cinéma de deux salles (200 et 80 places).",
-  "acheteur": "Communauté de Communes Vendée Grand Littoral (85)",
-  "departement": "85",
-  "parution": "2026-10-21",
-  "date_limite": "2026-11-23T11:00:00+00:00",
-  "lien": "https://www.boamp.fr/pages/avis/?q=idweb:26-101573",
-  "mots": [],
-  "statut": "à vérifier",
-  "procedure": "Procédure Restreinte",
   "famille": "Marchés européens"
  },
  {
@@ -186,19 +130,6 @@
   "statut": "pertinent",
   "procedure": "Procédure Ouverte",
   "famille": "Marchés entre 90 k€ et seuils européens"
- },
- {
-  "id": "26-101245",
-  "objet": "Prestations d’accueil physique et téléphonique et de gestion du courrier",
-  "acheteur": "Université Paris Dauphine - PSL",
-  "departement": "75",
-  "parution": "2026-10-20",
-  "date_limite": "2026-11-23T16:00:00+00:00",
-  "lien": "https://www.boamp.fr/pages/avis/?q=idweb:26-101245",
-  "mots": [],
-  "statut": "à vérifier",
-  "procedure": "Procédure Ouverte",
-  "famille": "Marchés européens"
  },
  {
   "id": "26-102782",
@@ -408,6 +339,21 @@
   "famille": "Marchés <90 k€ (MAPA)"
  },
  {
+  "id": "26-102150",
+  "objet": "la conception, l’organisation et la réalisation de divers événements : colloques, séminaires, journées scientifiques, des prestations évènementielles internes et externes",
+  "acheteur": "CENTRALESUPELEC",
+  "departement": "91",
+  "parution": "2026-10-22",
+  "date_limite": "",
+  "lien": "https://www.boamp.fr/pages/avis/?q=idweb:26-102150",
+  "mots": [
+   "evenementielle"
+  ],
+  "statut": "pertinent",
+  "procedure": "Procédure Ouverte",
+  "famille": "Marchés européens"
+ },
+ {
   "id": "26-103659",
   "objet": "Conception et réalisation du parcours « centre historique en lumière » dans le cadre des fêtes de fin d'année 2026",
   "acheteur": "Ville d'ANNECY",
@@ -428,34 +374,6 @@
   "parution": "2026-10-23",
   "date_limite": "",
   "lien": "https://www.boamp.fr/pages/avis/?q=idweb:26-102748",
-  "mots": [],
-  "statut": "à vérifier",
-  "procedure": "Procédure Ouverte",
-  "famille": "Marchés européens"
- },
- {
-  "id": "26-102150",
-  "objet": "la conception, l’organisation et la réalisation de divers événements : colloques, séminaires, journées scientifiques, des prestations évènementielles internes et externes",
-  "acheteur": "CENTRALESUPELEC",
-  "departement": "91",
-  "parution": "2026-10-22",
-  "date_limite": "",
-  "lien": "https://www.boamp.fr/pages/avis/?q=idweb:26-102150",
-  "mots": [
-   "evenementielle"
-  ],
-  "statut": "pertinent",
-  "procedure": "Procédure Ouverte",
-  "famille": "Marchés européens"
- },
- {
-  "id": "26-101187",
-  "objet": "LOCATION DE MATERIELS ELECTRIQUES",
-  "acheteur": "Ville de Nîmes (30)",
-  "departement": "30",
-  "parution": "2026-10-20",
-  "date_limite": "",
-  "lien": "https://www.boamp.fr/pages/avis/?q=idweb:26-101187",
   "mots": [],
   "statut": "à vérifier",
   "procedure": "Procédure Ouverte",
