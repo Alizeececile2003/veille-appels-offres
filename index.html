@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Veille appels d'offres</title>
+<style>
+body{font-family:Arial,sans-serif;max-width:900px;margin:auto;padding:15px;background:#f4f4f4}
+h1{font-size:22px}
+input{padding:8px;margin:5px 5px 15px 0;width:200px}
+.carte{background:#fff;border-radius:8px;padding:12px;margin-bottom:10px;box-shadow:0 1px 3px #ccc}
+.objet{font-weight:bold;margin-bottom:6px}
+.info{font-size:14px;color:#555}
+.mot{display:inline-block;background:#ffe08a;border-radius:4px;padding:2px 6px;margin:4px 4px 0 0;font-size:12px}
+a{color:#0b5ed7}
+</style>
+</head>
+<body>
+<h1>Veille des appels d'offres</h1>
+<input id="dep" placeholder="Département (ex : 11)">
+<input id="txt" placeholder="Mot à chercher">
+<div id="nb"></div>
+<div id="liste">Chargement…</div>
+<script>
+let donnees=[];
+fetch('data.json').then(r=>r.json()).then(d=>{
+  donnees=d.sort((a,b)=>(a.date_limite||'').localeCompare(b.date_limite||''));
+  afficher();
+});
+function afficher(){
+  const dep=document.getElementById('dep').value.trim();
+  const txt=document.getElementById('txt').value.trim().toLowerCase();
+  const res=donnees.filter(a=>(!dep||a.departement==dep)&&(!txt||(a.objet+' '+a.acheteur).toLowerCase().includes(txt)));
+  document.getElementById('nb').textContent=res.length+' appel(s) d\'offres';
+  document.getElementById('liste').innerHTML=res.map(a=>`
+    <div class="carte">
+      <div class="objet">${a.objet}</div>
+      <div class="info">${a.acheteur} — Dép. ${a.departement}<br>
+      Publié le ${a.parution} — Limite : ${(a.date_limite||'').slice(0,10)}</div>
+      ${(a.mots||[]).map(m=>`<span class="mot">${m}</span>`).join('')}
+      <div><a href="${a.lien}" target="_blank">Voir sur le BOAMP</a></div>
+    </div>`).join('');
+}
+document.getElementById('dep').oninput=afficher;
+document.getElementById('txt').oninput=afficher;
+</script>
+</body>
+</html>
