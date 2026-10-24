@@ -1,15 +1,28 @@
-import json, datetime, urllib.request, urllib.parse
+import json, re, datetime, unicodedata, urllib.request, urllib.parse
 
-# Mots qui signalent un appel d'offres dans le métier
-MOTS_CLES = ["tribune mobile", "gradin", "podium", "chapiteau",
-             "échafaudage", "echafaudage", "crash barrière", "crash barriere",
-             "tente", "estrade", "praticable", "plancher", "régie", "regie",
-             "tour de régie", "totem", "pont lumière", "structure alu",
-             "garde-corps", "abri", "pagode", "couverture de scène",
-             "passerelle", "barnum", "montage", "fête", "fete",
-             "festivités", "festivites", "manifestation", "concert",
-             "salon", "foire", "cérémonie", "ceremonie", "festival",
-             "événementiel", "evenementiel", "structure temporaire"]
+def simple(t):
+    t = str(t or "").lower().replace("’", "'")
+    t = unicodedata.normalize("NFD", t)
+    return "".join(c for c in t if unicodedata.category(c) != "Mn")
+
+# Mots qui signalent un appel d'offres dans le métier (sans accents)
+MOTS_CLES = ["tribune mobile", "gradin", "podium", "chapiteau", "echafaudage",
+             "crash barriere", "tente", "estrade", "praticable",
+             "regie generale", "regie technique", "tour de regie", "totem",
+             "pont lumiere", "structure alu", "structure metallo-textile",
+             "structure textile", "pagode", "couverture de scene", "barnum",
+             "stand", "festivites", "concert", "foire", "ceremonie",
+             "festival", "evenementiel", "evenementielle", "structure temporaire"]
+
+# Expressions qui disqualifient une annonce
+EXCLUSIONS = ["salle des fetes", "manifestation d'interet"]
+
+def motif(m):
+    return r"\b" + r"s?\s+".join(re.escape(x) for x in m.split()) + r"s?\b"
+
+def trouve(t, mots):
+    t = simple(t)
+    return [m for m in mots if re.search(motif(m), t)]
 
 def texte(v):
     if isinstance(v, list):
@@ -23,28 +36,30 @@ url = "https://boamp-datadila.opendatasoft.com/api/explore/v2.1/catalog/datasets
 with urllib.request.urlopen(url, timeout=180) as r:
     avis = json.load(r)
 
-# 2. Reprendre la liste déjà récoltée (sans les annonces qui ne correspondent plus aux mots-clés)
+# 2. Reprendre la liste déjà récoltée (sans les annonces qui ne correspondent plus)
 try:
     with open("data.json", encoding="utf-8") as f:
         liste = {a["id"]: a for a in json.load(f)
-                 if any(m in a["objet"].lower() for m in MOTS_CLES)}
+                 if trouve(a["objet"], MOTS_CLES) and not trouve(a["objet"], EXCLUSIONS)}
 except Exception:
     liste = {}
 
 # 3. Trier
 for a in avis:
-    objet = texte(a.get("objet")).lower()
-    desc = texte(a.get("descripteur_libelle")).lower()
-    trouves = [m for m in MOTS_CLES if m in objet]
+    objet = texte(a.get("objet"))
+    desc = texte(a.get("descripteur_libelle"))
+    if trouve(objet, EXCLUSIONS):
+        continue
+    trouves = trouve(objet, MOTS_CLES)
     if trouves:
         statut = "pertinent"
-    elif any(m in desc for m in MOTS_CLES):
+    elif trouve(desc, MOTS_CLES):
         statut = "à vérifier"
     else:
         continue
     liste[a.get("idweb")] = {
         "id": a.get("idweb"),
-        "objet": texte(a.get("objet")),
+        "objet": objet,
         "acheteur": texte(a.get("nomacheteur")),
         "departement": texte(a.get("code_departement")),
         "parution": texte(a.get("dateparution")),
@@ -52,6 +67,8 @@ for a in avis:
         "lien": texte(a.get("url_avis")),
         "mots": trouves,
         "statut": statut,
+        "procedure": texte(a.get("procedure_libelle")),
+        "famille": texte(a.get("famille_libelle")),
     }
 
 # 4. Retirer les avis dont la date limite est passée
