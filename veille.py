@@ -12,7 +12,7 @@ def texte(v):
     return str(v or "")
 
 # 1. Récupérer les avis BOAMP des 2 derniers jours
-depuis = (datetime.date.today() - datetime.timedelta(days=2)).isoformat()
+depuis = (datetime.date.today() - datetime.timedelta(days=7)).isoformat()
 params = urllib.parse.urlencode({"where": f"dateparution >= date'{depuis}'", "limit": -1})
 url = "https://boamp-datadila.opendatasoft.com/api/explore/v2.1/catalog/datasets/boamp/exports/json?" + params
 with urllib.request.urlopen(url, timeout=180) as r:
