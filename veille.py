@@ -1,27 +1,33 @@
 import json, datetime, urllib.request, urllib.parse
 
 # Mots qui signalent un appel d'offres dans le métier
-MOTS_CLES = ["tribune", "gradin", "scène", "scene", "podium", "chapiteau",
-             "échafaudage", "echafaudage", "barrière", "barriere", "tente",
-             "estrade", "festival", "spectacle", "événementiel", "evenementiel",
-             "location de matériel", "praticable", "structure temporaire"]
+MOTS_CLES = ["tribune mobile", "gradin", "podium", "chapiteau",
+             "échafaudage", "echafaudage", "crash barrière", "crash barriere",
+             "tente", "estrade", "praticable", "plancher", "régie", "regie",
+             "tour de régie", "totem", "pont lumière", "structure alu",
+             "garde-corps", "abri", "pagode", "couverture de scène",
+             "passerelle", "barnum", "montage", "fête", "fete",
+             "festivités", "festivites", "manifestation", "concert",
+             "salon", "foire", "cérémonie", "ceremonie", "festival",
+             "événementiel", "evenementiel", "structure temporaire"]
 
 def texte(v):
     if isinstance(v, list):
         return " ".join(str(x) for x in v)
     return str(v or "")
 
-# 1. Récupérer les avis BOAMP des 2 derniers jours
+# 1. Récupérer les avis BOAMP des 7 derniers jours
 depuis = (datetime.date.today() - datetime.timedelta(days=7)).isoformat()
 params = urllib.parse.urlencode({"where": f"dateparution >= date'{depuis}'", "limit": -1})
 url = "https://boamp-datadila.opendatasoft.com/api/explore/v2.1/catalog/datasets/boamp/exports/json?" + params
 with urllib.request.urlopen(url, timeout=180) as r:
     avis = json.load(r)
 
-# 2. Reprendre la liste déjà récoltée
+# 2. Reprendre la liste déjà récoltée (sans les annonces qui ne correspondent plus aux mots-clés)
 try:
     with open("data.json", encoding="utf-8") as f:
-        liste = {a["id"]: a for a in json.load(f)}
+        liste = {a["id"]: a for a in json.load(f)
+                 if any(m in a["objet"].lower() for m in MOTS_CLES)}
 except Exception:
     liste = {}
 
