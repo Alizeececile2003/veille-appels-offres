@@ -1,48 +1,156 @@
 <!DOCTYPE html>
 <html lang="fr">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="Veille AO">
+<meta http-equiv="Cache-Control" content="no-cache">
 <title>Veille appels d'offres</title>
 <style>
-body{font-family:Arial,sans-serif;max-width:900px;margin:auto;padding:15px;background:#f4f4f4}
-h1{font-size:22px}
-input{padding:8px;margin:5px 5px 15px 0;width:200px}
-.carte{background:#fff;border-radius:8px;padding:12px;margin-bottom:10px;box-shadow:0 1px 3px #ccc}
-.objet{font-weight:bold;margin-bottom:6px}
-.info{font-size:14px;color:#555}
-.mot{display:inline-block;background:#ffe08a;border-radius:4px;padding:2px 6px;margin:4px 4px 0 0;font-size:12px}
-a{color:#0b5ed7}
+:root{--bg:#f4f5f7;--carte:#fff;--texte:#1d2330;--doux:#5f6b7a;--bord:#e1e4ea;--accent:#1f5fbf;--urgent:#c0392b;--ok:#1e8449;color-scheme:light}
+@media (prefers-color-scheme:dark){:root{--bg:#14171c;--carte:#1e232b;--texte:#e8ebf0;--doux:#9aa5b4;--bord:#2e3540;--accent:#6ea8ff;--urgent:#ff7b6b;--ok:#5fd38d;color-scheme:dark}}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--texte);font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+header{padding:16px;max-width:900px;margin:0 auto}
+h1{font-size:1.4rem;margin:0 0 4px}
+.info{color:var(--doux);font-size:.9rem}
+.filtres{display:flex;flex-wrap:wrap;gap:8px;margin-top:12px}
+.filtres label{display:flex;align-items:center;gap:6px;background:var(--carte);border:1px solid var(--bord);border-radius:20px;padding:6px 12px;font-size:.9rem;cursor:pointer}
+.filtres label.gros{border-color:var(--accent);font-weight:600}
+button{background:var(--accent);color:#fff;border:0;border-radius:20px;padding:7px 14px;font-size:.9rem;cursor:pointer}
+main{max-width:900px;margin:0 auto;padding:0 16px 32px;display:grid;gap:12px}
+.fiche{background:var(--carte);border:1px solid var(--bord);border-radius:12px;padding:14px 16px}
+.fiche h2{font-size:1rem;margin:0 0 8px;line-height:1.35}
+.ligne{font-size:.88rem;color:var(--doux);margin:3px 0}
+.badges{display:flex;flex-wrap:wrap;gap:6px;margin:8px 0}
+.badge{font-size:.75rem;border:1px solid var(--bord);border-radius:10px;padding:2px 8px;color:var(--doux)}
+.delai{font-weight:600}
+.urgent{color:var(--urgent)}
+.large{color:var(--ok)}
+.clos{opacity:.55}
+a.voir{display:inline-block;margin-top:6px;color:var(--accent);font-weight:600;text-decoration:none}
+.vide{text-align:center;color:var(--doux);padding:40px 0}
 </style>
 </head>
 <body>
-<h1>Veille des appels d'offres</h1>
-<input id="dep" placeholder="Département (ex : 11)">
-<input id="txt" placeholder="Mot à chercher">
-<div id="nb"></div>
-<div id="liste">Chargement…</div>
+<header>
+  <h1>Veille appels d’offres</h1>
+  <div class="info" id="info">Chargement…</div>
+  <div class="filtres">
+    <label><input type="checkbox" class="zone" value="nord-ouest" checked> Nord-Ouest</label>
+    <label><input type="checkbox" class="zone" value="nord-est" checked> Nord-Est</label>
+    <label><input type="checkbox" class="zone" value="sud-ouest" checked> Sud-Ouest</label>
+    <label><input type="checkbox" class="zone" value="sud-est" checked> Sud-Est</label>
+    <label><input type="checkbox" class="zone" value="outre-mer" checked> Outre-mer</label>
+    <label class="gros"><input type="checkbox" id="gros"> Gros marchés seulement</label>
+    <button id="recharger">Recharger</button>
+  </div>
+</header>
+<main id="liste"></main>
+
 <script>
-let donnees=[];
-fetch('data.json').then(r=>r.json()).then(d=>{
-  donnees=d.sort((a,b)=>(a.date_limite||'').localeCompare(b.date_limite||''));
-  afficher();
-});
-function afficher(){
-  const dep=document.getElementById('dep').value.trim();
-  const txt=document.getElementById('txt').value.trim().toLowerCase();
-  const res=donnees.filter(a=>(!dep||a.departement==dep)&&(!txt||(a.objet+' '+a.acheteur).toLowerCase().includes(txt)));
-  document.getElementById('nb').textContent=res.length+' appel(s) d\'offres';
-  document.getElementById('liste').innerHTML=res.map(a=>`
-    <div class="carte">
-      <div class="objet">${a.objet}</div>
-      <div class="info">${a.acheteur} — Dép. ${a.departement}<br>
-      Publié le ${a.parution} — Limite : ${(a.date_limite||'').slice(0,10)}</div>
-      ${(a.mots||[]).map(m=>`<span class="mot">${m}</span>`).join('')}
-      <div><a href="${a.lien}" target="_blank">Voir sur le BOAMP</a></div>
-    </div>`).join('');
+const ZONES = {
+  "nord-ouest": ["75","77","78","91","92","93","94","95","14","27","50","61","76","22","29","35","56","44","49","53","72","85","18","28","36","37","41","45","02","59","60","62","80"],
+  "nord-est": ["08","10","51","52","54","55","57","67","68","88","21","25","39","58","70","71","89","90"],
+  "sud-ouest": ["16","17","19","23","24","33","40","47","64","79","86","87","09","11","12","30","31","32","34","46","48","65","66","81","82"],
+  "sud-est": ["01","03","07","15","26","38","42","43","63","69","73","74","04","05","06","13","83","84","2A","2B","20"]
+};
+
+let annonces = [];
+
+function zoneDe(dep) {
+  let d = String(dep || "").trim().toUpperCase().split(/[ ,;\/]/)[0];
+  if (/^\d$/.test(d)) d = "0" + d;
+  if (/^0\d\d$/.test(d)) d = d.slice(1);
+  if (/^9[78]/.test(d)) return "outre-mer";
+  for (const z in ZONES) if (ZONES[z].includes(d)) return z;
+  return "autre";
 }
-document.getElementById('dep').oninput=afficher;
-document.getElementById('txt').oninput=afficher;
+
+function esc(t) {
+  return String(t ?? "").replace(/[&<>"']/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
+}
+
+function dateFr(t) {
+  if (!t) return "non précisée";
+  const d = new Date(t);
+  if (isNaN(d)) return esc(t);
+  return d.toLocaleDateString("fr-FR", {day:"numeric", month:"long", year:"numeric"});
+}
+
+function joursRestants(t) {
+  if (!t) return null;
+  const d = new Date(t);
+  if (isNaN(d)) return null;
+  return Math.ceil((d - new Date()) / 86400000);
+}
+
+function afficher() {
+  const zones = [...document.querySelectorAll(".zone:checked")].map(c => c.value);
+  const gros = document.getElementById("gros").checked;
+
+  let liste = annonces.filter(a => {
+    const z = zoneDe(a.departement);
+    if (z !== "autre" && !zones.includes(z)) return false;
+    if (gros && /adapt/i.test(a.procedure || "")) return false;
+    return true;
+  });
+
+  liste.sort((a, b) => {
+    const ja = joursRestants(a.date_limite), jb = joursRestants(b.date_limite);
+    const va = ja === null ? 99999 : (ja < 0 ? 100000 - ja : ja);
+    const vb = jb === null ? 99999 : (jb < 0 ? 100000 - jb : jb);
+    return va - vb;
+  });
+
+  const heure = new Date().toLocaleTimeString("fr-FR", {hour:"2-digit", minute:"2-digit"});
+  document.getElementById("info").textContent =
+    liste.length + " annonce(s) affichée(s) sur " + annonces.length + " · données chargées à " + heure;
+
+  const main = document.getElementById("liste");
+  if (!liste.length) {
+    main.innerHTML = '<div class="vide">Aucune annonce avec ces filtres.</div>';
+    return;
+  }
+
+  main.innerHTML = liste.map(a => {
+    const j = joursRestants(a.date_limite);
+    let delai = "", classe = "";
+    if (j === null) delai = "";
+    else if (j < 0) { delai = "Clôturé"; classe = "clos"; }
+    else if (j <= 7) delai = '<span class="delai urgent">Plus que ' + j + ' jour(s)</span>';
+    else delai = '<span class="delai large">' + j + ' jours restants</span>';
+
+    const mots = (a.mots || []).map(m => '<span class="badge">' + esc(m) + '</span>').join("");
+
+    return '<article class="fiche ' + classe + '">' +
+      '<h2>' + esc(a.objet) + '</h2>' +
+      '<div class="ligne"><strong>Acheteur :</strong> ' + esc(a.acheteur) + ' (' + esc(a.departement) + ')</div>' +
+      '<div class="ligne"><strong>Publié le :</strong> ' + dateFr(a.parution) + '</div>' +
+      '<div class="ligne"><strong>Date limite :</strong> ' + dateFr(a.date_limite) + ' ' + delai + '</div>' +
+      '<div class="ligne"><strong>Procédure :</strong> ' + esc(a.procedure || "non précisée") + (a.famille ? ' · ' + esc(a.famille) : '') + '</div>' +
+      (mots ? '<div class="badges">' + mots + '</div>' : '') +
+      (a.lien ? '<a class="voir" href="' + esc(a.lien) + '" target="_blank" rel="noopener">Voir l’annonce sur le BOAMP →</a>' : '') +
+      '</article>';
+  }).join("");
+}
+
+async function charger() {
+  document.getElementById("info").textContent = "Chargement…";
+  try {
+    const r = await fetch("data.json?t=" + Date.now(), {cache: "no-store"});
+    annonces = await r.json();
+    if (!Array.isArray(annonces)) annonces = [];
+    afficher();
+  } catch (e) {
+    document.getElementById("info").textContent = "Impossible de charger les données. Réessaie dans quelques minutes.";
+  }
+}
+
+document.querySelectorAll(".zone, #gros").forEach(c => c.addEventListener("change", afficher));
+document.getElementById("recharger").addEventListener("click", charger);
+charger();
 </script>
 </body>
 </html>
