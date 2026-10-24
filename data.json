@@ -1,5 +1,57 @@
 [
  {
+  "id": "26-101499",
+  "objet": "Location de matériel de dispensation de thérapie et matériel d’oxygénothérapie pour les Hospices Civils de Beaune",
+  "acheteur": "Hospices Civils de Beaune",
+  "departement": "21",
+  "parution": "2026-10-19",
+  "date_limite": "2026-11-09T17:00:00+00:00",
+  "lien": "https://www.boamp.fr/pages/avis/?q=idweb:26-101499",
+  "mots": [
+   "location de matériel"
+  ],
+  "statut": "pertinent"
+ },
+ {
+  "id": "26-101539",
+  "objet": "26-049_Echafaudage",
+  "acheteur": "Thionville Fensch Agglomération",
+  "departement": "57",
+  "parution": "2026-10-19",
+  "date_limite": "2026-11-16T12:00:00+00:00",
+  "lien": "https://www.boamp.fr/pages/avis/?q=idweb:26-101539",
+  "mots": [
+   "echafaudage"
+  ],
+  "statut": "pertinent"
+ },
+ {
+  "id": "26-101222",
+  "objet": "Prestation de travaux de rénovation extérieure du bâtiment de la salle de spectacle « L’Artea » de la ville de Carnoux-en-Provence.",
+  "acheteur": "Commune de Carnoux en Provence (13)",
+  "departement": "13",
+  "parution": "2026-10-19",
+  "date_limite": "2026-11-16T16:00:00+00:00",
+  "lien": "https://www.boamp.fr/pages/avis/?q=idweb:26-101222",
+  "mots": [
+   "spectacle"
+  ],
+  "statut": "pertinent"
+ },
+ {
+  "id": "26-100701",
+  "objet": "Prestations de location de matériels roulants, engins et équipements divers pour l'UTCD de Florac - secteur Sud-Est",
+  "acheteur": "Département de la Lozère",
+  "departement": "48",
+  "parution": "2026-10-18",
+  "date_limite": "2026-11-17T11:00:00+00:00",
+  "lien": "https://www.boamp.fr/pages/avis/?q=idweb:26-100701",
+  "mots": [
+   "location de matériel"
+  ],
+  "statut": "pertinent"
+ },
+ {
   "id": "26-102824",
   "objet": "Changement des projecteurs dans la salle de spectacle du carré des Docks",
   "acheteur": "Spl des Docks",
@@ -13,6 +65,19 @@
   "statut": "pertinent"
  },
  {
+  "id": "26-100624",
+  "objet": "Renouvellement de la tribune téléscopique du centre culture de l'Orangerie",
+  "acheteur": "Mairie de Roissy-en-France",
+  "departement": "95",
+  "parution": "2026-10-18",
+  "date_limite": "2026-11-20T11:00:00+00:00",
+  "lien": "https://www.boamp.fr/pages/avis/?q=idweb:26-100624",
+  "mots": [
+   "tribune"
+  ],
+  "statut": "pertinent"
+ },
+ {
   "id": "26-102923",
   "objet": "MAINTENANCE, DÉPANNAGE ET TRAVAUX SUR PORTAILS, PORTES AUTOMATIQUES, RIDEAUX MÉTALLIQUES, PORTES SECTIONNELLES, BARRIÈRES LEVANTES, PORTES BASCULANTES ET OUVRE-PORTES AUTOMATIQUES",
   "acheteur": "Université Jean Moulin Lyon 3",
@@ -22,6 +87,56 @@
   "lien": "https://www.boamp.fr/pages/avis/?q=idweb:26-102923",
   "mots": [
    "barrière"
+  ],
+  "statut": "pertinent"
+ },
+ {
+  "id": "26-101885",
+  "objet": "ORGANISATION DE SPECTACLES PYROTECHNIQUES POUR LES ANNEES 2026, 2027, 2028 ET 2029",
+  "acheteur": "Ville de Trith Saint Léger",
+  "departement": "59",
+  "parution": "2026-10-20",
+  "date_limite": "2026-11-20T12:00:00+00:00",
+  "lien": "https://www.boamp.fr/pages/avis/?q=idweb:26-101885",
+  "mots": [
+   "spectacle"
+  ],
+  "statut": "pertinent"
+ },
+ {
+  "id": "26-100842",
+  "objet": "Supports de communication visuelle et événementielle pour le département de la Seine-Maritime",
+  "acheteur": "Département de la Seine-Maritime",
+  "departement": "76",
+  "parution": "2026-10-18",
+  "date_limite": "2026-11-20T15:00:00+00:00",
+  "lien": "https://www.boamp.fr/pages/avis/?q=idweb:26-100842",
+  "mots": [
+   "événementiel"
+  ],
+  "statut": "pertinent"
+ },
+ {
+  "id": "26-101470",
+  "objet": "La présente consultation a pour objet l'organisation d'animations sur la voie publique dans le cadre des manifestations « MAGIC PLAZA » organisées par Les 2 Alpes Tourisme chaque semaine durant les va",
+  "acheteur": "Office de Tourisme des 2 ALPES",
+  "departement": "38",
+  "parution": "2026-10-21",
+  "date_limite": "2026-11-20T17:00:00+00:00",
+  "lien": "https://www.boamp.fr/pages/avis/?q=idweb:26-101470",
+  "mots": [],
+  "statut": "à vérifier"
+ },
+ {
+  "id": "26-101573",
+  "objet": "Maîtrise d'oeuvre pour la construction d'un pôle culturel à Talmont Saint Hilaire comprenant une salle de spectacle de 500 places et un cinéma de deux salles (200 et 80 places).",
+  "acheteur": "Communauté de Communes Vendée Grand Littoral (85)",
+  "departement": "85",
+  "parution": "2026-10-21",
+  "date_limite": "2026-11-23T11:00:00+00:00",
+  "lien": "https://www.boamp.fr/pages/avis/?q=idweb:26-101573",
+  "mots": [
+   "spectacle"
   ],
   "statut": "pertinent"
  },
@@ -50,6 +165,19 @@
   "statut": "à vérifier"
  },
  {
+  "id": "26-101651",
+  "objet": "Location de matériels de travaux publics sans chauffeur pour les besoins des services départementaux",
+  "acheteur": "Conseil Départemental du Lot-et-Garonne",
+  "departement": "47",
+  "parution": "2026-10-21",
+  "date_limite": "2026-11-24T11:00:00+00:00",
+  "lien": "https://www.boamp.fr/pages/avis/?q=idweb:26-101651",
+  "mots": [
+   "location de matériel"
+  ],
+  "statut": "pertinent"
+ },
+ {
   "id": "26-102435",
   "objet": "M 2026 FCS 2070 Prestations de surveillance et de sécurité pour les manifestations événementielles et la programmation culturelle de la Ville de Béthune",
   "acheteur": "Mairie  de Béthune",
@@ -59,6 +187,32 @@
   "lien": "https://www.boamp.fr/pages/avis/?q=idweb:26-102435",
   "mots": [
    "événementiel"
+  ],
+  "statut": "pertinent"
+ },
+ {
+  "id": "26-101725",
+  "objet": "Prestation de régie générale et technique du Festival Rio Loco",
+  "acheteur": "Societe Publique Locale du Metronum",
+  "departement": "31",
+  "parution": "2026-10-21",
+  "date_limite": "2026-11-25T11:00:00+00:00",
+  "lien": "https://www.boamp.fr/pages/avis/?q=idweb:26-101725",
+  "mots": [
+   "festival"
+  ],
+  "statut": "pertinent"
+ },
+ {
+  "id": "26-100282",
+  "objet": "\" La Défense Jazz Festival \" - Production déléguée pour les prestations de conception et direction technique et artistique",
+  "acheteur": "Département des Hauts-de-Seine",
+  "departement": "92",
+  "parution": "2026-10-17",
+  "date_limite": "2026-11-30T16:00:00+00:00",
+  "lien": "https://www.boamp.fr/pages/avis/?q=idweb:26-100282",
+  "mots": [
+   "festival"
   ],
   "statut": "pertinent"
  },
@@ -109,6 +263,84 @@
   "parution": "2026-10-22",
   "date_limite": "",
   "lien": "https://www.boamp.fr/pages/avis/?q=idweb:26-102252",
+  "mots": [
+   "barrière"
+  ],
+  "statut": "pertinent"
+ },
+ {
+  "id": "26-101758",
+  "objet": "Location-entretien de vêtements de travail et de linge plat, nettoyage de vêtements et location de matériels pour les services de la Métropole de Lyon",
+  "acheteur": "Métropole de Lyon",
+  "departement": "69",
+  "parution": "2026-10-21",
+  "date_limite": "",
+  "lien": "https://www.boamp.fr/pages/avis/?q=idweb:26-101758",
+  "mots": [
+   "location de matériel"
+  ],
+  "statut": "pertinent"
+ },
+ {
+  "id": "26-102407",
+  "objet": "Réalisation de prestations de services de maintenance et de travaux ponctuels de réparation des portillons, portails, barrières (…) des sites de la Caf de l’Essonne",
+  "acheteur": "CAF DE L'ESSONNE",
+  "departement": "91",
+  "parution": "2026-10-21",
+  "date_limite": "",
+  "lien": "https://www.boamp.fr/pages/avis/?q=idweb:26-102407",
+  "mots": [
+   "barrière"
+  ],
+  "statut": "pertinent"
+ },
+ {
+  "id": "26-101306",
+  "objet": "Location de matériel de standiste destiné à l’organisation des événements de l’Université d’Aix-Marseille.",
+  "acheteur": "UNIVERSITE D'AIX MARSEILLE",
+  "departement": "13",
+  "parution": "2026-10-20",
+  "date_limite": "",
+  "lien": "https://www.boamp.fr/pages/avis/?q=idweb:26-101306",
+  "mots": [
+   "location de matériel"
+  ],
+  "statut": "pertinent"
+ },
+ {
+  "id": "26-101625",
+  "objet": "TRAVAUX D'AMENAGEMENT DU STADE LEO LAGRANGE A FOURMIES - PHASE 2 - TRIBUNES VESTIAIRES ET CLUB HOUSE",
+  "acheteur": "Commune de Fourmies (59)",
+  "departement": "59",
+  "parution": "2026-10-19",
+  "date_limite": "",
+  "lien": "https://www.boamp.fr/pages/avis/?q=idweb:26-101625",
+  "mots": [
+   "tribune"
+  ],
+  "statut": "pertinent"
+ },
+ {
+  "id": "26-100726",
+  "objet": "LOCATION DE STRUCTURES (TYPE CTS) POUR LES MANIFESTATIONS EVENEMENTIELLES DE LA VILLE D'AUBAGNE",
+  "acheteur": "MAIRIE D'AUBAGNE",
+  "departement": "13",
+  "parution": "2026-10-18",
+  "date_limite": "",
+  "lien": "https://www.boamp.fr/pages/avis/?q=idweb:26-100726",
+  "mots": [
+   "evenementiel"
+  ],
+  "statut": "pertinent"
+ },
+ {
+  "id": "26-100502",
+  "objet": "Acquisition de barrières de sécurité",
+  "acheteur": "Ville d'Ajaccio",
+  "departement": "20A",
+  "parution": "2026-10-18",
+  "date_limite": "",
+  "lien": "https://www.boamp.fr/pages/avis/?q=idweb:26-100502",
   "mots": [
    "barrière"
   ],
