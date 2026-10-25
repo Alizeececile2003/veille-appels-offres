@@ -5,306 +5,100 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Fiches projet</title>
 <style>
-  body { font-family: Arial, sans-serif; margin: 0; background: #f4f5f7; color: #222; }
-  header { background: #1f3b57; color: #fff; padding: 14px 18px; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 8px; }
-  header a { color: #fff; }
-  main { max-width: 980px; margin: auto; padding: 16px; }
-  .carte { background: #fff; border-radius: 8px; padding: 16px; margin-bottom: 16px; box-shadow: 0 1px 3px rgba(0,0,0,.1); }
-  label { display: block; margin-top: 10px; font-weight: bold; font-size: 14px; }
-  input, select, textarea { width: 100%; padding: 8px; margin-top: 4px; box-sizing: border-box; font-size: 15px; }
-  td input, td select { width: auto; margin: 0; padding: 5px; font-size: 13px; }
-  button, .btn { display: inline-block; padding: 8px 14px; margin: 6px 6px 0 0; border: none; border-radius: 5px; cursor: pointer; font-size: 14px; text-decoration: none; }
-  .bleu { background: #1f3b57; color: #fff; }
-  .rouge { background: #c62828; color: #fff; }
-  .gris { background: #ddd; color: #222; }
-  .orange { background: #ef6c00; color: #fff; }
-  .petit { padding: 3px 8px; font-size: 12px; margin: 2px; }
-  table { width: 100%; border-collapse: collapse; margin-top: 10px; }
-  td, th { padding: 6px; border-bottom: 1px solid #eee; text-align: left; font-size: 14px; vertical-align: middle; }
-  .modif { color: #1565c0; font-size: 12px; font-weight: bold; }
-  .incoherent { background: #fff3e0; }
-  .alerte { color: #e65100; font-size: 12px; font-weight: bold; }
-  .proche { background: #ff1744; }
-  .proche td, .proche .alerte { color: #fff; }
-  .retard { background: #000; }
-  .retard td, .retard .alerte { color: #fff; }
-  .fait td { color: #999; }
-  .avert { background: #fff3e0; border-left: 4px solid #e65100; padding: 8px; margin-top: 8px; font-size: 14px; }
-  .liste-fiche { cursor: pointer; padding: 10px; border-bottom: 1px solid #eee; }
-  .liste-fiche:hover { background: #f0f4f8; }
-  .statut { font-size: 12px; padding: 2px 8px; border-radius: 10px; background: #e3eaf2; margin-left: 6px; }
-  .resp { display: grid; grid-template-columns: 2fr 2fr 2fr 1.5fr auto; gap: 6px; margin-top: 6px; }
-  .resp input { margin: 0; }
-  .defile { overflow-x: auto; }
-  h2 { margin-top: 0; }
+body{font-family:Arial,sans-serif;max-width:1000px;margin:auto;padding:15px;background:#f4f4f4}
+h1,h2{color:#1a3d6d}h2{margin-top:0}
+h3{background:#1a3d6d;color:#fff;padding:8px;border-radius:5px;margin-top:25px}
+h4{color:#1a3d6d;border-bottom:2px solid #1a3d6d;padding-bottom:3px}
+.carte{background:#fff;border-radius:8px;padding:15px;margin-bottom:20px;box-shadow:0 1px 4px #ccc}
+label{display:block;margin-top:8px;font-weight:bold;font-size:14px}
+input,textarea,select{width:100%;padding:6px;box-sizing:border-box;margin-top:3px;font-size:14px}
+.grille{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:8px}
+button,.btn{background:#1a3d6d;color:#fff;border:none;padding:8px 12px;border-radius:5px;margin-top:8px;cursor:pointer;text-decoration:none;display:inline-block;font-size:14px}
+button.suppr{background:#b22}
+.etape{border:1px solid #ddd;border-radius:6px;padding:8px;margin:6px 0;background:#fff}
+.titre{font-weight:bold;margin-bottom:4px}
+.ligne{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:6px}
+.urgent{background:#ff0000;color:#fff}
+.retard{background:#000;color:#fff}
+.manquant{background:#ff9800}
+.fait{background:#e3f6e3}.fait .titre{text-decoration:line-through;color:#2a2}
+.legende span{display:inline-block;padding:3px 8px;border-radius:4px;margin:3px;font-size:13px}
 </style>
 </head>
 <body>
-<header>
-  <strong>Fiches projet</strong>
-  <a href="index.html">← Retour à la veille</a>
-</header>
-<main>
+<a href="index.html">← Retour à la veille</a>
+<h1>Fiches projet</h1>
+<div class="legende"><span class="urgent">Moins de 7 jours</span>
+<span class="retard">En retard</span><span class="manquant">Document manquant</span><span class="fait">Fait / Validé</span></div>
+<style>@keyframes clign{50%{opacity:.25}}.clignote{animation:clign 1s infinite;background:#ffd600;color:#000;font-weight:bold}</style>
 
-<div class="carte" id="vueListe">
-  <h2>Mes fiches</h2>
-  <button class="bleu" onclick="nouvelleFiche()">+ Nouvelle fiche</button>
-  <div id="liste"></div>
+<div class="carte">
+<button onclick="nouvelle()">+ Nouvelle fiche projet</button>
+<div id="liste"></div>
 </div>
+<div id="fiche"></div>
 
-<div class="carte" id="vueFiche" style="display:none">
-  <button class="gris" onclick="retourListe()">← Toutes les fiches</button>
-  <h2>Fiche projet</h2>
-
-  <label>Intitulé du marché</label>
-  <input id="f_titre" oninput="champ('titre', this.value)">
-  <label>Acheteur</label>
-  <input id="f_acheteur" oninput="champ('acheteur', this.value)">
-  <label>Lien de l'annonce</label>
-  <input id="f_lien" oninput="champ('lien', this.value)">
-  <label>Statut</label>
-  <select id="f_statut" onchange="champ('statut', this.value); dessiner()">
-    <option>Réponse en cours</option>
-    <option>Offre déposée</option>
-    <option>Marché gagné</option>
-    <option>Marché perdu</option>
-  </select>
-  <label>Notes</label>
-  <textarea id="f_notes" rows="3" oninput="champ('notes', this.value)"></textarea>
-
-  <h3>Responsables</h3>
-  <p style="font-size:13px;color:#666;margin:0">Bureau d'études, commission de sécurité, chef de chantier… Saisis une fois, puis choisis pour chaque étape.</p>
-  <div id="responsables"></div>
-  <button class="gris" onclick="ajouterResp()">+ Ajouter un responsable</button>
-
-  <label>Alerter combien de jours avant l'échéance ?</label>
-  <input type="number" id="f_delai" min="1" max="60" style="width:100px" onchange="champ('delai', parseInt(this.value) || 7); dessiner()">
-
-  <h3>Phase 1 — Réponse à l'appel d'offres</h3>
-  <label>Date limite de remise des offres</label>
-  <input type="date" id="f_remise" onchange="champ('remise', this.value); dessiner()">
-  <div id="avert1"></div>
-  <div class="defile"><table id="tab1"></table></div>
-
-  <div id="phase2">
-    <h3>Phase 2 — Marché gagné</h3>
-    <label>Date de l'événement</label>
-    <input type="date" id="f_evenement" onchange="champ('evenement', this.value); dessiner()">
-    <div id="avert2"></div>
-    <div class="defile"><table id="tab2"></table></div>
-  </div>
-  <p id="info2" style="color:#666;font-size:14px"></p>
-
-  <button class="rouge" onclick="supprimerFiche()">Supprimer cette fiche</button>
-</div>
-
-</main>
 <script>
-const PHASE1 = [
-  { id: "cdc", nom: "Lecture du cahier des charges", j: -21 },
-  { id: "visite", nom: "Visite du site", j: -18 },
-  { id: "be", nom: "Étude du bureau d'études (plans, notes de calcul)", j: -14 },
-  { id: "chiffrage", nom: "Chiffrage", j: -7 },
-  { id: "admin", nom: "Papiers administratifs", j: -4 },
-  { id: "depot", nom: "Dépôt de l'offre", j: -1 }
+const ETAPES=[
+{p:1,t:"Préparation",poste:"Responsable chargé·e d'affaires",d:"Lecture du dossier de consultation (DCE) et du cahier des charges, visite du site.",j:-21},
+{p:1,t:"Calculs",poste:"Responsable bureau d'études / ingénieur structure",d:"Demande des plans et des notes de calcul au bureau d'études, notes de calcul, descente de charges, plan d'implantation, étude au vent, validation par le bureau de contrôle.",j:-14},
+{p:1,t:"Sécurité",poste:"Responsable QSE",d:"Dossier pour la commission de sécurité, habilitations et CACES des monteurs.",j:-10},
+{p:1,t:"Pièces administratives",poste:"Responsable chargé·e d'affaires",d:"DC1 (lettre de candidature), DC2 ou DUME, Kbis de moins de 3 mois, attestation URSSAF, attestation de régularité fiscale, attestation d'assurance RC pro, attestation d'assurance décennale, RIB, références de chantiers similaires, certificats de qualification, acte d'engagement.",j:-7},
+{p:1,t:"Offre technique et financière",poste:"Responsable chargé·e d'affaires et bureau d'études",d:"Mémoire technique, BPU ou DPGF, planning prévisionnel, liste du matériel et jalonnement (moyens humains).",j:-3},
+{p:1,t:"Remise de l'offre",poste:"Responsable commercial",d:"",j:0},
+{p:2,t:"Sécurité : réception du PGC du coordonnateur SPS",poste:"Responsable commercial",d:"",j:-30},
+{p:2,t:"Sécurité : PPSPS rédigé",poste:"Responsable chef de chantier",d:"",j:-21},
+{p:2,t:"Sécurité : plan de prévention signé",poste:"Responsable chef de chantier",d:"",j:-14},
+{p:2,t:"Sécurité : procès-verbal de bon montage",poste:"Responsable chef de chantier et bureau de contrôle",d:"",j:-2},
+{p:2,t:"Sécurité : passage de la commission de sécurité",poste:"Responsable QSE",d:"",j:-1},
+{p:2,t:"Clôture : procès-verbal de réception par le client",poste:"Responsable chef de projet",d:"",j:1},
+{p:2,t:"Clôture : facture envoyée",poste:"Responsable chef de projet",d:"",j:7},
+{p:2,t:"Clôture : décompte final fait",poste:"Responsable chef de projet",d:"",j:30},
+{p:2,t:"Clôture : retenue de garantie récupérée",poste:"Responsable chef de projet",d:"",j:365}
 ];
-const PHASE2 = [
-  { id: "securite", nom: "Sécurité", j: -30 },
-  { id: "ppsps", nom: "PPSPS", j: -21 },
-  { id: "prevention", nom: "Plan de prévention", j: -14 },
-  { id: "materiel", nom: "Matériel et camions", j: -7 },
-  { id: "montage", nom: "Montage", j: -3 },
-  { id: "evenement", nom: "Événement", j: 0 },
-  { id: "demontage", nom: "Démontage", j: 1 }
-];
-
-let fiches = JSON.parse(localStorage.getItem("fiches") || "[]");
-let courante = null;
-
-function sauver() { localStorage.setItem("fiches", JSON.stringify(fiches)); }
-function auj() { return new Date().toISOString().slice(0, 10); }
-function decaler(date, jours) {
-  const d = new Date(date + "T12:00:00");
-  d.setDate(d.getDate() + jours);
-  return d.toISOString().slice(0, 10);
-}
-function ecart(date) { return Math.round((new Date(date + "T12:00:00") - new Date(auj() + "T12:00:00")) / 86400000); }
-function fr(date) { return date ? date.split("-").reverse().join("/") : "—"; }
-function esc(t) { return (t || "").replace(/&/g, "&amp;").replace(/"/g, "&quot;").replace(/</g, "&lt;"); }
-function fiche() { return fiches.find(f => f.id === courante); }
-
-function completer(f) {
-  f.manuel = f.manuel || {}; f.fait = f.fait || {};
-  f.resp = f.resp || []; f.affect = f.affect || {};
-  if (!f.delai) f.delai = 7;
-  return f;
-}
-
-function creer(donnees) {
-  const f = completer(Object.assign({
-    id: Date.now().toString(), titre: "", acheteur: "", lien: "", statut: "Réponse en cours",
-    notes: "", remise: "", evenement: ""
-  }, donnees));
-  fiches.unshift(f); sauver(); ouvrir(f.id);
-}
-function nouvelleFiche() { creer({}); }
-function champ(nom, valeur) { fiche()[nom] = valeur; sauver(); }
-
-function ouvrir(id) {
-  courante = id;
-  const f = completer(fiche());
-  document.getElementById("vueListe").style.display = "none";
-  document.getElementById("vueFiche").style.display = "block";
-  ["titre", "acheteur", "lien", "statut", "notes", "remise", "evenement", "delai"].forEach(c =>
-    document.getElementById("f_" + c).value = f[c] || "");
-  dessinerResp();
-  dessiner();
-}
-
-function retourListe() {
-  courante = null;
-  document.getElementById("vueFiche").style.display = "none";
-  document.getElementById("vueListe").style.display = "block";
-  afficherListe();
-}
-
-function supprimerFiche() {
-  if (!confirm("Supprimer définitivement cette fiche ?")) return;
-  fiches = fiches.filter(f => f.id !== courante); sauver(); retourListe();
-}
-
-function ajouterResp() {
-  fiche().resp.push({ id: Date.now().toString(), nom: "", role: "", mail: "", tel: "" });
-  sauver(); dessinerResp(); dessiner();
-}
-function modifResp(i, cle, val) { fiche().resp[i][cle] = val; sauver(); dessiner(); }
-function supprimerResp(i) {
-  const f = fiche(); const rid = f.resp[i].id;
-  f.resp.splice(i, 1);
-  Object.keys(f.affect).forEach(k => { if (f.affect[k] === rid) delete f.affect[k]; });
-  sauver(); dessinerResp(); dessiner();
-}
-function dessinerResp() {
-  const f = fiche();
-  document.getElementById("responsables").innerHTML = f.resp.map((r, i) => `
-    <div class="resp">
-      <input placeholder="Nom" value="${esc(r.nom)}" oninput="modifResp(${i}, 'nom', this.value)">
-      <input placeholder="Rôle (BE, sécurité, chef de chantier…)" value="${esc(r.role)}" oninput="modifResp(${i}, 'role', this.value)">
-      <input type="email" placeholder="Mail" value="${esc(r.mail)}" oninput="modifResp(${i}, 'mail', this.value)">
-      <input type="tel" placeholder="Téléphone" value="${esc(r.tel)}" oninput="modifResp(${i}, 'tel', this.value)">
-      <button class="rouge petit" onclick="supprimerResp(${i})">✕</button>
-    </div>`).join("");
-}
-function affecter(etape, rid) {
-  const f = fiche();
-  if (rid) f.affect[etape] = rid; else delete f.affect[etape];
-  sauver(); dessiner();
-}
-
-function message(f, e, d) {
-  return `Bonjour, rappel pour le marché « ${f.titre || "sans titre"} »${f.acheteur ? " (" + f.acheteur + ")" : ""} : l'étape « ${e.nom} » est prévue pour le ${fr(d)}. Merci de me confirmer où vous en êtes. Cécile`;
-}
-function liensAlerte(f, e, d, r) {
-  if (!r) return "";
-  const txt = message(f, e, d);
-  let h = "";
-  if (r.mail) h += `<a class="btn orange petit" href="mailto:${encodeURIComponent(r.mail)}?subject=${encodeURIComponent("Rappel : " + e.nom + " — " + (f.titre || "marché"))}&body=${encodeURIComponent(txt)}">Mail</a>`;
-  if (r.tel) h += `<a class="btn orange petit" href="sms:${r.tel.replace(/\s/g, "")}?&body=${encodeURIComponent(txt)}">SMS</a>`;
-  if (r.tel) h += `<a class="btn bleu petit" href="tel:${r.tel.replace(/\s/g, "")}">Appeler</a>`;
-  return h;
-}
-
-function dateEtape(f, e, ref) {
-  if (f.manuel[e.id]) return f.manuel[e.id];
-  return ref ? decaler(ref, e.j) : "";
-}
-
-function tableau(idTab, etapes, ref, phase) {
-  const f = fiche();
-  let html = "<tr><th>Fait</th><th>Étape</th><th>Date</th><th>Responsable</th><th>Alerte</th></tr>";
-  let precedente = "";
-  etapes.forEach(e => {
-    const d = dateEtape(f, e, ref);
-    const fait = f.fait[e.id];
-    const r = f.resp.find(x => x.id === f.affect[e.id]);
-    let alertes = [];
-    if (d && precedente && d < precedente) alertes.push("avant l'étape précédente");
-    if (d && phase === 1 && f.remise && d > f.remise) alertes.push("après la date de remise");
-    if (d && phase === 2 && f.remise && d <= f.remise) alertes.push("avant la remise des offres");
-    const jours = d ? ecart(d) : null;
-    const retard = d && !fait && jours < 0;
-    const proche = d && !fait && jours >= 0 && jours <= f.delai;
-    let classe = "";
-    if (fait) classe = "fait";
-    else if (alertes.length) classe = "incoherent";
-    else if (retard) classe = "retard";
-    else if (proche) classe = "proche";
-
-    let etat = "";
-    if (!fait && retard) etat = '<span class="alerte">en retard</span>';
-    else if (!fait && proche) etat = `<span class="alerte">dans ${jours} j</span>`;
-
-    const choix = `<select onchange="affecter('${e.id}', this.value)"><option value="">—</option>` +
-      f.resp.map(x => `<option value="${x.id}" ${x.id === f.affect[e.id] ? "selected" : ""}>${esc(x.nom || x.role || "sans nom")}</option>`).join("") +
-      "</select>";
-
-    html += `<tr class="${classe}">
-      <td><input type="checkbox" ${fait ? "checked" : ""} onchange="cocher('${e.id}', this.checked)"></td>
-      <td>${e.nom} ${etat}
-        ${alertes.length ? '<br><span class="alerte">⚠ ' + alertes.join(", ") + "</span>" : ""}</td>
-      <td><input type="date" value="${d}" onchange="modifierDate('${e.id}', this.value)">
-        ${f.manuel[e.id] ? '<br><span class="modif">modifiée</span> <button class="gris petit" onclick="remettreAuto(\'' + e.id + '\')">auto</button>' : ""}</td>
-      <td>${choix}</td>
-      <td>${(proche || retard) ? liensAlerte(f, e, d, r) : ""}</td>
-    </tr>`;
-    if (d) precedente = d;
-  });
-  document.getElementById(idTab).innerHTML = html;
-}
-
-function cocher(id, val) { fiche().fait[id] = val; sauver(); dessiner(); }
-function modifierDate(id, val) {
-  const f = fiche();
-  if (val) f.manuel[id] = val; else delete f.manuel[id];
-  sauver(); dessiner();
-}
-function remettreAuto(id) { delete fiche().manuel[id]; sauver(); dessiner(); }
-
-function dessiner() {
-  const f = fiche();
-  tableau("tab1", PHASE1, f.remise, 1);
-  document.getElementById("avert1").innerHTML = !f.remise
-    ? '<div class="avert">Indiquez la date de remise pour calculer les étapes.</div>'
-    : (f.remise < auj() && f.statut === "Réponse en cours" ? '<div class="avert">La date de remise est dépassée.</div>' : "");
-
-  const gagne = f.statut === "Marché gagné";
-  document.getElementById("phase2").style.display = gagne ? "block" : "none";
-  document.getElementById("info2").textContent = gagne ? "" : "La phase 2 s'affiche quand le statut passe à « Marché gagné ».";
-  if (gagne) {
-    tableau("tab2", PHASE2, f.evenement, 2);
-    document.getElementById("avert2").innerHTML = !f.evenement
-      ? '<div class="avert">Indiquez la date de l\'événement pour calculer les étapes.</div>'
-      : (f.remise && f.evenement <= f.remise ? '<div class="avert">L\'événement est avant ou le jour de la remise des offres : vérifiez les dates.</div>' : "");
-  }
-}
-
-function afficherListe() {
-  const div = document.getElementById("liste");
-  if (!fiches.length) { div.innerHTML = "<p>Aucune fiche pour le moment.</p>"; return; }
-  div.innerHTML = fiches.map(f => `<div class="liste-fiche" onclick="ouvrir('${f.id}')">
-    <strong>${esc(f.titre) || "Sans titre"}</strong><span class="statut">${f.statut}</span><br>
-    <small>${esc(f.acheteur)} — remise : ${fr(f.remise)}${f.evenement ? " — événement : " + fr(f.evenement) : ""}</small>
-  </div>`).join("");
-}
-
-const p = new URLSearchParams(location.search);
-if (p.get("titre")) {
-  creer({ titre: p.get("titre") || "", acheteur: p.get("acheteur") || "",
-          lien: p.get("lien") || "", remise: p.get("remise") || "" });
-  history.replaceState(null, "", "projet.html");
-} else {
-  afficherListe();
-}
+const ETATS=["À faire","En cours","Document manquant","Fait","Validé"];
+let fiches=JSON.parse(localStorage.getItem("fichesProjet")||"[]");
+let cur=null;
+function save(){localStorage.setItem("fichesProjet",JSON.stringify(fiches));liste();}
+function esc(s){return (s||"").replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/"/g,"&quot;");}
+function ajout(base,j){if(!base)return "";const d=new Date(base);d.setDate(d.getDate()+j);return d.toISOString().slice(0,10);}
+function calc(f){f.etapes.forEach((e,i)=>{if(!e.manuel){e.date=ajout(ETAPES[i].p==1?f.remise:f.evenement,ETAPES[i].j);}});}
+function nouvelle(){const f={id:Date.now(),nom:"Nouveau projet",client:"",remise:"",evenement:"",chef:{nom:"",tel:"",mail:""},etapes:ETAPES.map(e=>({etat:"À faire",date:"",manuel:false,poste:e.poste,nom:"",tel:"",mail:""})),bilan:{statut:"En cours",motif:"",commentaire:""}};fiches.push(f);save();ouvrir(f.id);}
+function liste(){document.getElementById("liste").innerHTML=fiches.map(f=>`<p><a href="#" onclick="ouvrir(${f.id});return false">${esc(f.nom)}</a> — ${esc(f.bilan.statut)}</p>`).join("")||"<p>Aucune fiche pour l'instant.</p>";}
+function classe(e){if(e.etat=="Fait"||e.etat=="Validé")return "fait";if(e.etat=="Document manquant")return "manquant";if(!e.date)return "";const n=(new Date(e.date)-new Date(new Date().toISOString().slice(0,10)))/86400000;if(n<0)return "retard";if(n<7)return "urgent";return "";}
+function rappel(m,e,f,c){const d=e.date?new Date(e.date).toLocaleDateString("fr-FR"):"(date à préciser)";const b="Bonjour "+(e.nom||"")+",\n\n";const s="\n\nMerci d'avance.\nBien cordialement,\n"+(f.chef.nom||"")+(f.chef.tel?"\n"+f.chef.tel:"");
+if(c=="retard")return {sujet:"URGENT – En retard : "+m.t+" – "+f.nom,mail:b+"L'étape « "+m.t+" » du projet "+f.nom+" devait être terminée le "+d+" et elle est maintenant en retard.\nPouvez-vous me dire où vous en êtes et me transmettre les documents au plus vite ?"+s,sms:"URGENT – "+f.nom+" : l'étape « "+m.t+" » est en retard (prévue le "+d+"). Merci de me rappeler."};
+if(c=="urgent")return {sujet:"Rappel : "+m.t+" – échéance le "+d+" – "+f.nom,mail:b+"L'étape « "+m.t+" » du projet "+f.nom+" arrive à échéance le "+d+", dans moins de 7 jours.\nPouvez-vous me confirmer que ce sera prêt à temps ?"+s,sms:f.nom+" : l'étape « "+m.t+" » arrive à échéance le "+d+". Ce sera prêt à temps ?"};
+return {sujet:"Rappel : "+m.t+" – "+f.nom,mail:b+"Petit rappel pour l'étape « "+m.t+" » du projet "+f.nom+", prévue le "+d+"."+s,sms:"Rappel "+f.nom+" : étape « "+m.t+" » prévue le "+d+"."};}
+function ouvrir(id){cur=fiches.find(f=>f.id==id);afficher();}
+function champ(lab,val,code){return `<label>${lab}<input value="${esc(val)}" onchange="${code}"></label>`;}
+function afficher(){const f=cur;if(!f){document.getElementById("fiche").innerHTML="";return;}
+let h=`<div class="carte"><h2>${esc(f.nom)}</h2><div class="grille">
+${champ("Nom du projet",f.nom,"cur.nom=this.value;save();afficher()")}
+${champ("Client",f.client,"cur.client=this.value;save()")}
+<label>Date de remise de l'offre<input type="date" value="${f.remise}" onchange="cur.remise=this.value;calc(cur);save();afficher()"></label>
+<label>Date de l'événement<input type="date" value="${f.evenement}" onchange="cur.evenement=this.value;calc(cur);save();afficher()"></label></div>
+<h4>Chef de projet (responsable du dossier de A à Z)</h4><div class="grille">
+${champ("Nom",f.chef.nom,"cur.chef.nom=this.value;save();afficher()")}
+${champ("Téléphone",f.chef.tel,"cur.chef.tel=this.value;save();afficher()")}
+${champ("Mail",f.chef.mail,"cur.chef.mail=this.value;save()")}</div>`;
+[1,2].forEach(p=>{h+=`<h3>${p==1?"Phase 1 : Réponse à l'appel d'offres (calée sur la date de remise)":"Phase 2 : Marché gagné (calée sur la date de l'événement)"}</h3>`;
+f.etapes.forEach((e,i)=>{const m=ETAPES[i];if(m.p!=p)return;const c=classe(e);const r=rappel(m,e,f,c);const cl=(c=="urgent"||c=="retard")?" clignote":"";
+h+=`<div class="etape ${c}"><div class="titre">${esc(m.t)}</div>${m.d?`<div>${esc(m.d)}</div>`:""}
+<div class="ligne"><label>État<select onchange="cur.etapes[${i}].etat=this.value;save();afficher()">${ETATS.map(s=>`<option${s==e.etat?" selected":""}>${s}</option>`).join("")}</select></label>
+<label>Date${e.manuel?" (modifiée à la main)":""}<input type="date" value="${e.date}" onchange="cur.etapes[${i}].date=this.value;cur.etapes[${i}].manuel=true;save();afficher()"></label>
+${champ("Poste",e.poste,`cur.etapes[${i}].poste=this.value;save()`)}
+${champ("Nom du responsable",e.nom,`cur.etapes[${i}].nom=this.value;save();afficher()`)}
+${champ("Téléphone",e.tel,`cur.etapes[${i}].tel=this.value;save();afficher()`)}
+${champ("Mail",e.mail,`cur.etapes[${i}].mail=this.value;save();afficher()`)}</div>
+<a class="btn${cl}" href="mailto:${esc(e.mail)}?subject=${encodeURIComponent(r.sujet)}&body=${encodeURIComponent(r.mail)}">Rappel mail</a>
+<a class="btn${cl}" href="sms:${esc(e.tel)}?&body=${encodeURIComponent(r.sms)}">Rappel SMS</a></div>`;});});
+h+=`<h3>Bilan</h3><div class="grille"><label>Résultat<select onchange="cur.bilan.statut=this.value;save()">${["En cours","Gagné","Perdu"].map(s=>`<option${s==f.bilan.statut?" selected":""}>${s}</option>`).join("")}</select></label>
+<label>Motif<select onchange="cur.bilan.motif=this.value;save()">${["","Prix","Délai","Dossier incomplet","Autre"].map(s=>`<option${s==f.bilan.motif?" selected":""}>${s}</option>`).join("")}</select></label></div>
+<label>Commentaire<textarea rows="3" onchange="cur.bilan.commentaire=this.value;save()">${esc(f.bilan.commentaire)}</textarea></label>
+<button class="suppr" onclick="if(confirm('Supprimer cette fiche ?')){fiches=fiches.filter(x=>x.id!=cur.id);cur=null;save();afficher()}">Supprimer la fiche</button></div>`;
+document.getElementById("fiche").innerHTML=h;}
+liste();
 </script>
 </body>
 </html>
