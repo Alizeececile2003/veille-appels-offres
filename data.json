@@ -8,27 +8,13 @@
   "date_limite": "2026-11-23T11:00:00+00:00",
   "lien": "https://www.boamp.fr/pages/avis/?q=idweb:26-102891",
   "mots": [
-   "tente",
+   "structure temporaire",
    "festival",
    "evenement",
    "evenementiel"
   ],
-  "montant": null,
-  "statut": "sans montant",
-  "procedure": "Procédure Ouverte",
-  "famille": "Marchés européens"
- },
- {
-  "id": "26-102782",
-  "objet": "SERVICE DE LOCATION, TRANSPORT ET INSTALLATION DE MATÉRIELS DE FESTIVITÉS POUR LA COMMUNE DE SAINT-LAURENT-DU-VAR - RELANCE",
-  "acheteur": "Ville de Saint Laurent du Var (06)",
-  "departement": "6",
-  "parution": "2026-10-23",
-  "date_limite": "2026-11-23T21:00:00+00:00",
-  "lien": "https://www.boamp.fr/pages/avis/?q=idweb:26-102782",
-  "mots": [
-   "tente",
-   "festivites"
+  "lots_fl": [
+   "Lot"
   ],
   "montant": null,
   "statut": "sans montant",
@@ -47,10 +33,77 @@
    "regie generale",
    "festival"
   ],
+  "lots_fl": [
+   "Lot"
+  ],
   "montant": null,
   "statut": "sans montant",
   "procedure": "Procédure Ouverte",
   "famille": "Marchés européens"
+ },
+ {
+  "id": "26-103085",
+  "objet": "CONTROLES PERIODIQUES",
+  "acheteur": "MAIRIE DE CHARNAY LES MACON",
+  "departement": "71",
+  "parution": "2026-10-25",
+  "date_limite": "",
+  "lien": "https://www.boamp.fr/pages/avis/?q=idweb:26-103085",
+  "mots": [
+   "podium",
+   "scene",
+   "jeux"
+  ],
+  "lots_fl": [
+   "Lot"
+  ],
+  "montant": null,
+  "statut": "sans montant",
+  "procedure": "Procédure Ouverte",
+  "famille": "Marchés européens"
+ },
+ {
+  "id": "26-102524",
+  "objet": "Marché global de performance relatif à l'extension du Stade Gilbert Brutus",
+  "acheteur": "Mairie de Perpignan",
+  "departement": "66",
+  "parution": "2026-10-23",
+  "date_limite": "",
+  "lien": "https://www.boamp.fr/pages/avis/?q=idweb:26-102524",
+  "mots": [
+   "tribune",
+   "stade"
+  ],
+  "lots_fl": [
+   "Lot"
+  ],
+  "montant": null,
+  "statut": "sans montant",
+  "procedure": "Procédure Dialogue compétitif",
+  "famille": "Marchés européens"
+ },
+ {
+  "id": "26-103314",
+  "objet": "FESTIVITES DE NOEL 2026",
+  "acheteur": "Mairie de Salon de Provence",
+  "departement": "13 30 34 83",
+  "parution": "2026-10-23",
+  "date_limite": "",
+  "lien": "https://www.boamp.fr/pages/avis/?q=idweb:26-103314",
+  "mots": [
+   "scene",
+   "concert",
+   "production",
+   "festivites",
+   "salon"
+  ],
+  "lots_fl": [
+   "Lot unique (non précisé)"
+  ],
+  "montant": null,
+  "statut": "sans montant",
+  "procedure": "Procédure NC",
+  "famille": "Marchés entre 90 k€ et seuils européens"
  },
  {
   "id": "26-101625",
@@ -64,27 +117,12 @@
    "tribune",
    "stade"
   ],
+  "lots_fl": [
+   "Lot unique (non précisé)"
+  ],
   "montant": null,
   "statut": "sans montant",
   "procedure": "Procédure NC",
   "famille": "Marchés entre 90 k€ et seuils européens"
- },
- {
-  "id": "26-100726",
-  "objet": "LOCATION DE STRUCTURES (TYPE CTS) POUR LES MANIFESTATIONS EVENEMENTIELLES DE LA VILLE D'AUBAGNE",
-  "acheteur": "MAIRIE D'AUBAGNE",
-  "departement": "13",
-  "parution": "2026-10-18",
-  "date_limite": "",
-  "lien": "https://www.boamp.fr/pages/avis/?q=idweb:26-100726",
-  "mots": [
-   "tente",
-   "evenementielle",
-   "manifestation"
-  ],
-  "montant": null,
-  "statut": "sans montant",
-  "procedure": "Procédure Ouverte",
-  "famille": "Marchés européens"
  }
 ]
