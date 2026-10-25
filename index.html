@@ -8,8 +8,8 @@
 <meta http-equiv="Cache-Control" content="no-cache">
 <title>Veille appels d'offres</title>
 <style>
-:root{--bg:#f4f5f7;--carte:#fff;--texte:#1d2330;--doux:#5f6b7a;--bord:#e1e4ea;--accent:#1f5fbf;--urgent:#c0392b;--ok:#1e8449;color-scheme:light}
-@media (prefers-color-scheme:dark){:root{--bg:#14171c;--carte:#1e232b;--texte:#e8ebf0;--doux:#9aa5b4;--bord:#2e3540;--accent:#6ea8ff;--urgent:#ff7b6b;--ok:#5fd38d;color-scheme:dark}}
+:root{--bg:#f4f5f7;--carte:#fff;--texte:#1d2330;--doux:#5f6b7a;--bord:#e1e4ea;--accent:#1f5fbf;--urgent:#c0392b;--ok:#1e8449;--lot:#eef4ff;color-scheme:light}
+@media (prefers-color-scheme:dark){:root{--bg:#14171c;--carte:#1e232b;--texte:#e8ebf0;--doux:#9aa5b4;--bord:#2e3540;--accent:#6ea8ff;--urgent:#ff7b6b;--ok:#5fd38d;--lot:#1b2a40;color-scheme:dark}}
 *{box-sizing:border-box}
 body{margin:0;background:var(--bg);color:var(--texte);font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
 header{padding:16px;max-width:900px;margin:0 auto}
@@ -29,6 +29,9 @@ main{max-width:900px;margin:0 auto;padding:0 16px 32px;display:grid;gap:12px}
 .urgent{color:var(--urgent)}
 .large{color:var(--ok)}
 .clos{opacity:.55}
+.lots{background:var(--lot);border-left:4px solid var(--accent);border-radius:8px;padding:8px 12px;margin:8px 0;font-size:.88rem}
+.lots strong{color:var(--accent)}
+.lots ul{margin:4px 0 0;padding-left:18px}
 a.voir{display:inline-block;margin-top:6px;color:var(--accent);font-weight:600;text-decoration:none}
 .vide{text-align:center;color:var(--doux);padding:40px 0}
 </style>
@@ -86,6 +89,11 @@ function joursRestants(t) {
   return Math.ceil((d - new Date()) / 86400000);
 }
 
+function euros(m) {
+  if (m === null || m === undefined) return "non indiqué";
+  return Math.round(m).toLocaleString("fr-FR") + " € HT";
+}
+
 function afficher() {
   const zones = [...document.querySelectorAll(".zone:checked")].map(c => c.value);
   const gros = document.getElementById("gros").checked;
@@ -124,12 +132,19 @@ function afficher() {
 
     const mots = (a.mots || []).map(m => '<span class="badge">' + esc(m) + '</span>').join("");
 
+    const lots = (a.lots_fl || []).length
+      ? '<div class="lots"><strong>Lot(s) pour FL Structure :</strong><ul>' +
+        a.lots_fl.map(l => '<li>' + esc(l) + '</li>').join("") + '</ul></div>'
+      : '';
+
     return '<article class="fiche ' + classe + '">' +
       '<h2>' + esc(a.objet) + '</h2>' +
       '<div class="ligne"><strong>Acheteur :</strong> ' + esc(a.acheteur) + ' (' + esc(a.departement) + ')</div>' +
       '<div class="ligne"><strong>Publié le :</strong> ' + dateFr(a.parution) + '</div>' +
       '<div class="ligne"><strong>Date limite :</strong> ' + dateFr(a.date_limite) + ' ' + delai + '</div>' +
+      '<div class="ligne"><strong>Montant estimé :</strong> ' + euros(a.montant) + '</div>' +
       '<div class="ligne"><strong>Procédure :</strong> ' + esc(a.procedure || "non précisée") + (a.famille ? ' · ' + esc(a.famille) : '') + '</div>' +
+      lots +
       (mots ? '<div class="badges">' + mots + '</div>' : '') +
       (a.lien ? '<a class="voir" href="' + esc(a.lien) + '" target="_blank" rel="noopener">Voir l’annonce sur le BOAMP →</a>' : '') +
       '</article>';
