@@ -1,77 +1,5 @@
 [
  {
-  "id": "26-101678",
-  "objet": "Prestations de services de production évènementielle",
-  "acheteur": "CNOSF",
-  "departement": "75",
-  "parution": "2026-10-21",
-  "date_limite": "2026-11-10T13:00:00+00:00",
-  "lien": "https://www.boamp.fr/pages/avis/?q=idweb:26-101678",
-  "mots": [
-   "evenementielle"
-  ],
-  "statut": "pertinent",
-  "procedure": "Procédure Ouverte",
-  "famille": "Marchés européens"
- },
- {
-  "id": "26-101745",
-  "objet": "Prestations de régie technique culturelle pour les besoins du Musée d'art contemporain (CAPC) de la Ville de Bordeaux",
-  "acheteur": "Ville de Bordeaux",
-  "departement": "33",
-  "parution": "2026-10-21",
-  "date_limite": "2026-11-12T15:00:00+00:00",
-  "lien": "https://www.boamp.fr/pages/avis/?q=idweb:26-101745",
-  "mots": [
-   "regie technique"
-  ],
-  "statut": "pertinent",
-  "procedure": "Procédure Ouverte",
-  "famille": "Marchés européens"
- },
- {
-  "id": "26-101459",
-  "objet": "Organisation et gestion d'une patinoire mobile à Amboise",
-  "acheteur": "Mairie D'Amboise",
-  "departement": "37 41",
-  "parution": "2026-10-19",
-  "date_limite": "2026-11-13T12:00:00+00:00",
-  "lien": "https://www.boamp.fr/pages/avis/?q=idweb:26-101459",
-  "mots": [],
-  "statut": "à vérifier",
-  "procedure": "Procédure Ouverte",
-  "famille": "Marchés entre 90 k€ et seuils européens"
- },
- {
-  "id": "26-102783",
-  "objet": "M.2026-45 Fourniture et mise en oeuvre du stand de la Communauté d'Agglomération de la Provence Verte Foire de Brignoles - Edition 2027",
-  "acheteur": "CA Provence Verte",
-  "departement": "83",
-  "parution": "2026-10-22",
-  "date_limite": "2026-11-20T12:00:00+00:00",
-  "lien": "https://www.boamp.fr/pages/avis/?q=idweb:26-102783",
-  "mots": [
-   "stand",
-   "foire"
-  ],
-  "statut": "pertinent",
-  "procedure": "Procédure Adaptée",
-  "famille": "Marchés <90 k€ (MAPA)"
- },
- {
-  "id": "26-101470",
-  "objet": "La présente consultation a pour objet l'organisation d'animations sur la voie publique dans le cadre des manifestations « MAGIC PLAZA » organisées par Les 2 Alpes Tourisme chaque semaine durant les va",
-  "acheteur": "Office de Tourisme des 2 ALPES",
-  "departement": "38",
-  "parution": "2026-10-21",
-  "date_limite": "2026-11-20T17:00:00+00:00",
-  "lien": "https://www.boamp.fr/pages/avis/?q=idweb:26-101470",
-  "mots": [],
-  "statut": "à vérifier",
-  "procedure": "Procédure Ouverte",
-  "famille": "Marchés européens"
- },
- {
   "id": "26-102891",
   "objet": "Organisation de l’Évènement « Festival des Entrepreneurs du 12 et 13 mai 2027 » de la CCI Marne Ardennes sur le Site de Reims",
   "acheteur": "CCI Marne Ardennes",
@@ -80,56 +8,15 @@
   "date_limite": "2026-11-23T11:00:00+00:00",
   "lien": "https://www.boamp.fr/pages/avis/?q=idweb:26-102891",
   "mots": [
-   "festival"
+   "tente",
+   "festival",
+   "evenement",
+   "evenementiel"
   ],
-  "statut": "pertinent",
+  "montant": null,
+  "statut": "sans montant",
   "procedure": "Procédure Ouverte",
   "famille": "Marchés européens"
- },
- {
-  "id": "26-102614",
-  "objet": "Organisation du Festival Livres dans la Boucle - éditions 2027 à 2029",
-  "acheteur": "Grand Besançon Métropole",
-  "departement": "25",
-  "parution": "2026-10-22",
-  "date_limite": "2026-11-23T12:00:00+00:00",
-  "lien": "https://www.boamp.fr/pages/avis/?q=idweb:26-102614",
-  "mots": [
-   "festival"
-  ],
-  "statut": "pertinent",
-  "procedure": "Procédure Ouverte",
-  "famille": "Marchés entre 90 k€ et seuils européens"
- },
- {
-  "id": "26-103501",
-  "objet": "Le présent marché a pour objet de confier à un prestataire l'organisation de la cérémonie des Voeux du Maire à la population qui aura lieu le lundi 11 janvier 2027.",
-  "acheteur": "Mairie de Thiais",
-  "departement": "94 92",
-  "parution": "2026-10-23",
-  "date_limite": "2026-11-23T12:00:00+00:00",
-  "lien": "https://www.boamp.fr/pages/avis/?q=idweb:26-103501",
-  "mots": [
-   "ceremonie"
-  ],
-  "statut": "pertinent",
-  "procedure": "Procédure Adaptée",
-  "famille": "Marchés <90 k€ (MAPA)"
- },
- {
-  "id": "26-103649",
-  "objet": "26m0351pa - Location, Montage Et Demontage D'Une Grande Roue Pour La Foire De Toulouse Au Meett - Marché à Tranche Ferme Pour 2027 Et à Tranches Optionnelles Pour 2028, 2029 Et 203",
-  "acheteur": "Toulouse Métropole",
-  "departement": "31",
-  "parution": "2026-10-23",
-  "date_limite": "2026-11-23T12:00:00+00:00",
-  "lien": "https://www.boamp.fr/pages/avis/?q=idweb:26-103649",
-  "mots": [
-   "foire"
-  ],
-  "statut": "pertinent",
-  "procedure": "Procédure Ouverte",
-  "famille": "Marchés entre 90 k€ et seuils européens"
  },
  {
   "id": "26-102782",
@@ -140,39 +27,11 @@
   "date_limite": "2026-11-23T21:00:00+00:00",
   "lien": "https://www.boamp.fr/pages/avis/?q=idweb:26-102782",
   "mots": [
+   "tente",
    "festivites"
   ],
-  "statut": "pertinent",
-  "procedure": "Procédure Ouverte",
-  "famille": "Marchés européens"
- },
- {
-  "id": "26-100603",
-  "objet": "Prestations évènementielles pour l'organisation de la conférence ECML PKDD 2028",
-  "acheteur": "INRIA",
-  "departement": "35",
-  "parution": "2026-10-18",
-  "date_limite": "2026-11-24T16:00:00+00:00",
-  "lien": "https://www.boamp.fr/pages/avis/?q=idweb:26-100603",
-  "mots": [
-   "evenementielle"
-  ],
-  "statut": "pertinent",
-  "procedure": "Procédure Ouverte",
-  "famille": "Marchés européens"
- },
- {
-  "id": "26-102435",
-  "objet": "M 2026 FCS 2070 Prestations de surveillance et de sécurité pour les manifestations événementielles et la programmation culturelle de la Ville de Béthune",
-  "acheteur": "Mairie  de Béthune",
-  "departement": "62",
-  "parution": "2026-10-23",
-  "date_limite": "2026-11-25T11:00:00+00:00",
-  "lien": "https://www.boamp.fr/pages/avis/?q=idweb:26-102435",
-  "mots": [
-   "evenementielle"
-  ],
-  "statut": "pertinent",
+  "montant": null,
+  "statut": "sans montant",
   "procedure": "Procédure Ouverte",
   "famille": "Marchés européens"
  },
@@ -188,78 +47,25 @@
    "regie generale",
    "festival"
   ],
-  "statut": "pertinent",
+  "montant": null,
+  "statut": "sans montant",
   "procedure": "Procédure Ouverte",
   "famille": "Marchés européens"
  },
  {
-  "id": "26-103704",
-  "objet": "Accord-cadre de services pour l’organisation du congrès interrégional des Fédérations hospitalières de France Bretagne et Pays de la Loire – Éditions 2027 à 2030",
-  "acheteur": "FHF PAYS DE LA LOIRE",
-  "departement": "6 22 31 33 35 44 75 85 92",
-  "parution": "2026-10-23",
-  "date_limite": "2026-11-27T12:00:00+00:00",
-  "lien": "https://www.boamp.fr/pages/avis/?q=idweb:26-103704",
-  "mots": [],
-  "statut": "à vérifier",
-  "procedure": "Procédure Ouverte",
-  "famille": "Marchés entre 90 k€ et seuils européens"
- },
- {
-  "id": "26-100282",
-  "objet": "\" La Défense Jazz Festival \" - Production déléguée pour les prestations de conception et direction technique et artistique",
-  "acheteur": "Département des Hauts-de-Seine",
-  "departement": "92",
-  "parution": "2026-10-17",
-  "date_limite": "2026-11-30T16:00:00+00:00",
-  "lien": "https://www.boamp.fr/pages/avis/?q=idweb:26-100282",
-  "mots": [
-   "festival"
-  ],
-  "statut": "pertinent",
-  "procedure": "Procédure Ouverte",
-  "famille": "Marchés européens"
- },
- {
-  "id": "26-102265",
-  "objet": "Organisation, co-production, développement, promotion et pilotage des 2èmes Assises Nationales de la Prévention et du Dépistage 2027",
-  "acheteur": "CHU de Dijon Bourgogne",
-  "departement": "21",
-  "parution": "2026-10-22",
-  "date_limite": "2026-12-02T11:00:00+00:00",
-  "lien": "https://www.boamp.fr/pages/avis/?q=idweb:26-102265",
-  "mots": [],
-  "statut": "à vérifier",
-  "procedure": "Procédure Ouverte",
-  "famille": "Marchés européens"
- },
- {
-  "id": "26-102535",
-  "objet": "Prestations de sécurité événementielle",
-  "acheteur": "TOULON METROPOLE EVENEMENTS ET CONGRES",
-  "departement": "83",
-  "parution": "2026-10-23",
-  "date_limite": "2026-12-14T10:00:00+00:00",
-  "lien": "https://www.boamp.fr/pages/avis/?q=idweb:26-102535",
-  "mots": [
-   "evenementielle"
-  ],
-  "statut": "pertinent",
-  "procedure": "Procédure NC",
-  "famille": "Marchés européens"
- },
- {
-  "id": "26-103656",
-  "objet": "Prestation de contrôles spécifiques dans le cadre événementiel",
-  "acheteur": "Ville d'Annecy",
-  "departement": "74",
-  "parution": "2026-10-23",
+  "id": "26-101625",
+  "objet": "TRAVAUX D'AMENAGEMENT DU STADE LEO LAGRANGE A FOURMIES - PHASE 2 - TRIBUNES VESTIAIRES ET CLUB HOUSE",
+  "acheteur": "Commune de Fourmies (59)",
+  "departement": "59",
+  "parution": "2026-10-19",
   "date_limite": "",
-  "lien": "https://www.boamp.fr/pages/avis/?q=idweb:26-103656",
+  "lien": "https://www.boamp.fr/pages/avis/?q=idweb:26-101625",
   "mots": [
-   "evenementiel"
+   "tribune",
+   "stade"
   ],
-  "statut": "pertinent",
+  "montant": null,
+  "statut": "sans montant",
   "procedure": "Procédure NC",
   "famille": "Marchés entre 90 k€ et seuils européens"
  },
@@ -272,150 +78,13 @@
   "date_limite": "",
   "lien": "https://www.boamp.fr/pages/avis/?q=idweb:26-100726",
   "mots": [
-   "evenementielle"
+   "tente",
+   "evenementielle",
+   "manifestation"
   ],
-  "statut": "pertinent",
+  "montant": null,
+  "statut": "sans montant",
   "procedure": "Procédure Ouverte",
-  "famille": "Marchés européens"
- },
- {
-  "id": "26-103314",
-  "objet": "FESTIVITES DE NOEL 2026",
-  "acheteur": "Mairie de Salon de Provence",
-  "departement": "13 30 34 83",
-  "parution": "2026-10-23",
-  "date_limite": "",
-  "lien": "https://www.boamp.fr/pages/avis/?q=idweb:26-103314",
-  "mots": [
-   "festivites"
-  ],
-  "statut": "pertinent",
-  "procedure": "Procédure NC",
-  "famille": "Marchés entre 90 k€ et seuils européens"
- },
- {
-  "id": "26-102529",
-  "objet": "Festivités de Noël",
-  "acheteur": "Ville Rodez",
-  "departement": "12",
-  "parution": "2026-10-23",
-  "date_limite": "",
-  "lien": "https://www.boamp.fr/pages/avis/?q=idweb:26-102529",
-  "mots": [
-   "festivites"
-  ],
-  "statut": "pertinent",
-  "procedure": "Procédure Ouverte",
-  "famille": "Marchés européens"
- },
- {
-  "id": "26-102717",
-  "objet": "La conception, la fabrication, la mise à disposition, l'installation et le démontage, ainsi que la maintenance de stands destinés à l'aménagement du pavillon AUVERGNE-RHONE-ALPES au Salon Internationa",
-  "acheteur": "CHAMBRE REGIONALE D'AGRICULTURE D'AUVERGNE-RHONE ALPES",
-  "departement": "69",
-  "parution": "2026-10-23",
-  "date_limite": "",
-  "lien": "https://www.boamp.fr/pages/avis/?q=idweb:26-102717",
-  "mots": [
-   "stand"
-  ],
-  "statut": "pertinent",
-  "procedure": "Procédure Ouverte",
-  "famille": "Marchés européens"
- },
- {
-  "id": "26-102080",
-  "objet": "Base Navale de Toulon – Accueil infrastructure MFM (Provisoire) – Acquisition, installation d’une Structure Métallo-Textile (SMT) et travaux TCE",
-  "acheteur": "MINARM/SGA/SID/SID MED/SD-AC",
-  "departement": "83",
-  "parution": "2026-10-20",
-  "date_limite": "",
-  "lien": "https://www.boamp.fr/pages/avis/?q=idweb:26-102080",
-  "mots": [
-   "structure metallo-textile"
-  ],
-  "statut": "pertinent",
-  "procedure": "Procédure Adaptée",
-  "famille": "Marchés <90 k€ (MAPA)"
- },
- {
-  "id": "26-102150",
-  "objet": "la conception, l’organisation et la réalisation de divers événements : colloques, séminaires, journées scientifiques, des prestations évènementielles internes et externes",
-  "acheteur": "CENTRALESUPELEC",
-  "departement": "91",
-  "parution": "2026-10-22",
-  "date_limite": "",
-  "lien": "https://www.boamp.fr/pages/avis/?q=idweb:26-102150",
-  "mots": [
-   "evenementielle"
-  ],
-  "statut": "pertinent",
-  "procedure": "Procédure Ouverte",
-  "famille": "Marchés européens"
- },
- {
-  "id": "26-102896",
-  "objet": "2026_000606_BCOM",
-  "acheteur": "MINARM/SGA/SDPAMG",
-  "departement": "75 78 77 91 92 93 94 95",
-  "parution": "2026-10-24",
-  "date_limite": "",
-  "lien": "https://www.boamp.fr/pages/avis/?q=idweb:26-102896",
-  "mots": [],
-  "statut": "à vérifier",
-  "procedure": "Procédure Ouverte",
-  "famille": "Marchés européens"
- },
- {
-  "id": "26-103659",
-  "objet": "Conception et réalisation du parcours « centre historique en lumière » dans le cadre des fêtes de fin d'année 2026",
-  "acheteur": "Ville d'ANNECY",
-  "departement": "74",
-  "parution": "2026-10-23",
-  "date_limite": "",
-  "lien": "https://www.boamp.fr/pages/avis/?q=idweb:26-103659",
-  "mots": [],
-  "statut": "à vérifier",
-  "procedure": "Procédure Adaptée",
-  "famille": "Marchés <90 k€ (MAPA)"
- },
- {
-  "id": "26-102748",
-  "objet": "Fournitures et services pour l'évènement des Florilèges 2026-3ème Procédure",
-  "acheteur": "COMMUNE DU TAMPON",
-  "departement": "974",
-  "parution": "2026-10-23",
-  "date_limite": "",
-  "lien": "https://www.boamp.fr/pages/avis/?q=idweb:26-102748",
-  "mots": [],
-  "statut": "à vérifier",
-  "procedure": "Procédure Ouverte",
-  "famille": "Marchés européens"
- },
- {
-  "id": "26-101306",
-  "objet": "Location de matériel de standiste destiné à l’organisation des événements de l’Université d’Aix-Marseille.",
-  "acheteur": "UNIVERSITE D'AIX MARSEILLE",
-  "departement": "13",
-  "parution": "2026-10-20",
-  "date_limite": "",
-  "lien": "https://www.boamp.fr/pages/avis/?q=idweb:26-101306",
-  "mots": [],
-  "statut": "à vérifier",
-  "procedure": "Procédure Ouverte",
-  "famille": "Marchés européens"
- },
- {
-  "id": "26-101076",
-  "objet": "Marché relatif à la production du Bal des Arts Décoratifs",
-  "acheteur": "LES ARTS DECORATIFS",
-  "departement": "75",
-  "parution": "2026-10-18",
-  "date_limite": "",
-  "lien": "https://www.boamp.fr/pages/avis/?q=idweb:26-101076",
-  "mots": [],
-  "statut": "à vérifier",
-  "procedure": "Procédure Restreinte",
   "famille": "Marchés européens"
  }
 ]
