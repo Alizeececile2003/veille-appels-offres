@@ -25,6 +25,21 @@ EVENEMENT = ["festival", "concert", "tournee", "production", "spectacle",
 # Filet de sécurité : expressions qui disqualifient une annonce
 EXCLUSIONS = ["tente", "salle des fetes", "manifestation d'interet", "stand de tir", "materiel electrique", "accueil physique", "maitrise d'oeuvre", "conception graphique", "communication visuelle", "nettoyage", "entretien des locaux", "traiteur", "restauration collective", "repas", "denrees alimentaires", "cantine", "billetterie", "imprimerie", "impression", "reprographie", "affranchissement", "courrier", "publication", "annonces legales", "traduction", "assurance", "mutuelle", "prevoyance", "recrutement", "interim", "formation", "audit", "etude", "diagnostic", "geometre", "topographique", "controle technique", "informatique", "logiciel", "telephonie", "videoprotection", "fournitures de bureau", "fournitures scolaires", "mobilier scolaire", "mobilier de bureau", "produits d'entretien", "carburant", "medicament", "materiel medical", "transport scolaire", "rehabilitation", "renovation", "demolition", "desamiantage", "etancheite", "toiture", "plomberie", "chauffage", "climatisation", "ascenseur", "menuiserie", "voirie", "eclairage public", "assainissement", "eau potable", "dechets", "ordures", "espaces verts", "elagage", "cimetiere", "pompes funebres", "aide a domicile", "photographe"]
 
+# Codes CPV du métier : échafaudage (travaux), échafaudages (matériel),
+# structures préfabriquées, scènes, bâtiments préfabriqués
+CPV_METIER = {"45262100", "44212310", "45223800", "45237000", "44211000"}
+
+# Récupère les codes CPV présents dans les données de l'annonce
+def chercher_cpv(d, codes, dans_cpv=False):
+    if isinstance(d, dict):
+        for k, v in d.items():
+            cle = simple(k)
+            chercher_cpv(v, codes, dans_cpv or "cpv" in cle or "classification" in cle)
+    elif isinstance(d, list):
+        for x in d:
+            chercher_cpv(x, codes, dans_cpv)
+    elif dans_cpv:
+        codes.update(re.findall(r"\b\d{8}\b", str(d)))
 def motif(m):
     return r"\b" + r"s?\s+".join(re.escape(x) for x in m.split()) + r"s?\b"
 
@@ -140,6 +155,11 @@ for a in avis:
     if trouve(objet, EXCLUSIONS):
         continue
     d = donnees(a)
+    # Codes CPV : si l'annonce en a, au moins un doit être du métier
+    cpv = set()
+    chercher_cpv(d, cpv)
+    if cpv and not cpv & CPV_METIER:
+        continue
     lots = []
     chercher_lots(d, lots)
     if not lots:
