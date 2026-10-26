@@ -39,34 +39,42 @@ button.suppr{background:#b22}
 <div id="fiche"></div>
 
 <script>
+const VERSION=2;
 const ETAPES=[
 {p:1,t:"Préparation",poste:"Responsable chargé·e d'affaires",d:"Lecture du dossier de consultation (DCE) et du cahier des charges, visite du site.",j:-21},
 {p:1,t:"Calculs",poste:"Responsable bureau d'études / ingénieur structure",d:"Demande des plans et des notes de calcul au bureau d'études, notes de calcul, descente de charges, plan d'implantation, étude au vent, validation par le bureau de contrôle.",j:-14},
 {p:1,t:"Sécurité",poste:"Responsable QSE",d:"Dossier pour la commission de sécurité, habilitations et CACES des monteurs.",j:-10},
 {p:1,t:"Pièces administratives",poste:"Responsable chargé·e d'affaires",d:"DC1 (lettre de candidature), DC2 ou DUME, Kbis de moins de 3 mois, attestation URSSAF, attestation de régularité fiscale, attestation d'assurance RC pro, attestation d'assurance décennale, RIB, références de chantiers similaires, certificats de qualification, acte d'engagement.",j:-7},
 {p:1,t:"Offre technique et financière",poste:"Responsable chargé·e d'affaires et bureau d'études",d:"Mémoire technique, BPU ou DPGF, planning prévisionnel, liste du matériel et jalonnement (moyens humains).",j:-3},
-{p:1,t:"Remise de l'offre",poste:"Responsable commercial",d:"",j:0},
-{p:2,t:"Sécurité : réception du PGC du coordonnateur SPS",poste:"Responsable commercial",d:"",j:-30},
-{p:2,t:"Sécurité : PPSPS rédigé",poste:"Responsable chef de chantier",d:"",j:-21},
-{p:2,t:"Sécurité : plan de prévention signé",poste:"Responsable chef de chantier",d:"",j:-14},
-{p:2,t:"Sécurité : procès-verbal de bon montage",poste:"Responsable chef de chantier et bureau de contrôle",d:"",j:-2},
-{p:2,t:"Sécurité : passage de la commission de sécurité",poste:"Responsable QSE",d:"",j:-1},
-{p:2,t:"Clôture : procès-verbal de réception par le client",poste:"Responsable chef de projet",d:"",j:1},
-{p:2,t:"Clôture : facture envoyée",poste:"Responsable chef de projet",d:"",j:7},
-{p:2,t:"Clôture : décompte final fait",poste:"Responsable chef de projet",d:"",j:30},
-{p:2,t:"Clôture : retenue de garantie récupérée",poste:"Responsable chef de projet",d:"",j:365}
+{p:1,t:"Remise de l'offre",poste:"Responsable chargé·e d'affaires",d:"",j:0},
+{p:2,t:"Dossier sécurité : PGC (plan général de coordination)",poste:"Responsable chef de projet",d:"",j:-30},
+{p:2,t:"Dossier sécurité : PPSPS",poste:"Responsable chef de projet",d:"Comprend le plan prévisionnel signé.",j:-21},
+{p:2,t:"Dossier sécurité : plan de prévention",poste:"Responsable chef de projet",d:"",j:-14},
+{p:2,t:"Dossier sécurité : méthodologie de travail",poste:"Responsable chef de projet",d:"",j:-14},
+{p:2,t:"Attestation de bon montage",poste:"Responsable chef de chantier",d:"Signée par le chef de chantier et remise au client, qui la transmet au bureau de contrôle avec la note de calcul et les plans.",j:-2}
 ];
 const ETATS=["À faire","En cours","Document manquant","Fait","Validé"];
+function etapeVide(e){return {etat:"À faire",date:"",manuel:false,poste:e.poste,nom:"",tel:"",mail:""};}
+function lire(s){const [a,m,j]=s.split("-").map(Number);return new Date(a,m-1,j);}
+function iso(d){return d.getFullYear()+"-"+String(d.getMonth()+1).padStart(2,"0")+"-"+String(d.getDate()).padStart(2,"0");}
+function ajout(base,j){if(!base)return "";const d=lire(base);d.setDate(d.getDate()+j);return iso(d);}
+function calc(f){f.etapes.forEach((e,i)=>{if(!e.manuel){e.date=ajout(ETAPES[i].p==1?f.remise:f.evenement,ETAPES[i].j);}});}
+function reparer(f){if(f.v==VERSION)return;
+const ph1=ETAPES.filter(e=>e.p==1).length;
+f.etapes=ETAPES.map((e,i)=>{if(e.p==1&&f.etapes&&f.etapes[i]){const x=f.etapes[i];if(x.poste=="Responsable commercial")x.poste=e.poste;return x;}return etapeVide(e);});
+if(!f.charge)f.charge={nom:"",tel:"",mail:""};
+if(!f.chef)f.chef={nom:"",tel:"",mail:""};
+f.etapes.forEach(e=>e.manuel=false);
+calc(f);f.v=VERSION;}
 let fiches=JSON.parse(localStorage.getItem("fichesProjet")||"[]");
+fiches.forEach(reparer);
 let cur=null;
 function save(){localStorage.setItem("fichesProjet",JSON.stringify(fiches));liste();}
 function esc(s){return (s||"").replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/"/g,"&quot;");}
-function ajout(base,j){if(!base)return "";const d=new Date(base);d.setDate(d.getDate()+j);return d.toISOString().slice(0,10);}
-function calc(f){f.etapes.forEach((e,i)=>{if(!e.manuel){e.date=ajout(ETAPES[i].p==1?f.remise:f.evenement,ETAPES[i].j);}});}
-function nouvelle(){const f={id:Date.now(),nom:"Nouveau projet",client:"",remise:"",evenement:"",chef:{nom:"",tel:"",mail:""},etapes:ETAPES.map(e=>({etat:"À faire",date:"",manuel:false,poste:e.poste,nom:"",tel:"",mail:""})),bilan:{statut:"En cours",motif:"",commentaire:""}};fiches.push(f);save();ouvrir(f.id);}
+function nouvelle(){const f={id:Date.now(),v:VERSION,nom:"Nouveau projet",client:"",remise:"",evenement:"",charge:{nom:"",tel:"",mail:""},chef:{nom:"",tel:"",mail:""},etapes:ETAPES.map(etapeVide),bilan:{statut:"En cours",motif:"",commentaire:""}};fiches.push(f);save();ouvrir(f.id);}
 function liste(){document.getElementById("liste").innerHTML=fiches.map(f=>`<p><a href="#" onclick="ouvrir(${f.id});return false">${esc(f.nom)}</a> — ${esc(f.bilan.statut)}</p>`).join("")||"<p>Aucune fiche pour l'instant.</p>";}
-function classe(e){if(e.etat=="Fait"||e.etat=="Validé")return "fait";if(e.etat=="Document manquant")return "manquant";if(!e.date)return "";const n=(new Date(e.date)-new Date(new Date().toISOString().slice(0,10)))/86400000;if(n<0)return "retard";if(n<7)return "urgent";return "";}
-function rappel(m,e,f,c){const d=e.date?new Date(e.date).toLocaleDateString("fr-FR"):"(date à préciser)";const b="Bonjour "+(e.nom||"")+",\n\n";const s="\n\nMerci d'avance.\nBien cordialement,\n"+(f.chef.nom||"")+(f.chef.tel?"\n"+f.chef.tel:"");
+function classe(e){if(e.etat=="Fait"||e.etat=="Validé")return "fait";if(e.etat=="Document manquant")return "manquant";if(!e.date)return "";const n=Math.round((lire(e.date)-lire(iso(new Date())))/86400000);if(n<0)return "retard";if(n<7)return "urgent";return "";}
+function rappel(m,e,f,c){const sig=m.p==1?f.charge:f.chef;const d=e.date?lire(e.date).toLocaleDateString("fr-FR"):"(date à préciser)";const b="Bonjour "+(e.nom||"")+",\n\n";const s="\n\nMerci d'avance.\nBien cordialement,\n"+(sig.nom||"")+(sig.tel?"\n"+sig.tel:"");
 if(c=="retard")return {sujet:"URGENT – En retard : "+m.t+" – "+f.nom,mail:b+"L'étape « "+m.t+" » du projet "+f.nom+" devait être terminée le "+d+" et elle est maintenant en retard.\nPouvez-vous me dire où vous en êtes et me transmettre les documents au plus vite ?"+s,sms:"URGENT – "+f.nom+" : l'étape « "+m.t+" » est en retard (prévue le "+d+"). Merci de me rappeler."};
 if(c=="urgent")return {sujet:"Rappel : "+m.t+" – échéance le "+d+" – "+f.nom,mail:b+"L'étape « "+m.t+" » du projet "+f.nom+" arrive à échéance le "+d+", dans moins de 7 jours.\nPouvez-vous me confirmer que ce sera prêt à temps ?"+s,sms:f.nom+" : l'étape « "+m.t+" » arrive à échéance le "+d+". Ce sera prêt à temps ?"};
 return {sujet:"Rappel : "+m.t+" – "+f.nom,mail:b+"Petit rappel pour l'étape « "+m.t+" » du projet "+f.nom+", prévue le "+d+"."+s,sms:"Rappel "+f.nom+" : étape « "+m.t+" » prévue le "+d+"."};}
@@ -78,7 +86,11 @@ ${champ("Nom du projet",f.nom,"cur.nom=this.value;save();afficher()")}
 ${champ("Client",f.client,"cur.client=this.value;save()")}
 <label>Date de remise de l'offre<input type="date" value="${f.remise}" onchange="cur.remise=this.value;calc(cur);save();afficher()"></label>
 <label>Date de l'événement<input type="date" value="${f.evenement}" onchange="cur.evenement=this.value;calc(cur);save();afficher()"></label></div>
-<h4>Chef de projet (responsable du dossier de A à Z)</h4><div class="grille">
+<h4>Chargé·e d'affaires (responsable de la phase 1 : réponse à l'appel d'offres)</h4><div class="grille">
+${champ("Nom",f.charge.nom,"cur.charge.nom=this.value;save();afficher()")}
+${champ("Téléphone",f.charge.tel,"cur.charge.tel=this.value;save();afficher()")}
+${champ("Mail",f.charge.mail,"cur.charge.mail=this.value;save()")}</div>
+<h4>Chef de projet (responsable de la phase 2 : marché gagné)</h4><div class="grille">
 ${champ("Nom",f.chef.nom,"cur.chef.nom=this.value;save();afficher()")}
 ${champ("Téléphone",f.chef.tel,"cur.chef.tel=this.value;save();afficher()")}
 ${champ("Mail",f.chef.mail,"cur.chef.mail=this.value;save()")}</div>`;
@@ -98,7 +110,7 @@ h+=`<h3>Bilan</h3><div class="grille"><label>Résultat<select onchange="cur.bila
 <label>Commentaire<textarea rows="3" onchange="cur.bilan.commentaire=this.value;save()">${esc(f.bilan.commentaire)}</textarea></label>
 <button class="suppr" onclick="if(confirm('Supprimer cette fiche ?')){fiches=fiches.filter(x=>x.id!=cur.id);cur=null;save();afficher()}">Supprimer la fiche</button></div>`;
 document.getElementById("fiche").innerHTML=h;}
-liste();
+save();
 </script>
 </body>
 </html>
