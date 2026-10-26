@@ -20,7 +20,7 @@ STRUCTURE = ["structure ephemere", "structure temporaire", "structure alu",
 EVENEMENT = ["festival", "concert", "tournee", "production", "spectacle",
              "stade", "evenement", "evenementiel", "evenementielle",
              "festivites", "foire", "salon", "ceremonie", "manifestation",
-             "fete", "show", "competition", "championnat", "jeux"]
+             "fete", "show", "competition", "championnat", "olympique"]
 
 # Filet de sécurité : expressions qui disqualifient une annonce
 EXCLUSIONS = ["tente", "salle des fetes", "manifestation d'interet", "stand de tir", "materiel electrique", "accueil physique", "maitrise d'oeuvre", "conception graphique", "communication visuelle", "nettoyage", "entretien des locaux", "traiteur", "restauration collective", "repas", "denrees alimentaires", "cantine", "billetterie", "imprimerie", "impression", "reprographie", "affranchissement", "courrier", "publication", "annonces legales", "traduction", "assurance", "mutuelle", "prevoyance", "recrutement", "interim", "formation", "audit", "etude", "diagnostic", "geometre", "topographique", "controle technique", "informatique", "logiciel", "telephonie", "videoprotection", "fournitures de bureau", "fournitures scolaires", "mobilier scolaire", "mobilier de bureau", "produits d'entretien", "carburant", "medicament", "materiel medical", "transport scolaire", "rehabilitation", "renovation", "demolition", "desamiantage", "etancheite", "toiture", "plomberie", "chauffage", "climatisation", "ascenseur", "menuiserie", "voirie", "eclairage public", "assainissement", "eau potable", "dechets", "ordures", "espaces verts", "elagage", "cimetiere", "pompes funebres", "aide a domicile", "photographe"]
