@@ -83,23 +83,70 @@ def dossier(d):
             meilleur, score_max = u, s
     return meilleur if score_max >= 2 else ""
 
-# Récupère la référence du marché donnée par l'acheteur
-def reference(d):
-    trouves = []
-    def fouiller(x):
+# Récupère la référence INTERNE du marché donnée par l'acheteur
+# (celle qu'on tape dans la recherche de sa plateforme)
+CLES_REF_FORTES = ["ref_marche", "refmarche", "reference_marche", "referencemarche",
+                   "reference_interne", "ref_interne", "internalid",
+                   "reference_consultation", "ref_consultation",
+                   "numero_marche", "num_marche", "numero_consultation"]
+
+def ref_valide(v, idweb):
+    v = str(v).strip().strip(".,;:")
+    if not (2 < len(v) < 60):
+        return ""
+    if idweb and v == str(idweb):
+        return ""
+    if re.fullmatch(r"\d{2}-\d{4,7}", v):      # identifiant BOAMP
+        return ""
+    if re.fullmatch(r"\d{8}(-\d)?", v):        # code CPV
+        return ""
+    if "http" in v.lower() or "www." in v.lower() or "@" in v:
+        return ""
+    if len(v.split()) > 6:                     # une phrase, pas une référence
+        return ""
+    return v
+
+def reference(d, idweb=""):
+    candidats = []   # (priorité, valeur) : plus la priorité est basse, mieux c'est
+
+    def ajouter(prio, v):
+        v = ref_valide(v, idweb)
+        if v:
+            candidats.append((prio, v))
+
+    def fouiller(x, chemin):
         if isinstance(x, dict):
+            # Format européen eForms : identifiant interne marqué "InternalID"
+            schema = simple(x.get("@schemeName", "") or x.get("schemeName", ""))
+            if "internal" in schema:
+                ajouter(0, x.get("#text") or x.get("value") or "")
             for k, v in x.items():
-                if "reference" in simple(k) and isinstance(v, (str, int)) and str(v).strip():
-                    trouves.append(str(v).strip())
-                fouiller(v)
+                cle = simple(k)
+                if isinstance(v, (str, int)) and str(v).strip():
+                    if any(m in cle for m in CLES_REF_FORTES):
+                        ajouter(1, v)
+                    elif cle in ("cbc:id", "id") and "procurementproject" in chemin:
+                        ajouter(1, v)
+                    elif "reference" in cle and "avis" not in cle and "bulletin" not in cle:
+                        ajouter(2, v)
+                fouiller(v, chemin + " " + cle)
         elif isinstance(x, list):
             for y in x:
-                fouiller(y)
-    fouiller(d)
-    for t in trouves:
-        if 2 < len(t) < 60:
-            return t
-    return ""
+                fouiller(y, chemin)
+
+    fouiller(d, "")
+
+    # Dernier recours : chercher "Référence : XXX" dans le texte de l'annonce
+    txt = tout_texte(d)
+    for m in re.finditer(
+            r"r[ée]f[ée]rences?(?:\s+(?:du\s+march[ée]|de\s+la\s+consultation|interne|acheteur|de\s+l'acheteur))?\s*(?:n°|:)\s*([A-Za-z0-9][A-Za-z0-9/_.\-]{2,40})",
+            txt, re.I):
+        ajouter(3, m.group(1))
+
+    if not candidats:
+        return ""
+    candidats.sort(key=lambda c: c[0])
+    return candidats[0][1]
 
 def motif(m):
     return r"\b" + r"s?\s+".join(re.escape(x) for x in m.split()) + r"s?\b"
@@ -244,7 +291,7 @@ for a in avis:
         "date_limite": texte(a.get("datelimitereponse")),
         "lien": texte(a.get("url_avis")),
         "dossier": dossier(d),
-        "reference": reference(d),
+        "reference": reference(d, a.get("idweb")),
         "mots": sorted(set(sum([trouve(l["texte"], STRUCTURE) for l in lots_fl], []))) + trouve(general, EVENEMENT),
         "lots_fl": [l["titre"][:150] for l in lots_fl],
         "montant": m,
