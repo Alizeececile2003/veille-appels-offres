@@ -20,13 +20,14 @@ h1{font-size:1.4rem;margin:0 0 4px}
 .filtres label{display:flex;align-items:center;gap:6px;background:var(--carte);border:1px solid var(--bord);border-radius:20px;padding:6px 12px;font-size:.9rem;cursor:pointer}
 .filtres label.gros{border-color:var(--accent);font-weight:600}
 button{background:var(--accent);color:#fff;border:0;border-radius:20px;padding:7px 14px;font-size:.9rem;cursor:pointer}
-.btn{display:inline-block;background:var(--accent);color:#fff;border:1px solid var(--accent);border-radius:20px;padding:7px 14px;font-size:.9rem;font-weight:600;text-decoration:none;margin:8px 8px 0 0}
+.btn{display:inline-block;background:var(--accent);color:#fff;border:1px solid var(--accent);border-radius:20px;padding:7px 14px;font-size:.9rem;font-weight:600;text-decoration:none;margin:8px 8px 0 0;cursor:pointer}
 .btn.vert{background:var(--ok);border-color:var(--ok)}
 .btn.contour{background:transparent;color:var(--accent)}
 main{max-width:900px;margin:0 auto;padding:0 16px 32px;display:grid;gap:12px}
 .fiche{background:var(--carte);border:1px solid var(--bord);border-radius:12px;padding:14px 16px}
 .fiche h2{font-size:1rem;margin:0 0 8px;line-height:1.35}
 .ligne{font-size:.88rem;color:var(--doux);margin:3px 0}
+.ref{font-family:ui-monospace,Menlo,monospace;color:var(--texte);background:var(--lot);border-radius:6px;padding:1px 6px}
 .badges{display:flex;flex-wrap:wrap;gap:6px;margin:8px 0}
 .badge{font-size:.75rem;border:1px solid var(--bord);border-radius:10px;padding:2px 8px;color:var(--doux)}
 .delai{font-weight:600}
@@ -39,6 +40,8 @@ main{max-width:900px;margin:0 auto;padding:0 16px 32px;display:grid;gap:12px}
 a.voir{display:inline-block;margin-top:6px;color:var(--accent);font-weight:600;text-decoration:none}
 .actions{display:flex;flex-wrap:wrap;align-items:center}
 .vide{text-align:center;color:var(--doux);padding:40px 0}
+#toast{position:fixed;left:50%;bottom:24px;transform:translateX(-50%);background:var(--texte);color:var(--bg);padding:10px 18px;border-radius:20px;font-size:.9rem;font-weight:600;opacity:0;transition:opacity .2s;pointer-events:none;z-index:10}
+#toast.vu{opacity:1}
 </style>
 </head>
 <body>
@@ -59,6 +62,7 @@ a.voir{display:inline-block;margin-top:6px;color:var(--accent);font-weight:600;t
   </div>
 </header>
 <main id="liste"></main>
+<div id="toast"></div>
 
 <script>
 const ZONES = {
@@ -69,6 +73,7 @@ const ZONES = {
 };
 
 let annonces = [];
+let visibles = [];
 
 function zoneDe(dep) {
   let d = String(dep || "").trim().toUpperCase().split(/[ ,;\/]/)[0];
@@ -81,6 +86,10 @@ function zoneDe(dep) {
 
 function esc(t) {
   return String(t ?? "").replace(/[&<>"']/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
+}
+
+function refDe(a) {
+  return String(a.reference || a.ref || a.reference_marche || "").trim();
 }
 
 function dateFr(t) {
@@ -122,6 +131,33 @@ function lienReponse(a) {
   return "projet.html?" + p.toString();
 }
 
+function montrerMessage(texte) {
+  const t = document.getElementById("toast");
+  t.textContent = texte;
+  t.classList.add("vu");
+  clearTimeout(t._minuteur);
+  t._minuteur = setTimeout(() => t.classList.remove("vu"), 3000);
+}
+
+function copierTexte(texte) {
+  if (navigator.clipboard && window.isSecureContext) {
+    navigator.clipboard.writeText(texte).catch(() => copierSecours(texte));
+  } else {
+    copierSecours(texte);
+  }
+}
+
+function copierSecours(texte) {
+  const zone = document.createElement("textarea");
+  zone.value = texte;
+  zone.style.position = "fixed";
+  zone.style.opacity = "0";
+  document.body.appendChild(zone);
+  zone.select();
+  try { document.execCommand("copy"); } catch (e) {}
+  document.body.removeChild(zone);
+}
+
 function afficher() {
   const zones = [...document.querySelectorAll(".zone:checked")].map(c => c.value);
   const gros = document.getElementById("gros").checked;
@@ -140,6 +176,8 @@ function afficher() {
     return va - vb;
   });
 
+  visibles = liste;
+
   const heure = new Date().toLocaleTimeString("fr-FR", {hour:"2-digit", minute:"2-digit"});
   document.getElementById("info").textContent =
     liste.length + " annonce(s) affichée(s) sur " + annonces.length + " · données chargées à " + heure;
@@ -150,7 +188,7 @@ function afficher() {
     return;
   }
 
-  main.innerHTML = liste.map(a => {
+  main.innerHTML = liste.map((a, i) => {
     const j = joursRestants(a.date_limite);
     let delai = "", classe = "";
     if (j === null) delai = "";
@@ -165,14 +203,19 @@ function afficher() {
         a.lots_fl.map(l => '<li>' + esc(l) + '</li>').join("") + '</ul></div>'
       : '';
 
+    const ref = refDe(a);
+    const ligneRef = '<div class="ligne"><strong>Référence du marché :</strong> ' +
+      (ref ? '<span class="ref">' + esc(ref) + '</span>' : 'non indiquée') + '</div>';
+
     const boutons = '<div class="actions">' +
-      (a.dossier ? '<a class="btn contour" href="' + esc(a.dossier) + '" target="_blank" rel="noopener">Dossier</a>' : '') +
+      (a.dossier ? '<a class="btn contour dossier" data-i="' + i + '" href="' + esc(a.dossier) + '" target="_blank" rel="noopener">Dossier</a>' : '') +
       '<a class="btn vert" href="' + esc(lienReponse(a)) + '">Je réponds</a>' +
       '</div>';
 
     return '<article class="fiche ' + classe + '">' +
       '<h2>' + esc(a.objet) + '</h2>' +
       '<div class="ligne"><strong>Acheteur :</strong> ' + esc(a.acheteur) + ' (' + esc(a.departement) + ')</div>' +
+      ligneRef +
       '<div class="ligne"><strong>Publié le :</strong> ' + dateFr(a.parution) + '</div>' +
       '<div class="ligne"><strong>Date limite :</strong> ' + dateFr(a.date_limite) + ' ' + delai + '</div>' +
       '<div class="ligne"><strong>Montant estimé :</strong> ' + euros(a.montant) + '</div>' +
@@ -184,6 +227,19 @@ function afficher() {
       '</article>';
   }).join("");
 }
+
+document.getElementById("liste").addEventListener("click", e => {
+  const b = e.target.closest("a.dossier");
+  if (!b) return;
+  const a = visibles[Number(b.dataset.i)];
+  const ref = a ? refDe(a) : "";
+  if (ref) {
+    copierTexte(ref);
+    montrerMessage("Référence copiée : " + ref + " — collez-la dans la recherche de la plateforme");
+  } else {
+    montrerMessage("Pas de référence pour cette annonce");
+  }
+});
 
 async function charger() {
   document.getElementById("info").textContent = "Chargement…";
@@ -203,3 +259,4 @@ charger();
 </script>
 </body>
 </html>
+<!-- fin du html -->
