@@ -22,6 +22,27 @@
   "famille": "Marchés européens"
  },
  {
+  "id": "26-104036",
+  "objet": "Mise en scène d'une énigme dans le cadre de l'évènement RE LYON NOUS 2027 2028 et 2029",
+  "acheteur": "Ville de Lyon",
+  "departement": "69",
+  "parution": "2026-10-26",
+  "date_limite": "2026-11-23T12:00:00+00:00",
+  "lien": "https://www.boamp.fr/pages/avis/?q=idweb:26-104036",
+  "mots": [
+   "scene",
+   "evenement",
+   "evenementiel"
+  ],
+  "lots_fl": [
+   "Lot unique (non précisé)"
+  ],
+  "montant": null,
+  "statut": "sans montant",
+  "procedure": "Procédure Adaptée",
+  "famille": "Marchés <90 k€ (MAPA)"
+ },
+ {
   "id": "26-101725",
   "objet": "Prestation de régie générale et technique du Festival Rio Loco",
   "acheteur": "Societe Publique Locale du Metronum",
