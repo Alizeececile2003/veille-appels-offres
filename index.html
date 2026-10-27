@@ -13,12 +13,16 @@
 *{box-sizing:border-box}
 body{margin:0;background:var(--bg);color:var(--texte);font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
 header{padding:16px;max-width:900px;margin:0 auto}
+.haut{display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:8px}
 h1{font-size:1.4rem;margin:0 0 4px}
 .info{color:var(--doux);font-size:.9rem}
 .filtres{display:flex;flex-wrap:wrap;gap:8px;margin-top:12px}
 .filtres label{display:flex;align-items:center;gap:6px;background:var(--carte);border:1px solid var(--bord);border-radius:20px;padding:6px 12px;font-size:.9rem;cursor:pointer}
 .filtres label.gros{border-color:var(--accent);font-weight:600}
 button{background:var(--accent);color:#fff;border:0;border-radius:20px;padding:7px 14px;font-size:.9rem;cursor:pointer}
+.btn{display:inline-block;background:var(--accent);color:#fff;border:1px solid var(--accent);border-radius:20px;padding:7px 14px;font-size:.9rem;font-weight:600;text-decoration:none;margin:8px 8px 0 0}
+.btn.vert{background:var(--ok);border-color:var(--ok)}
+.btn.contour{background:transparent;color:var(--accent)}
 main{max-width:900px;margin:0 auto;padding:0 16px 32px;display:grid;gap:12px}
 .fiche{background:var(--carte);border:1px solid var(--bord);border-radius:12px;padding:14px 16px}
 .fiche h2{font-size:1rem;margin:0 0 8px;line-height:1.35}
@@ -33,12 +37,16 @@ main{max-width:900px;margin:0 auto;padding:0 16px 32px;display:grid;gap:12px}
 .lots strong{color:var(--accent)}
 .lots ul{margin:4px 0 0;padding-left:18px}
 a.voir{display:inline-block;margin-top:6px;color:var(--accent);font-weight:600;text-decoration:none}
+.actions{display:flex;flex-wrap:wrap;align-items:center}
 .vide{text-align:center;color:var(--doux);padding:40px 0}
 </style>
 </head>
 <body>
 <header>
-  <h1>Veille appels d’offres</h1>
+  <div class="haut">
+    <h1>Veille appels d’offres</h1>
+    <a class="btn" href="projet.html">Mes fiches projet</a>
+  </div>
   <div class="info" id="info">Chargement…</div>
   <div class="filtres">
     <label><input type="checkbox" class="zone" value="nord-ouest" checked> Nord-Ouest</label>
@@ -82,6 +90,15 @@ function dateFr(t) {
   return d.toLocaleDateString("fr-FR", {day:"numeric", month:"long", year:"numeric"});
 }
 
+function dateIso(t) {
+  if (!t) return "";
+  const m = String(t).match(/^(\d{4}-\d{2}-\d{2})/);
+  if (m) return m[1];
+  const d = new Date(t);
+  if (isNaN(d)) return "";
+  return d.getFullYear() + "-" + String(d.getMonth() + 1).padStart(2, "0") + "-" + String(d.getDate()).padStart(2, "0");
+}
+
 function joursRestants(t) {
   if (!t) return null;
   const d = new Date(t);
@@ -92,6 +109,17 @@ function joursRestants(t) {
 function euros(m) {
   if (m === null || m === undefined) return "non indiqué";
   return Math.round(m).toLocaleString("fr-FR") + " € HT";
+}
+
+function lienReponse(a) {
+  const client = (a.acheteur || "") + (a.departement ? " (" + a.departement + ")" : "");
+  const p = new URLSearchParams({
+    titre: a.objet || "Sans titre",
+    acheteur: client,
+    lien: a.lien || "",
+    remise: dateIso(a.date_limite)
+  });
+  return "projet.html?" + p.toString();
 }
 
 function afficher() {
@@ -137,6 +165,11 @@ function afficher() {
         a.lots_fl.map(l => '<li>' + esc(l) + '</li>').join("") + '</ul></div>'
       : '';
 
+    const boutons = '<div class="actions">' +
+      (a.dossier ? '<a class="btn contour" href="' + esc(a.dossier) + '" target="_blank" rel="noopener">Dossier</a>' : '') +
+      '<a class="btn vert" href="' + esc(lienReponse(a)) + '">Je réponds</a>' +
+      '</div>';
+
     return '<article class="fiche ' + classe + '">' +
       '<h2>' + esc(a.objet) + '</h2>' +
       '<div class="ligne"><strong>Acheteur :</strong> ' + esc(a.acheteur) + ' (' + esc(a.departement) + ')</div>' +
@@ -147,6 +180,7 @@ function afficher() {
       lots +
       (mots ? '<div class="badges">' + mots + '</div>' : '') +
       (a.lien ? '<a class="voir" href="' + esc(a.lien) + '" target="_blank" rel="noopener">Voir l’annonce sur le BOAMP →</a>' : '') +
+      boutons +
       '</article>';
   }).join("");
 }
