@@ -29,6 +29,12 @@ EXCLUSIONS = ["tente", "salle des fetes", "manifestation d'interet", "stand de t
 # structures préfabriquées, scènes, bâtiments préfabriqués
 CPV_METIER = {"45262100", "44212310", "45223800", "45237000", "44211000"}
 
+# Plateformes où l'on télécharge les dossiers de consultation
+PLATEFORMES = ["marches-publics", "achatpublic", "maximilien", "megalis",
+               "e-marchespublics", "marches-securises", "klekoon", "synapse",
+               "ternum", "francemarches", "dematis", "awsolutions", "atexo",
+               "local-trust", "marchespublics", "mpe", "salle-des-marches"]
+
 # Récupère les codes CPV présents dans les données de l'annonce
 def chercher_cpv(d, codes, dans_cpv=False):
     if isinstance(d, dict):
@@ -40,6 +46,43 @@ def chercher_cpv(d, codes, dans_cpv=False):
             chercher_cpv(x, codes, dans_cpv)
     elif dans_cpv:
         codes.update(re.findall(r"\b\d{8}\b", str(d)))
+
+# Récupère tous les liens internet présents dans les données de l'annonce
+def chercher_urls(d, urls, chemin=""):
+    if isinstance(d, dict):
+        for k, v in d.items():
+            chercher_urls(v, urls, chemin + " " + simple(k))
+    elif isinstance(d, list):
+        for x in d:
+            chercher_urls(x, urls, chemin)
+    elif isinstance(d, str):
+        for u in re.findall(r"(?:https?://|www\.)[^\s\"'<>]+", d):
+            u = u.rstrip(".,;)")
+            if u.lower().startswith("www."):
+                u = "https://" + u
+            urls.append((chemin, u))
+
+# Choisit le lien le plus probable vers le dossier de consultation
+def dossier(d):
+    urls = []
+    chercher_urls(d, urls)
+    meilleur, score_max = "", 0
+    for chemin, u in urls:
+        ul = u.lower()
+        if "boamp.fr" in ul or "europa.eu" in ul:
+            continue
+        c = chemin + " " + simple(u)
+        s = 0
+        for mot, points in [("document", 3), ("dce", 3), ("consultation", 2),
+                            ("profil", 2), ("acheteur", 1), ("acces", 1), ("url", 1)]:
+            if mot in c:
+                s += points
+        if any(p in ul for p in PLATEFORMES):
+            s += 3
+        if s > score_max:
+            meilleur, score_max = u, s
+    return meilleur if score_max >= 2 else ""
+
 def motif(m):
     return r"\b" + r"s?\s+".join(re.escape(x) for x in m.split()) + r"s?\b"
 
@@ -152,49 +195,4 @@ except Exception:
 for a in avis:
     objet = texte(a.get("objet"))
     desc = texte(a.get("descripteur_libelle"))
-    if trouve(objet, EXCLUSIONS):
-        continue
-    d = donnees(a)
-    # Codes CPV : si l'annonce en a, au moins un doit être du métier
-    cpv = set()
-    chercher_cpv(d, cpv)
-    if cpv and not cpv & CPV_METIER:
-        continue
-    lots = []
-    chercher_lots(d, lots)
-    if not lots:
-        lots = [{"titre": "Lot unique (non précisé)", "texte": objet + " " + desc + " " + tout_texte(d)}]
-    # Lots où FL Structure a sa place
-    lots_fl = [l for l in lots if trouve(l["texte"], STRUCTURE)]
-    if not lots_fl:
-        continue
-    general = objet + " " + desc + " " + " ".join(l["texte"] for l in lots_fl)
-    if not trouve(general, EVENEMENT):
-        continue
-    m = montant(d)
-    if m is not None and m < SEUIL:
-        continue
-    liste[a.get("idweb")] = {
-        "id": a.get("idweb"),
-        "objet": objet,
-        "acheteur": texte(a.get("nomacheteur")),
-        "departement": texte(a.get("code_departement")),
-        "parution": texte(a.get("dateparution")),
-        "date_limite": texte(a.get("datelimitereponse")),
-        "lien": texte(a.get("url_avis")),
-        "mots": sorted(set(sum([trouve(l["texte"], STRUCTURE) for l in lots_fl], []))) + trouve(general, EVENEMENT),
-        "lots_fl": [l["titre"][:150] for l in lots_fl],
-        "montant": m,
-        "statut": "sans montant" if m is None else "pertinent",
-        "procedure": texte(a.get("procedure_libelle")),
-        "famille": texte(a.get("famille_libelle")),
-    }
-
-# 4. Retirer les avis dont la date limite est passée
-aujourdhui = datetime.date.today().isoformat()
-garder = [a for a in liste.values() if not a["date_limite"] or a["date_limite"][:10] >= aujourdhui]
-garder.sort(key=lambda a: (a["statut"] == "sans montant", a["date_limite"] or "9999"))
-
-with open("data.json", "w", encoding="utf-8") as f:
-    json.dump(garder, f, ensure_ascii=False, indent=1)
-print(len(garder), "appels d'offres gardés")
+    if trouve(objet
