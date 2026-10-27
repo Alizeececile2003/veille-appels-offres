@@ -195,4 +195,50 @@ except Exception:
 for a in avis:
     objet = texte(a.get("objet"))
     desc = texte(a.get("descripteur_libelle"))
-    if trouve(objet
+    if trouve(objet, EXCLUSIONS):
+        continue
+    d = donnees(a)
+    # Codes CPV : si l'annonce en a, au moins un doit être du métier
+    cpv = set()
+    chercher_cpv(d, cpv)
+    if cpv and not cpv & CPV_METIER:
+        continue
+    lots = []
+    chercher_lots(d, lots)
+    if not lots:
+        lots = [{"titre": "Lot unique (non précisé)", "texte": objet + " " + desc + " " + tout_texte(d)}]
+    # Lots où FL Structure a sa place
+    lots_fl = [l for l in lots if trouve(l["texte"], STRUCTURE)]
+    if not lots_fl:
+        continue
+    general = objet + " " + desc + " " + " ".join(l["texte"] for l in lots_fl)
+    if not trouve(general, EVENEMENT):
+        continue
+    m = montant(d)
+    if m is not None and m < SEUIL:
+        continue
+    liste[a.get("idweb")] = {
+        "id": a.get("idweb"),
+        "objet": objet,
+        "acheteur": texte(a.get("nomacheteur")),
+        "departement": texte(a.get("code_departement")),
+        "parution": texte(a.get("dateparution")),
+        "date_limite": texte(a.get("datelimitereponse")),
+        "lien": texte(a.get("url_avis")),
+        "dossier": dossier(d),
+        "mots": sorted(set(sum([trouve(l["texte"], STRUCTURE) for l in lots_fl], []))) + trouve(general, EVENEMENT),
+        "lots_fl": [l["titre"][:150] for l in lots_fl],
+        "montant": m,
+        "statut": "sans montant" if m is None else "pertinent",
+        "procedure": texte(a.get("procedure_libelle")),
+        "famille": texte(a.get("famille_libelle")),
+    }
+
+# 4. Retirer les avis dont la date limite est passée
+aujourdhui = datetime.date.today().isoformat()
+garder = [a for a in liste.values() if not a["date_limite"] or a["date_limite"][:10] >= aujourdhui]
+garder.sort(key=lambda a: (a["statut"] == "sans montant", a["date_limite"] or "9999"))
+
+with open("data.json", "w", encoding="utf-8") as f:
+    json.dump(garder, f, ensure_ascii=False, indent=1)
+print(len(garder), "appels d'offres gardés")
