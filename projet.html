@@ -31,6 +31,9 @@
   .modif { color: #1565c0; font-size: 12px; font-weight: bold; }
   .alerte { color: #e65100; font-size: 13px; font-weight: bold; }
   .suiveur { font-size: 14px; margin-top: 6px; }
+  .synthese { margin-top: 8px; }
+  .synthese label { margin-top: 0; }
+  .synthese textarea { min-height: 220px; color: #222; background: #fff; }
   .vert { background: #e8f5e9; border-color: #43a047; }
   .vert h4 { text-decoration: line-through; color: #2e7d32; }
   .manquant { background: #ffe0b2; border-color: #ef6c00; }
@@ -117,16 +120,18 @@
       <option>Gagné</option>
       <option>Perdu</option>
     </select>
-    <label>Motif</label>
-    <select id="f_motif" onchange="champ('motif', this.value)">
-      <option value="">—</option>
-      <option>Prix</option>
-      <option>Délai</option>
-      <option>Dossier incomplet</option>
-      <option>Autre</option>
-    </select>
-    <label>Commentaire</label>
-    <textarea id="f_commentaire" rows="3" oninput="champ('commentaire', this.value)"></textarea>
+    <div id="blocPerdu">
+      <label>Motif</label>
+      <select id="f_motif" onchange="champ('motif', this.value)">
+        <option value="">—</option>
+        <option>Prix</option>
+        <option>Délai</option>
+        <option>Dossier incomplet</option>
+        <option>Autre</option>
+      </select>
+      <label>Commentaire</label>
+      <textarea id="f_commentaire" rows="3" oninput="champ('commentaire', this.value)"></textarea>
+    </div>
   </div>
 
   <button class="rouge" onclick="supprimerFiche()">Supprimer cette fiche</button>
@@ -137,14 +142,14 @@
 const PHASE1 = [
   { id: "prep", nom: "Préparation", resp: "Chargé d'affaires", contenu: "Lecture du dossier de consultation (DCE) et du cahier des charges, visite du site", j: -21 },
   { id: "calculs", nom: "Calculs", resp: "Bureau d'études / ingénieur structure", contenu: "Plans et notes de calcul demandés au bureau d'études, descente de charges, plan d'implantation, étude au vent, validation par le bureau de contrôle", j: -14 },
-  { id: "securite", nom: "Sécurité", resp: "QSE", contenu: "Habilitations et CACES des monteurs", j: -10 },
   { id: "admin", nom: "Pièces administratives", resp: "Chargé d'affaires", contenu: "DC1, DC2 ou DUME, Kbis de moins de 3 mois, attestation URSSAF, régularité fiscale, RC pro, décennale, RIB, références de chantiers similaires, certificats de qualification, acte d'engagement", j: -7 },
-  { id: "offre", nom: "Offre technique et financière", resp: "Chargé d'affaires et bureau d'études", contenu: "Mémoire technique, BPU ou DPGF, planning prévisionnel, liste du matériel, jalonnement (moyens humains)", j: -3 },
-  { id: "depot", nom: "Remise de l'offre", resp: "Chargé d'affaires", contenu: "Dépôt de l'offre", j: 0 }
+  { id: "offre", nom: "Offre technique et financière", resp: "Chargé d'affaires et bureau d'études", contenu: "Mémoire technique (y compris la mention que les monteurs sont formés), BPU ou DPGF, planning prévisionnel, liste du matériel, jalonnement (moyens humains)", j: -3 },
+  { id: "depot", nom: "Remise de l'offre", resp: "Chargé d'affaires", contenu: "Dépôt de l'offre sur la plateforme : date limite, après c'est refusé", j: 0 }
 ];
 const PHASE2 = [
   { id: "pgc", nom: "PGC (plan général de coordination)", resp: "Chef de projet", contenu: "", j: -30, secu: true },
   { id: "ppsps", nom: "PPSPS", resp: "Chef de projet", contenu: "Comprend le plan prévisionnel signé", j: -21, secu: true },
+  { id: "securite", nom: "Sécurité", resp: "QSE", contenu: "Habilitations et CACES des monteurs, liste nominative", j: -14, secu: true },
   { id: "prevention", nom: "Plan de prévention", resp: "Chef de projet", contenu: "", j: -14, secu: true },
   { id: "methodo", nom: "Méthodologie de travail", resp: "Chef de projet", contenu: "", j: -14, secu: true },
   { id: "attestation", nom: "Attestation de bon montage", resp: "Chef de chantier", contenu: "Signée par le chef de chantier, remise au client, qui la transmet au bureau de contrôle avec la note de calcul et les plans", j: -2 }
@@ -174,6 +179,7 @@ function completer(f) {
   f.cp = f.cp || { nom: "", tel: "", mail: "" };
   f.resultat = f.resultat || "En cours";
   f.motif = f.motif || ""; f.commentaire = f.commentaire || "";
+  f.synthese = f.synthese || "";
   if (!f.delai) f.delai = 7;
   return f;
 }
@@ -318,6 +324,11 @@ function carte(f, e, ref, phase, precedente) {
       </div>`;
   }
 
+  const synthese = e.id === "prep" ? `<div class="synthese">
+      <label>Synthèse du dossier (faite dans Claude, à coller ici)</label>
+      <textarea placeholder="Collez ici la synthèse du dossier de consultation et du cahier des charges" oninput="champ('synthese', this.value)">${esc(f.synthese)}</textarea>
+    </div>` : "";
+
   const html = `<div class="etape ${classe}">
     <h4>${e.nom} ${quand}</h4>
     ${e.contenu ? `<p class="contenu">${e.contenu}</p>` : ""}
@@ -328,6 +339,7 @@ function carte(f, e, ref, phase, precedente) {
     </div>
     ${f.manuel[e.id] ? `<div><span class="modif">modifiée à la main</span> <button class="gris petit" onclick="remettreAuto('${e.id}')">Remettre la date auto</button></div>` : ""}
     ${resp}
+    ${synthese}
   </div>`;
   return { d, html };
 }
@@ -336,7 +348,7 @@ function listeEtapes(idDiv, etapes, ref, phase) {
   const f = fiche();
   let html = "", prec = "", secu = false;
   etapes.forEach(e => {
-    if (e.secu && !secu) { html += '<div class="sous">Dossier sécurité (chef de projet)</div>'; secu = true; }
+    if (e.secu && !secu) { html += '<div class="sous">Dossier sécurité</div>'; secu = true; }
     if (!e.secu && secu) { html += '<hr style="margin-top:16px">'; secu = false; }
     const r = carte(f, e, ref, phase, prec);
     html += r.html;
@@ -399,6 +411,8 @@ function dessiner() {
       ? '<div class="avert">Indiquez la date de l\'événement pour calculer les étapes.</div>'
       : (f.remise && f.evenement <= f.remise ? '<div class="avert">L\'événement est avant ou le jour de la remise des offres : vérifiez les dates.</div>' : "");
   }
+
+  document.getElementById("blocPerdu").style.display = f.resultat === "Perdu" ? "block" : "none";
 }
 
 function afficherListe() {
