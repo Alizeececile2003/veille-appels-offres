@@ -83,6 +83,24 @@ def dossier(d):
             meilleur, score_max = u, s
     return meilleur if score_max >= 2 else ""
 
+# Récupère la référence du marché donnée par l'acheteur
+def reference(d):
+    trouves = []
+    def fouiller(x):
+        if isinstance(x, dict):
+            for k, v in x.items():
+                if "reference" in simple(k) and isinstance(v, (str, int)) and str(v).strip():
+                    trouves.append(str(v).strip())
+                fouiller(v)
+        elif isinstance(x, list):
+            for y in x:
+                fouiller(y)
+    fouiller(d)
+    for t in trouves:
+        if 2 < len(t) < 60:
+            return t
+    return ""
+
 def motif(m):
     return r"\b" + r"s?\s+".join(re.escape(x) for x in m.split()) + r"s?\b"
 
@@ -226,6 +244,7 @@ for a in avis:
         "date_limite": texte(a.get("datelimitereponse")),
         "lien": texte(a.get("url_avis")),
         "dossier": dossier(d),
+        "reference": reference(d),
         "mots": sorted(set(sum([trouve(l["texte"], STRUCTURE) for l in lots_fl], []))) + trouve(general, EVENEMENT),
         "lots_fl": [l["titre"][:150] for l in lots_fl],
         "montant": m,
