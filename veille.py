@@ -1,4 +1,5 @@
 import json, re, datetime, unicodedata, urllib.request, urllib.parse
+from collections import Counter
 
 # Montant minimum en euros HT. Mettre 150000 si la veille est trop vide.
 SEUIL = 200000
@@ -35,6 +36,40 @@ PLATEFORMES = ["marches-publics", "achatpublic", "maximilien", "megalis",
                "ternum", "francemarches", "dematis", "awsolutions", "atexo",
                "local-trust", "marchespublics", "mpe", "salle-des-marches"]
 
+# Noms lisibles des plateformes (pour compter les plus fréquentes)
+NOMS_PLATEFORMES = [("marches-publics.gouv.fr", "PLACE"),
+                    ("achatpublic", "AchatPublic"),
+                    ("maximilien", "Maximilien"),
+                    ("megalis", "Mégalis"),
+                    ("e-marchespublics", "e-marchespublics"),
+                    ("marches-securises", "Marchés sécurisés"),
+                    ("klekoon", "Klekoon"),
+                    ("synapse", "Synapse"),
+                    ("ternum", "Ternum"),
+                    ("francemarches", "France Marchés"),
+                    ("dematis", "Dematis"),
+                    ("awsolutions", "AWS"),
+                    ("local-trust", "Local Trust"),
+                    ("salle-des-marches", "Salle des marchés")]
+
+# Signes qu'un lien mène directement à la consultation (et pas à l'accueil)
+SIGNES_LIEN_DIRECT = ["refconsultation", "/consultation/", "detailsconsultation",
+                      "idconsultation", "id_consultation", "consultation_id"]
+
+def plateforme(u):
+    ul = str(u or "").lower()
+    if not ul:
+        return "non indiquée"
+    for cle, nom in NOMS_PLATEFORMES:
+        if cle in ul:
+            return nom
+    m = re.match(r"https?://(?:www\.)?([^/]+)", ul)
+    return m.group(1) if m else "non indiquée"
+
+def lien_direct(u):
+    ul = str(u or "").lower()
+    return any(s in ul for s in SIGNES_LIEN_DIRECT)
+
 # Récupère les codes CPV présents dans les données de l'annonce
 def chercher_cpv(d, codes, dans_cpv=False):
     if isinstance(d, dict):
@@ -63,6 +98,7 @@ def chercher_urls(d, urls, chemin=""):
             urls.append((chemin, u))
 
 # Choisit le lien le plus probable vers le dossier de consultation
+# (un lien direct vers la consultation passe avant la page d'accueil)
 def dossier(d):
     urls = []
     chercher_urls(d, urls)
@@ -79,6 +115,8 @@ def dossier(d):
                 s += points
         if any(p in ul for p in PLATEFORMES):
             s += 3
+        if lien_direct(u):
+            s += 5
         if s > score_max:
             meilleur, score_max = u, s
     return meilleur if score_max >= 2 else ""
@@ -282,6 +320,7 @@ for a in avis:
     m = montant(d)
     if m is not None and m < SEUIL:
         continue
+    lien_dossier = dossier(d)
     liste[a.get("idweb")] = {
         "id": a.get("idweb"),
         "objet": objet,
@@ -290,7 +329,9 @@ for a in avis:
         "parution": texte(a.get("dateparution")),
         "date_limite": texte(a.get("datelimitereponse")),
         "lien": texte(a.get("url_avis")),
-        "dossier": dossier(d),
+        "dossier": lien_dossier,
+        "plateforme": plateforme(lien_dossier),
+        "lien_direct": lien_direct(lien_dossier),
         "reference": reference(d, a.get("idweb")),
         "mots": sorted(set(sum([trouve(l["texte"], STRUCTURE) for l in lots_fl], []))) + trouve(general, EVENEMENT),
         "lots_fl": [l["titre"][:150] for l in lots_fl],
@@ -308,3 +349,9 @@ garder.sort(key=lambda a: (a["statut"] == "sans montant", a["date_limite"] or "9
 with open("data.json", "w", encoding="utf-8") as f:
     json.dump(garder, f, ensure_ascii=False, indent=1)
 print(len(garder), "appels d'offres gardés")
+
+# 5. Compter les plateformes (pour choisir les prochaines à ajouter)
+compte = Counter(a.get("plateforme", "non indiquée") for a in garder)
+for nom, n in compte.most_common():
+    print("Plateforme :", nom, "-", n, "annonce(s)")
+print("Liens directs :", sum(1 for a in garder if a.get("lien_direct")), "sur", len(garder))
