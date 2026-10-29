@@ -121,6 +121,67 @@ def dossier(d):
             meilleur, score_max = u, s
     return meilleur if score_max >= 2 else ""
 
+# ---------- Coordonnées de l'acheteur (mail et téléphone) ----------
+# Servent à demander le dossier de consultation par mail, et à téléphoner
+# si l'acheteur ne répond pas au bout de 3 jours.
+RE_MAIL = re.compile(r"[A-Za-z0-9._%+\-]+@[A-Za-z0-9\-]+(?:\.[A-Za-z0-9\-]+)+")
+TEL = r"(?:\+33\s?(?:\(0\)\s?)?|0)[1-9](?:[\s.\-]?\d{2}){4}"
+RE_TEL = re.compile(TEL)
+RE_TEL_TEXTE = re.compile(r"t[ée]l(?:[ée]phone)?\.?\s*:?\s*(" + TEL + ")", re.I)
+
+# Adresses à ne jamais prendre (tribunal, BOAMP, adresses sans réponse)
+MAILS_EXCLUS = ["juradm.fr", "boamp", "dila.gouv", "noreply", "no-reply",
+                "nepasrepondre", "ne-pas-repondre", "europa.eu"]
+# Parties de l'annonce à ignorer (recours, médiation, tribunal, fax)
+CHEMINS_EXCLUS = ["recours", "review", "mediat", "tribunal", "fax", "telecop"]
+# Parties de l'annonce qui parlent de l'acheteur (priorité)
+CHEMINS_BONUS = ["acheteur", "pouvoir", "organisme", "contact", "buyer",
+                 "adjudicat", "correspondant", "renseignement"]
+
+def chercher_contacts(d, mails, tels, chemin="", cle=""):
+    if isinstance(d, dict):
+        for k, v in d.items():
+            ck = simple(k)
+            chercher_contacts(v, mails, tels, chemin + " " + ck, ck)
+    elif isinstance(d, list):
+        for x in d:
+            chercher_contacts(x, mails, tels, chemin, cle)
+    elif isinstance(d, str):
+        for e in RE_MAIL.findall(d):
+            mails.append((chemin, e.strip(".").lower()))
+        if ("tel" in cle or "phone" in cle) and "fax" not in cle and "telecop" not in cle:
+            for t in RE_TEL.findall(d):
+                tels.append((chemin, t))
+        else:
+            for t in RE_TEL_TEXTE.findall(d):
+                tels.append((chemin, t))
+
+def choisir(candidats):
+    meilleur, score_max = "", -1
+    for chemin, v in candidats:
+        if any(x in chemin for x in CHEMINS_EXCLUS):
+            continue
+        if any(x in v.lower() for x in MAILS_EXCLUS):
+            continue
+        s = sum(1 for b in CHEMINS_BONUS if b in chemin)
+        if s > score_max:
+            meilleur, score_max = v, s
+    return meilleur
+
+def joli_tel(t):
+    chiffres = re.sub(r"\D", "", t)
+    if chiffres.startswith("33"):
+        chiffres = "0" + chiffres[2:].lstrip("0")
+    if len(chiffres) != 10:
+        return t.strip()
+    return " ".join(chiffres[i:i + 2] for i in range(0, 10, 2))
+
+def contacts_acheteur(d):
+    mails, tels = [], []
+    chercher_contacts(d, mails, tels)
+    tel = choisir(tels)
+    return choisir(mails), (joli_tel(tel) if tel else "")
+
 # Récupère la référence INTERNE du marché donnée par l'acheteur
 # (celle qu'on tape dans la recherche de sa plateforme)
 CLES_REF_FORTES = ["ref_marche", "refmarche", "reference_marche", "referencemarche",
@@ -321,6 +382,7 @@ for a in avis:
     if m is not None and m < SEUIL:
         continue
     lien_dossier = dossier(d)
+    mail_acheteur, tel_acheteur = contacts_acheteur(d)
     liste[a.get("idweb")] = {
         "id": a.get("idweb"),
         "objet": objet,
@@ -333,6 +395,8 @@ for a in avis:
         "plateforme": plateforme(lien_dossier),
         "lien_direct": lien_direct(lien_dossier),
         "reference": reference(d, a.get("idweb")),
+        "mail_acheteur": mail_acheteur,
+        "tel_acheteur": tel_acheteur,
         "mots": sorted(set(sum([trouve(l["texte"], STRUCTURE) for l in lots_fl], []))) + trouve(general, EVENEMENT),
         "lots_fl": [l["titre"][:150] for l in lots_fl],
         "montant": m,
@@ -355,3 +419,7 @@ compte = Counter(a.get("plateforme", "non indiquée") for a in garder)
 for nom, n in compte.most_common():
     print("Plateforme :", nom, "-", n, "annonce(s)")
 print("Liens directs :", sum(1 for a in garder if a.get("lien_direct")), "sur", len(garder))
+
+# 6. Compter les coordonnées trouvées
+print("Mails acheteur :", sum(1 for a in garder if a.get("mail_acheteur")), "sur", len(garder))
+print("Téléphones acheteur :", sum(1 for a in garder if a.get("tel_acheteur")), "sur", len(garder))
