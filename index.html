@@ -92,6 +92,21 @@ function refDe(a) {
   return String(a.reference || a.ref || a.reference_marche || "").trim();
 }
 
+function contactDe(a, motif) {
+  for (const k in a) {
+    if (motif.test(k) && a[k]) return String(a[k]).trim();
+  }
+  return "";
+}
+
+function mailDe(a) {
+  return contactDe(a, /mail|courriel/i);
+}
+
+function telDe(a) {
+  return contactDe(a, /^tel|telephone|phone/i);
+}
+
 function dateFr(t) {
   if (!t) return "non précisée";
   const d = new Date(t);
@@ -126,7 +141,9 @@ function lienReponse(a) {
     titre: a.objet || "Sans titre",
     acheteur: client,
     lien: a.lien || "",
-    remise: dateIso(a.date_limite)
+    remise: dateIso(a.date_limite),
+    mail: mailDe(a),
+    tel: telDe(a)
   });
   return "projet.html?" + p.toString();
 }
