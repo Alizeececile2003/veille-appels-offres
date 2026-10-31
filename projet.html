@@ -42,9 +42,11 @@
   .proche .contenu, .proche .alerte, .proche .modif, .retard .contenu, .retard .alerte, .retard .modif { color: #fff; }
   .sous { font-weight: bold; color: #1f3b57; margin-top: 16px; font-size: 15px; }
   .avert { background: #fff3e0; border-left: 4px solid #e65100; padding: 8px; margin-top: 8px; font-size: 14px; }
+  .alerteNoire { background: #000; color: #fff; padding: 8px 10px; border-radius: 4px; margin-top: 8px; font-weight: bold; font-size: 14px; }
   .liste-fiche { cursor: pointer; padding: 10px; border-bottom: 1px solid #eee; }
   .liste-fiche:hover { background: #f0f4f8; }
   .statut { font-size: 12px; padding: 2px 8px; border-radius: 10px; background: #e3eaf2; margin-left: 6px; }
+  .statut.noir { background: #000; color: #fff; }
   h2 { margin-top: 0; }
 </style>
 </head>
@@ -82,6 +84,12 @@
   <button class="bleu petit" onclick="ouvrirLien()">Ouvrir l'annonce</button>
   <label>Notes</label>
   <textarea id="f_notes" rows="3" oninput="champ('notes', this.value)"></textarea>
+
+  <div class="bloc">
+    <h3>Dossier de consultation</h3>
+    <div class="petitgris">Demande du dossier à l'acheteur, alerte si pas de réponse au bout de 3 jours</div>
+    <div id="etatDossier"></div>
+  </div>
 
   <div class="bloc">
     <h3>Chargé d'affaires</h3>
@@ -161,6 +169,9 @@ const PHASE2 = [
 ];
 const ETATS = ["À faire", "En cours", "Document manquant", "Fait", "Validé"];
 
+// Nombre de jours sans réponse avant l'alerte « relancer »
+const JOURS_SANS_REPONSE = 3;
+
 let fiches = [];
 let courante = null;
 
@@ -195,6 +206,9 @@ function completer(f) {
   f.synthese = f.synthese || "";
   f.acheteur_mail = f.acheteur_mail || "";
   f.acheteur_tel = f.acheteur_tel || "";
+  f.demande_dossier = f.demande_dossier || "";
+  f.relance_dossier = f.relance_dossier || "";
+  f.dossier_recu = f.dossier_recu || "";
   if (!f.delai) f.delai = 7;
   return f;
 }
@@ -287,6 +301,72 @@ function retourListe() {
 function supprimerFiche() {
   if (!confirm("Supprimer définitivement cette fiche ?")) return;
   fiches = fiches.filter(f => f.id !== courante); sauver(); retourListe();
+}
+
+/* ---------- Demande du dossier de consultation ---------- */
+function joursSansReponse(f) {
+  const derniere = f.relance_dossier || f.demande_dossier;
+  return derniere ? -ecart(derniere) : 0;
+}
+function aRelancer(f) {
+  if (f.dossier_recu || !f.demande_dossier) return false;
+  return joursSansReponse(f) >= JOURS_SANS_REPONSE;
+}
+
+function demanderDossier(relance) {
+  const f = fiche();
+  const mail = (f.acheteur_mail || "").trim();
+  if (!mail) { alert("Ajoutez d'abord le mail de l'acheteur."); return; }
+  const titre = f.titre || "votre consultation";
+  const sig = [f.ca.nom, "FL Structure", f.ca.tel, f.ca.mail].filter(Boolean).join("\n");
+  let sujet, corps;
+  if (relance) {
+    sujet = `Relance : demande du dossier de consultation – ${titre}`;
+    corps = `Je me permets de vous relancer au sujet de ma demande du ${fr(f.demande_dossier)} concernant la consultation « ${titre} ». La société FL Structure souhaite y répondre. Pourriez-vous nous transmettre le dossier de consultation des entreprises (DCE), ou nous indiquer où le télécharger ?`;
+    f.relance_dossier = auj();
+  } else {
+    sujet = `Demande du dossier de consultation – ${titre}`;
+    corps = `La société FL Structure souhaite répondre à votre consultation « ${titre} ». Pourriez-vous nous transmettre le dossier de consultation des entreprises (DCE), ou nous indiquer où le télécharger ?`;
+    f.demande_dossier = auj();
+  }
+  const texte = `Bonjour,\n\n${corps}\n\nBien cordialement,\n${sig}`;
+  sauver(); dessinerDossier();
+  location.href = `mailto:${mail}?subject=${encodeURIComponent(sujet)}&body=${encodeURIComponent(texte)}`;
+}
+
+function appelerAcheteur() {
+  const tel = (fiche().acheteur_tel || "").replace(/\s/g, "");
+  if (!tel) { alert("Ajoutez d'abord le téléphone de l'acheteur."); return; }
+  location.href = "tel:" + tel;
+}
+function dossierRecu() { fiche().dossier_recu = auj(); sauver(); dessinerDossier(); }
+function annulerRecu() { fiche().dossier_recu = ""; sauver(); dessinerDossier(); }
+function annulerDemande() {
+  if (!confirm("Annuler la demande de dossier ?")) return;
+  const f = fiche(); f.demande_dossier = ""; f.relance_dossier = ""; sauver(); dessinerDossier();
+}
+
+function dessinerDossier() {
+  const f = fiche();
+  const div = document.getElementById("etatDossier");
+  let h = "";
+  if (f.dossier_recu) {
+    h = `<div class="suiveur">✔ Dossier reçu le ${fr(f.dossier_recu)}</div>
+      <button class="gris petit" onclick="annulerRecu()">Annuler</button>`;
+  } else if (f.demande_dossier) {
+    h = `<div class="suiveur">Demandé par mail le ${fr(f.demande_dossier)}${f.relance_dossier ? ", relancé le " + fr(f.relance_dossier) : ""}.</div>`;
+    if (aRelancer(f)) h += `<div class="alerteNoire">Pas de réponse depuis ${joursSansReponse(f)} jours : relancez ou appelez l'acheteur.</div>`;
+    h += `<div class="ligne">
+        <button class="bleu petit" onclick="dossierRecu()">Dossier reçu</button>
+        <button class="orange petit" onclick="demanderDossier(true)">Relancer par mail</button>
+        <button class="bleu petit" onclick="appelerAcheteur()">Appeler l'acheteur</button>
+        <button class="gris petit" onclick="annulerDemande()">Annuler la demande</button>
+      </div>`;
+  } else {
+    h = `<div class="suiveur">Pas encore demandé.</div>
+      <button class="orange petit" onclick="demanderDossier(false)">Demander le dossier par mail</button>`;
+  }
+  div.innerHTML = h;
 }
 
 /* ---------- Étapes ---------- */
@@ -410,6 +490,7 @@ function rappel(id, phase, type) {
 function dessiner() {
   const f = fiche();
   if (!f) return;
+  dessinerDossier();
   listeEtapes("etapes1", PHASE1, f.remise, 1);
   const depotFini = ["Fait", "Validé"].includes(f.etat.depot);
   document.getElementById("avert1").innerHTML = !f.remise
@@ -434,7 +515,7 @@ function afficherListe() {
   const div = document.getElementById("liste");
   if (!fiches.length) { div.innerHTML = "<p>Aucune fiche pour le moment.</p>"; return; }
   div.innerHTML = fiches.map(f => `<div class="liste-fiche" onclick="ouvrir('${f.id}')">
-    <strong>${esc(f.titre) || "Sans titre"}</strong><span class="statut">${f.resultat}</span><br>
+    <strong>${esc(f.titre) || "Sans titre"}</strong><span class="statut">${f.resultat}</span>${aRelancer(f) ? '<span class="statut noir">À relancer</span>' : ""}<br>
     <small>${esc(f.acheteur)} — remise : ${fr(f.remise)}${f.evenement ? " — événement : " + fr(f.evenement) : ""}</small>
   </div>`).join("");
 }
@@ -447,9 +528,23 @@ sauver();
 
 const p = new URLSearchParams(location.search);
 if (p.get("titre")) {
-  creer({ titre: p.get("titre") || "", acheteur: p.get("acheteur") || "",
+  const donnees = { titre: p.get("titre") || "", acheteur: p.get("acheteur") || "",
           acheteur_mail: p.get("mail") || "", acheteur_tel: p.get("tel") || "",
-          lien: p.get("lien") || "", remise: p.get("remise") || "" });
+          lien: p.get("lien") || "", remise: p.get("remise") || "" };
+  // Une annonce = une seule fiche : si elle existe déjà, on l'ouvre
+  const existe = fiches.find(f =>
+    (donnees.lien && f.lien === donnees.lien) ||
+    (f.titre === donnees.titre && f.acheteur === donnees.acheteur));
+  if (existe) {
+    // On ne remplit que les cases vides, rien n'est effacé
+    ["acheteur_mail", "acheteur_tel", "lien", "remise"].forEach(c => {
+      if (!existe[c] && donnees[c]) existe[c] = donnees[c];
+    });
+    sauver();
+    ouvrir(existe.id);
+  } else {
+    creer(donnees);
+  }
   history.replaceState(null, "", "projet.html");
 } else {
   afficherListe();
