@@ -4,6 +4,9 @@ from collections import Counter
 # Montant minimum en euros HT. Mettre 150000 si la veille est trop vide.
 SEUIL = 200000
 
+# Une annonce sans date limite disparaît ce nombre de jours après sa parution
+DUREE_SANS_DATE = 30
+
 def simple(t):
     t = str(t or "").lower().replace("’", "'")
     t = unicodedata.normalize("NFD", t)
@@ -338,6 +341,22 @@ def montant(d):
     chercher_montants(d, trouves)
     return max(trouves) if trouves else None
 
+# Revérifie une annonce déjà gardée avec les listes et le seuil actuels
+def encore_valable(a):
+    if not a.get("lots_fl"):
+        return False
+    if trouve(a.get("objet", ""), EXCLUSIONS):
+        return False
+    mots = a.get("mots") or []
+    if not any(m in STRUCTURE for m in mots):
+        return False
+    if not any(m in EVENEMENT for m in mots):
+        return False
+    m = a.get("montant")
+    if m is not None and m < SEUIL:
+        return False
+    return True
+
 # 1. Récupérer les avis BOAMP des 7 derniers jours
 depuis = (datetime.date.today() - datetime.timedelta(days=7)).isoformat()
 params = urllib.parse.urlencode({"where": f"dateparution >= date'{depuis}'", "limit": -1})
@@ -345,13 +364,16 @@ url = "https://boamp-datadila.opendatasoft.com/api/explore/v2.1/catalog/datasets
 with urllib.request.urlopen(url, timeout=180) as r:
     avis = json.load(r)
 
-# 2. Reprendre les annonces déjà triées par lot (les anciennes, non triées par lot, sont retirées)
+# 2. Reprendre les annonces déjà gardées, revérifiées avec les règles actuelles
 liste = {}
+retirees_regles = 0
 try:
     with open("data.json", encoding="utf-8") as f:
         for a in json.load(f):
-            if a.get("lots_fl") and not trouve(a.get("objet", ""), EXCLUSIONS):
+            if encore_valable(a):
                 liste[a["id"]] = a
+            else:
+                retirees_regles += 1
 except Exception:
     pass
 
@@ -405,14 +427,24 @@ for a in avis:
         "famille": texte(a.get("famille_libelle")),
     }
 
-# 4. Retirer les avis dont la date limite est passée
+# 4. Retirer les avis dont la date limite est passée,
+#    et ceux sans date limite parus il y a plus de DUREE_SANS_DATE jours
 aujourdhui = datetime.date.today().isoformat()
-garder = [a for a in liste.values() if not a["date_limite"] or a["date_limite"][:10] >= aujourdhui]
+limite_sans_date = (datetime.date.today() - datetime.timedelta(days=DUREE_SANS_DATE)).isoformat()
+
+def a_garder(a):
+    if a.get("date_limite"):
+        return a["date_limite"][:10] >= aujourdhui
+    return (a.get("parution") or "")[:10] >= limite_sans_date
+
+garder = [a for a in liste.values() if a_garder(a)]
 garder.sort(key=lambda a: (a["statut"] == "sans montant", a["date_limite"] or "9999"))
 
 with open("data.json", "w", encoding="utf-8") as f:
     json.dump(garder, f, ensure_ascii=False, indent=1)
 print(len(garder), "appels d'offres gardés")
+print(retirees_regles, "ancienne(s) annonce(s) retirée(s) par les règles actuelles")
+print(len(liste) - len(garder), "annonce(s) retirée(s) pour date dépassée ou trop ancienne")
 
 # 5. Compter les plateformes (pour choisir les prochaines à ajouter)
 compte = Counter(a.get("plateforme", "non indiquée") for a in garder)
