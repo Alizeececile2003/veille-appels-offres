@@ -131,27 +131,5 @@
   "mail_acheteur": "catherine.pietri@paca.gouv.fr",
   "plateforme": "non indiquée",
   "lien_direct": false
- },
- {
-  "id": "26-101625",
-  "objet": "TRAVAUX D'AMENAGEMENT DU STADE LEO LAGRANGE A FOURMIES - PHASE 2 - TRIBUNES VESTIAIRES ET CLUB HOUSE",
-  "acheteur": "Commune de Fourmies (59)",
-  "departement": "59",
-  "parution": "2026-10-19",
-  "date_limite": "",
-  "lien": "https://www.boamp.fr/pages/avis/?q=idweb:26-101625",
-  "mots": [
-   "tribune",
-   "stade"
-  ],
-  "lots_fl": [
-   "Lot unique (non précisé)"
-  ],
-  "montant": null,
-  "statut": "sans montant",
-  "procedure": "Procédure NC",
-  "famille": "Marchés entre 90 k€ et seuils européens",
-  "plateforme": "non indiquée",
-  "lien_direct": false
  }
 ]
