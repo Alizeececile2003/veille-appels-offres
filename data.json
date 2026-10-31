@@ -19,7 +19,13 @@
   "montant": null,
   "statut": "sans montant",
   "procedure": "Procédure Ouverte",
-  "famille": "Marchés européens"
+  "famille": "Marchés européens",
+  "dossier": "https://www.marches-publics.gouv.fr/?page=Entreprise.EntrepriseAdvancedSearch&AllCons&id=3088901&orgAcronyme=l2m",
+  "plateforme": "PLACE",
+  "lien_direct": false,
+  "mail_acheteur": "marchespublics@grandest.cci.fr",
+  "tel_acheteur": "03 26 50 62 69",
+  "reference": "2026CONSU18"
  },
  {
   "id": "26-104036",
@@ -66,7 +72,13 @@
   "montant": null,
   "statut": "sans montant",
   "procedure": "Procédure Ouverte",
-  "famille": "Marchés européens"
+  "famille": "Marchés européens",
+  "dossier": "https://spl-metronum.e-marchespublics.com/pack/annonce_marche_public_31508_1188447.html",
+  "plateforme": "e-marchespublics",
+  "lien_direct": false,
+  "mail_acheteur": "auriane.vigourous@lemetronum.fr",
+  "tel_acheteur": "06 30 95 47 58",
+  "reference": "27ME -001"
  },
  {
   "id": "26-102524",
@@ -86,7 +98,13 @@
   "montant": null,
   "statut": "sans montant",
   "procedure": "Procédure Dialogue compétitif",
-  "famille": "Marchés européens"
+  "famille": "Marchés européens",
+  "dossier": "https://www.marches-publics.info",
+  "plateforme": "marches-publics.info",
+  "lien_direct": false,
+  "mail_acheteur": "publications-joue@aws-france.com",
+  "tel_acheteur": "04 80 04 12 60",
+  "reference": "T-PF-1617184"
  },
  {
   "id": "26-103314",
@@ -109,7 +127,10 @@
   "montant": null,
   "statut": "sans montant",
   "procedure": "Procédure NC",
-  "famille": "Marchés entre 90 k€ et seuils européens"
+  "famille": "Marchés entre 90 k€ et seuils européens",
+  "mail_acheteur": "catherine.pietri@paca.gouv.fr",
+  "plateforme": "non indiquée",
+  "lien_direct": false
  },
  {
   "id": "26-101625",
@@ -129,6 +150,8 @@
   "montant": null,
   "statut": "sans montant",
   "procedure": "Procédure NC",
-  "famille": "Marchés entre 90 k€ et seuils européens"
+  "famille": "Marchés entre 90 k€ et seuils européens",
+  "plateforme": "non indiquée",
+  "lien_direct": false
  }
 ]
