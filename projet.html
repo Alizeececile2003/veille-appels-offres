@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="fr">
+<html lan<g="fr">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -69,6 +69,10 @@
   <input id="f_titre" oninput="champ('titre', this.value)">
   <label>Client</label>
   <input id="f_acheteur" oninput="champ('acheteur', this.value)">
+  <label>Mail de l'acheteur</label>
+  <input id="f_acheteur_mail" type="email" oninput="champ('acheteur_mail', this.value)">
+  <label>Téléphone de l'acheteur</label>
+  <input id="f_acheteur_tel" type="tel" oninput="champ('acheteur_tel', this.value)">
   <label>Date de remise de l'offre</label>
   <input type="date" id="f_remise" onchange="champ('remise', this.value); dessiner()">
   <label>Date de l'événement</label>
@@ -180,6 +184,8 @@ function completer(f) {
   f.resultat = f.resultat || "En cours";
   f.motif = f.motif || ""; f.commentaire = f.commentaire || "";
   f.synthese = f.synthese || "";
+  f.acheteur_mail = f.acheteur_mail || "";
+  f.acheteur_tel = f.acheteur_tel || "";
   if (!f.delai) f.delai = 7;
   return f;
 }
@@ -252,7 +258,7 @@ function ouvrir(id) {
   if (!f) return;
   document.getElementById("vueListe").style.display = "none";
   document.getElementById("vueFiche").style.display = "block";
-  ["titre", "acheteur", "lien", "notes", "remise", "evenement", "delai", "resultat", "motif", "commentaire"].forEach(c =>
+  ["titre", "acheteur", "acheteur_mail", "acheteur_tel", "lien", "notes", "remise", "evenement", "delai", "resultat", "motif", "commentaire"].forEach(c =>
     document.getElementById("f_" + c).value = f[c] || "");
   ["nom", "tel", "mail"].forEach(c => {
     document.getElementById("ca_" + c).value = f.ca[c] || "";
@@ -433,6 +439,7 @@ sauver();
 const p = new URLSearchParams(location.search);
 if (p.get("titre")) {
   creer({ titre: p.get("titre") || "", acheteur: p.get("acheteur") || "",
+          acheteur_mail: p.get("mail") || "", acheteur_tel: p.get("tel") || "",
           lien: p.get("lien") || "", remise: p.get("remise") || "" });
   history.replaceState(null, "", "projet.html");
 } else {
