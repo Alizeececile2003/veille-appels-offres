@@ -357,6 +357,49 @@ def encore_valable(a):
         return False
     return True
 
+# Retélécharge une annonce précise sur le BOAMP (par son identifiant)
+def avis_boamp(idweb):
+    p = urllib.parse.urlencode({"where": f'idweb = "{idweb}"', "limit": 1})
+    u = "https://boamp-datadila.opendatasoft.com/api/explore/v2.1/catalog/datasets/boamp/exports/json?" + p
+    try:
+        with urllib.request.urlopen(u, timeout=60) as r:
+            res = json.load(r)
+        return res[0] if res else None
+    except Exception:
+        return None
+
+# Complète une ancienne annonce : ne remplit que les cases vides, n'efface rien
+def completer(a):
+    if a.get("dossier") and a.get("mail_acheteur") and a.get("tel_acheteur"):
+        return False
+    av = avis_boamp(a.get("id"))
+    if not av:
+        return False
+    d = donnees(av)
+    change = False
+    if not a.get("dossier"):
+        lien_dossier = dossier(d)
+        if lien_dossier:
+            a["dossier"] = lien_dossier
+            a["plateforme"] = plateforme(lien_dossier)
+            a["lien_direct"] = lien_direct(lien_dossier)
+            change = True
+    mail, tel = contacts_acheteur(d)
+    if mail and not a.get("mail_acheteur"):
+        a["mail_acheteur"] = mail
+        change = True
+    if tel and not a.get("tel_acheteur"):
+        a["tel_acheteur"] = tel
+        change = True
+    if not a.get("reference"):
+        ref = reference(d, a.get("id"))
+        if ref:
+            a["reference"] = ref
+            change = True
+    a.setdefault("plateforme", plateforme(a.get("dossier")))
+    a.setdefault("lien_direct", lien_direct(a.get("dossier")))
+    return change
+
 # 1. Récupérer les avis BOAMP des 7 derniers jours
 depuis = (datetime.date.today() - datetime.timedelta(days=7)).isoformat()
 params = urllib.parse.urlencode({"where": f"dateparution >= date'{depuis}'", "limit": -1})
@@ -376,6 +419,12 @@ try:
                 retirees_regles += 1
 except Exception:
     pass
+
+# 2 bis. Chercher le dossier, le mail et le téléphone des anciennes annonces
+completees = 0
+for a in liste.values():
+    if completer(a):
+        completees += 1
 
 # 3. Trier les nouveaux avis, lot par lot
 for a in avis:
@@ -445,6 +494,7 @@ with open("data.json", "w", encoding="utf-8") as f:
 print(len(garder), "appels d'offres gardés")
 print(retirees_regles, "ancienne(s) annonce(s) retirée(s) par les règles actuelles")
 print(len(liste) - len(garder), "annonce(s) retirée(s) pour date dépassée ou trop ancienne")
+print(completees, "ancienne(s) annonce(s) complétée(s) (dossier, mail ou téléphone)")
 
 # 5. Compter les plateformes (pour choisir les prochaines à ajouter)
 compte = Counter(a.get("plateforme", "non indiquée") for a in garder)
