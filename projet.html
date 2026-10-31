@@ -48,6 +48,20 @@
   .statut { font-size: 12px; padding: 2px 8px; border-radius: 10px; background: #e3eaf2; margin-left: 6px; }
   .statut.noir { background: #000; color: #fff; }
   h2 { margin-top: 0; }
+  .calTete { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; margin-top: 10px; }
+  .calTete h2 { margin: 0; flex: 1; text-align: center; text-transform: capitalize; }
+  .calGrille { display: grid; grid-template-columns: repeat(7, 1fr); gap: 2px; margin-top: 10px; }
+  .calJourNom { font-weight: bold; text-align: center; font-size: 12px; background: #1f3b57; color: #fff; padding: 5px 0; }
+  .calCase { background: #fff; border: 1px solid #ddd; min-height: 90px; padding: 3px; font-size: 11px; overflow: hidden; }
+  .calCase.horsMois { background: #f0f0f0; color: #aaa; }
+  .calCase.aujourdhui { border: 2px solid #1f3b57; background: #f0f4f8; }
+  .calNum { font-weight: bold; font-size: 12px; }
+  .calTache { display: block; width: 100%; text-align: left; margin: 2px 0 0; padding: 2px 3px; border-radius: 3px; background: #e3eaf2; color: #222; border: none; cursor: pointer; font-size: 11px; line-height: 1.2; word-break: break-word; }
+  .calTache.vert { background: #e8f5e9; color: #2e7d32; text-decoration: line-through; }
+  .calTache.proche { background: #ff1744; color: #fff; }
+  .calTache.retard { background: #000; color: #fff; }
+  .calTache.manquant { background: #ffe0b2; color: #222; }
+  .calTache.evt { background: #1f3b57; color: #fff; font-weight: bold; }
 </style>
 </head>
 <body>
@@ -60,7 +74,20 @@
 <div class="carte" id="vueListe">
   <h2>Mes fiches</h2>
   <button class="bleu" onclick="nouvelleFiche()">+ Nouvelle fiche</button>
+  <button class="orange" onclick="voirCalendrier()">Calendrier</button>
   <div id="liste"></div>
+</div>
+
+<div class="carte" id="vueCal" style="display:none">
+  <button class="gris" onclick="retourListe()">← Toutes les fiches</button>
+  <div class="calTete">
+    <button class="gris petit" onclick="changerMois(-1)">◀ Mois précédent</button>
+    <h2 id="calTitre"></h2>
+    <button class="gris petit" onclick="changerMois(1)">Mois suivant ▶</button>
+  </div>
+  <button class="bleu petit" onclick="moisCourant()">Revenir à aujourd'hui</button>
+  <div class="calGrille" id="calGrille"></div>
+  <p class="petitgris">Cliquez sur une tâche pour ouvrir sa fiche. Les fiches « Perdu » n'apparaissent pas.</p>
 </div>
 
 <div class="carte" id="vueFiche" style="display:none">
@@ -174,6 +201,7 @@ const JOURS_SANS_REPONSE = 3;
 
 let fiches = [];
 let courante = null;
+let moisCal = null;
 
 /* ---------- Dates en heure locale ---------- */
 function pad(n) { return String(n).padStart(2, "0"); }
@@ -187,6 +215,9 @@ function esc(t) { return (t || "").toString().replace(/&/g, "&amp;").replace(/"/
 
 function sauver() { localStorage.setItem("fiches", JSON.stringify(fiches)); }
 function fiche() { return fiches.find(f => f.id === courante); }
+
+/* ===== FIN DU MORCEAU 1 ===== */
+/* ===== DÉBUT DU MORCEAU 2 ===== */
 
 /* ---------- Lien de l'annonce cliquable ---------- */
 function ouvrirLien() {
@@ -280,6 +311,7 @@ function ouvrir(id) {
   const f = fiche();
   if (!f) return;
   document.getElementById("vueListe").style.display = "none";
+  document.getElementById("vueCal").style.display = "none";
   document.getElementById("vueFiche").style.display = "block";
   ["titre", "acheteur", "acheteur_mail", "acheteur_tel", "lien", "notes", "remise", "evenement", "delai", "resultat", "motif", "commentaire"].forEach(c =>
     document.getElementById("f_" + c).value = f[c] || "");
@@ -294,6 +326,7 @@ function ouvrir(id) {
 function retourListe() {
   courante = null;
   document.getElementById("vueFiche").style.display = "none";
+  document.getElementById("vueCal").style.display = "none";
   document.getElementById("vueListe").style.display = "block";
   afficherListe();
 }
@@ -302,6 +335,9 @@ function supprimerFiche() {
   if (!confirm("Supprimer définitivement cette fiche ?")) return;
   fiches = fiches.filter(f => f.id !== courante); sauver(); retourListe();
 }
+
+/* ===== FIN DU MORCEAU 2 ===== */
+/* ===== DÉBUT DU MORCEAU 3 ===== */
 
 /* ---------- Demande du dossier de consultation ---------- */
 function joursSansReponse(f) {
@@ -346,25 +382,43 @@ function annulerDemande() {
   const f = fiche(); f.demande_dossier = ""; f.relance_dossier = ""; sauver(); dessinerDossier();
 }
 
+/* ===== FIN DU MORCEAU 3 ===== */
+/* ===== DÉBUT DU MORCEAU 4 ===== */
+
 function dessinerDossier() {
   const f = fiche();
   const div = document.getElementById("etatDossier");
   let h = "";
   if (f.dossier_recu) {
-    h = `<div class="suiveur">✔ Dossier reçu le ${fr(f.dossier_recu)}</div>
-      <button class="gris petit" onclick="annulerRecu()">Annuler</button>`;
+    h = ` ✔ Dossier reçu le ${fr(f.dossier_recu)}
+      `;
   } else if (f.demande_dossier) {
-    h = `<div class="suiveur">Demandé par mail le ${fr(f.demande_dossier)}${f.relance_dossier ? ", relancé le " + fr(f.relance_dossier) : ""}.</div>`;
-    if (aRelancer(f)) h += `<div class="alerteNoire">Pas de réponse depuis ${joursSansReponse(f)} jours : relancez ou appelez l'acheteur.</div>`;
-    h += `<div class="ligne">
-        <button class="bleu petit" onclick="dossierRecu()">Dossier reçu</button>
-        <button class="orange petit" onclick="demanderDossier(true)">Relancer par mail</button>
-        <button class="bleu petit" onclick="appelerAcheteur()">Appeler l'acheteur</button>
-        <button class="gris petit" onclick="annulerDemande()">Annuler la demande</button>
-      </div>`;
+    h = ` Demandé par mail le ${fr(f.demande_dossier)}${f.relance_dossier ? ", relancé le " + fr(f.relance_dossier) : ""}. `;
+    if (aRelancer(f)) h += ` Pas de réponse depuis ${joursSansReponse(f)} jours : relancez ou appelez l'acheteur. `;
+    h += ` `;
   } else {
-    h = `<div class="suiveur">Pas encore demandé.</div>
-      <button class="orange petit" onclick="demanderDossier(false)">Demander le dossier par mail</button>`;
+    h = ` Pas encore demandé.
+      `;
+  }
+  div.innerHTML = h;
+}
+
+/* ===== DÉBUT DU MORCEAU 4 ===== */
+
+function dessinerDossier() {
+  const f = fiche();
+  const div = document.getElementById("etatDossier");
+  let h = "";
+  if (f.dossier_recu) {
+    h = ` ✔ Dossier reçu le ${fr(f.dossier_recu)}
+      `;
+  } else if (f.demande_dossier) {
+    h = ` Demandé par mail le ${fr(f.demande_dossier)}${f.relance_dossier ? ", relancé le " + fr(f.relance_dossier) : ""}. `;
+    if (aRelancer(f)) h += ` Pas de réponse depuis ${joursSansReponse(f)} jours : relancez ou appelez l'acheteur. `;
+    h += ` `;
+  } else {
+    h = ` Pas encore demandé.
+      `;
   }
   div.innerHTML = h;
 }
@@ -374,6 +428,9 @@ function dateEtape(f, e, ref) {
   if (f.manuel[e.id]) return f.manuel[e.id];
   return ref ? decaler(ref, e.j) : "";
 }
+
+/* ===== FIN DU MORCEAU 4 ===== */
+/* ===== DÉBUT DU MORCEAU 5 ===== */
 
 function carte(f, e, ref, phase, precedente) {
   const d = dateEtape(f, e, ref);
@@ -395,8 +452,11 @@ function carte(f, e, ref, phase, precedente) {
   if (d && phase === 2 && f.remise && d <= f.remise) alertes.push("avant la remise des offres");
 
   let quand = "";
-  if (retard) quand = `<span class="alerte">en retard de ${-jours} j</span>`;
-  else if (proche) quand = `<span class="alerte">${jours === 0 ? "aujourd'hui" : "dans " + jours + " j"}</span>`;
+  if (retard) quand = `en retard de ${-jours} j`;
+  else if (proche) quand = `${jours === 0 ? "aujourd'hui" : "dans " + jours + " j"}`;
+
+/* ===== FIN DU MORCEAU 5 ===== */
+  /* ===== DÉBUT DU MORCEAU 6 ===== */
 
   const suiveur = phase === 1 ? "Chargé d'affaires" : "Chef de projet";
   let resp;
@@ -418,6 +478,9 @@ function carte(f, e, ref, phase, precedente) {
         <button class="bleu petit" onclick="rappel('${e.id}', ${phase}, 'tel')">Appeler</button>
       </div>`;
   }
+
+/* ===== FIN DU MORCEAU 6 ===== */
+  /* ===== DÉBUT DU MORCEAU 7 ===== */
 
   const synthese = e.id === "prep" ? `<div class="synthese">
       <label>Synthèse du dossier (faite dans Claude, à coller ici)</label>
@@ -451,6 +514,9 @@ function listeEtapes(idDiv, etapes, ref, phase) {
   });
   document.getElementById(idDiv).innerHTML = html;
 }
+
+/* ===== FIN DU MORCEAU 7 ===== */
+  /* ===== DÉBUT DU MORCEAU 8 ===== */
 
 /* ---------- Rappels (vouvoiement) ---------- */
 function rappel(id, phase, type) {
@@ -486,6 +552,90 @@ function rappel(id, phase, type) {
   }
 }
 
+/* ===== FIN DU MORCEAU 8 ===== */
+  /* ===== DÉBUT DU MORCEAU 9 ===== */
+
+/* ---------- Calendrier ---------- */
+const MOIS = ["janvier", "février", "mars", "avril", "mai", "juin", "juillet", "août", "septembre", "octobre", "novembre", "décembre"];
+const JOURS = ["Lun", "Mar", "Mer", "Jeu", "Ven", "Sam", "Dim"];
+
+function voirCalendrier() {
+  courante = null;
+  document.getElementById("vueListe").style.display = "none";
+  document.getElementById("vueFiche").style.display = "none";
+  document.getElementById("vueCal").style.display = "block";
+  if (!moisCal) moisCourant(); else dessinerCalendrier();
+  window.scrollTo(0, 0);
+}
+function moisCourant() {
+  const d = new Date();
+  moisCal = new Date(d.getFullYear(), d.getMonth(), 1);
+  dessinerCalendrier();
+}
+function changerMois(n) {
+  moisCal = new Date(moisCal.getFullYear(), moisCal.getMonth() + n, 1);
+  dessinerCalendrier();
+}
+
+function classeTache(f, d, etat) {
+  if (etat === "Fait" || etat === "Validé") return "vert";
+  const j = ecart(d);
+  if (j < 0) return "retard";
+  if (j <= f.delai) return "proche";
+  if (etat === "Document manquant") return "manquant";
+  return "";
+}
+
+function tachesCalendrier() {
+  const t = {};
+  const ajout = (d, o) => { if (!d) return; (t[d] = t[d] || []).push(o); };
+  fiches.forEach(f => {
+    if (f.resultat === "Perdu") return;
+    const nom = f.titre || "Sans titre";
+    PHASE1.forEach(e => {
+      const d = dateEtape(f, e, f.remise);
+      ajout(d, { id: f.id, texte: e.nom + " – " + nom, classe: classeTache(f, d, f.etat[e.id] || "À faire") });
+    });
+    if (f.resultat === "Gagné") {
+      PHASE2.forEach(e => {
+        const d = dateEtape(f, e, f.evenement);
+        ajout(d, { id: f.id, texte: e.nom + " – " + nom, classe: classeTache(f, d, f.etat[e.id] || "À faire") });
+      });
+    }
+    if (f.evenement) ajout(f.evenement, { id: f.id, texte: "Événement – " + nom, classe: "evt" });
+    if (f.demande_dossier && !f.dossier_recu) {
+      const d = decaler(f.relance_dossier || f.demande_dossier, JOURS_SANS_REPONSE);
+      ajout(d, { id: f.id, texte: "Relancer l'acheteur – " + nom, classe: classeTache(f, d, "À faire") });
+    }
+  });
+  return t;
+}
+
+/* ===== FIN DU MORCEAU 9 ===== */
+  /* ===== DÉBUT DU MORCEAU 10 ===== */
+
+function dessinerCalendrier() {
+  const a = moisCal.getFullYear(), m = moisCal.getMonth();
+  document.getElementById("calTitre").textContent = MOIS[m] + " " + a;
+  const decal = (new Date(a, m, 1).getDay() + 6) % 7;
+  const nbJours = new Date(a, m + 1, 0).getDate();
+  const nbCases = Math.ceil((decal + nbJours) / 7) * 7;
+  const taches = tachesCalendrier();
+  const today = auj();
+  let html = JOURS.map(j => `<div class="calJourNom">${j}</div>`).join("");
+  for (let i = 0; i < nbCases; i++) {
+    const d = new Date(a, m, 1 - decal + i);
+    const s = iso(d);
+    let classe = "calCase";
+    if (d.getMonth() !== m) classe += " horsMois";
+    if (s === today) classe += " aujourdhui";
+    const liste = (taches[s] || []).map(x =>
+      `<button class="calTache ${x.classe}" onclick="ouvrir('${x.id}')">${esc(x.texte)}</button>`).join("");
+    html += `<div class="${classe}"><div class="calNum">${d.getDate()}</div>${liste}</div>`;
+  }
+  document.getElementById("calGrille").innerHTML = html;
+}
+
 /* ---------- Affichage ---------- */
 function dessiner() {
   const f = fiche();
@@ -510,6 +660,9 @@ function dessiner() {
 
   document.getElementById("blocPerdu").style.display = f.resultat === "Perdu" ? "block" : "none";
 }
+
+/* ===== FIN DU MORCEAU 10 ===== */
+  /* ===== DÉBUT DU MORCEAU 11 ===== */
 
 function afficherListe() {
   const div = document.getElementById("liste");
