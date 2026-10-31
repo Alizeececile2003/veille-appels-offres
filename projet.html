@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lan<g="fr">
+<html lang="fr">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -79,6 +79,7 @@
   <input type="date" id="f_evenement" onchange="champ('evenement', this.value); dessiner()">
   <label>Lien de l'annonce</label>
   <input id="f_lien" oninput="champ('lien', this.value)">
+  <button class="bleu petit" onclick="ouvrirLien()">Ouvrir l'annonce</button>
   <label>Notes</label>
   <textarea id="f_notes" rows="3" oninput="champ('notes', this.value)"></textarea>
 
@@ -175,6 +176,14 @@ function esc(t) { return (t || "").toString().replace(/&/g, "&amp;").replace(/"/
 
 function sauver() { localStorage.setItem("fiches", JSON.stringify(fiches)); }
 function fiche() { return fiches.find(f => f.id === courante); }
+
+/* ---------- Lien de l'annonce cliquable ---------- */
+function ouvrirLien() {
+  let l = (fiche().lien || "").trim();
+  if (!l) { alert("Pas de lien pour cette fiche."); return; }
+  if (!/^https?:\/\//i.test(l)) l = "https://" + l;
+  window.open(l, "_blank");
+}
 
 /* ---------- Réparation automatique des anciennes fiches ---------- */
 function completer(f) {
