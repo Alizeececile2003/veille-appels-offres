@@ -131,5 +131,35 @@
   "mail_acheteur": "catherine.pietri@paca.gouv.fr",
   "plateforme": "non indiquée",
   "lien_direct": false
+ },
+ {
+  "id": "26-106209",
+  "objet": "Fournitures et services pour l'évènement des Florilèges 2026",
+  "acheteur": "COMMUNE DU TAMPON",
+  "departement": "974",
+  "parution": "2026-11-03",
+  "date_limite": "",
+  "lien": "https://www.boamp.fr/pages/avis/?q=idweb:26-106209",
+  "dossier": "https://agysoft.marches-publics.info",
+  "plateforme": "agysoft.marches-publics.info",
+  "lien_direct": false,
+  "reference": "2026/FCS/FLORILEGES2026",
+  "mail_acheteur": "publications-joue@aws-france.com",
+  "tel_acheteur": "04 80 04 12 60",
+  "mots": [
+   "chapiteau",
+   "scene",
+   "structure scenique",
+   "evenement",
+   "evenementiel"
+  ],
+  "lots_fl": [
+   "Lot",
+   "Lot"
+  ],
+  "montant": null,
+  "statut": "sans montant",
+  "procedure": "Procédure Ouverte",
+  "famille": "Marchés européens"
  }
 ]
