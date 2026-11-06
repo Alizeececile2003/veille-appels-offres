@@ -55,6 +55,35 @@
   "famille": "Marchés <90 k€ (MAPA)"
  },
  {
+  "id": "26-107520",
+  "objet": "s'agit d'une construction d'un bâtiment neuf d'une surface totale de 3 176 m² répartie en 5 espaces. Avenue Mas-Felipe Delavouet 13450\nGRANS.",
+  "acheteur": "Commune de GRANS",
+  "departement": "13",
+  "parution": "2026-11-06",
+  "date_limite": "2026-11-23T16:00:00+00:00",
+  "lien": "https://www.boamp.fr/pages/avis/?q=idweb:26-107520",
+  "dossier": "https://www.laprovencemarchespublics.com",
+  "plateforme": "laprovencemarchespublics.com",
+  "lien_direct": false,
+  "reference": "2026-T-09 AOO",
+  "mail_acheteur": "commandepublique@grans.fr",
+  "tel_acheteur": "04 90 55 90 87",
+  "mots": [
+   "gradin",
+   "scene",
+   "spectacle"
+  ],
+  "lots_fl": [
+   "Lot",
+   "Lot",
+   "Lot"
+  ],
+  "montant": null,
+  "statut": "sans montant",
+  "procedure": "Procédure Ouverte",
+  "famille": "Marchés européens"
+ },
+ {
   "id": "26-101725",
   "objet": "Prestation de régie générale et technique du Festival Rio Loco",
   "acheteur": "Societe Publique Locale du Metronum",
