@@ -43,6 +43,7 @@
   .sous { font-weight: bold; color: #1f3b57; margin-top: 16px; font-size: 15px; }
   .avert { background: #fff3e0; border-left: 4px solid #e65100; padding: 8px; margin-top: 8px; font-size: 14px; }
   .alerteNoire { background: #000; color: #fff; padding: 8px 10px; border-radius: 4px; margin-top: 8px; font-weight: bold; font-size: 14px; }
+  .cible { outline: 4px solid #ef6c00; outline-offset: 2px; }
   .liste-fiche { cursor: pointer; padding: 10px; border-bottom: 1px solid #eee; }
   .liste-fiche:hover { background: #f0f4f8; }
   .statut { font-size: 12px; padding: 2px 8px; border-radius: 10px; background: #e3eaf2; margin-left: 6px; }
@@ -56,12 +57,14 @@
   .calCase.horsMois { background: #f0f0f0; color: #aaa; }
   .calCase.aujourdhui { border: 2px solid #1f3b57; background: #f0f4f8; }
   .calNum { font-weight: bold; font-size: 12px; }
-  .calTache { display: block; width: 100%; text-align: left; margin: 2px 0 0; padding: 2px 3px; border-radius: 3px; background: #e3eaf2; color: #222; border: none; cursor: pointer; font-size: 11px; line-height: 1.2; word-break: break-word; }
+  .calTache { display: block; width: 100%; text-align: left; margin: 2px 0 0; padding: 2px 3px; border-radius: 3px; background: #e3eaf2; color: #222; border: none; cursor: pointer; font-size: 11px; line-height: 1.2; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
   .calTache.vert { background: #e8f5e9; color: #2e7d32; text-decoration: line-through; }
   .calTache.proche { background: #ff1744; color: #fff; }
   .calTache.retard { background: #000; color: #fff; }
   .calTache.manquant { background: #ffe0b2; color: #222; }
   .calTache.evt { background: #1f3b57; color: #fff; font-weight: bold; }
+  .calPlus { display: block; width: 100%; margin: 2px 0 0; padding: 2px 3px; border-radius: 3px; background: #fff; color: #1f3b57; border: 1px solid #1f3b57; cursor: pointer; font-size: 11px; font-weight: bold; }
+  .jourListe .calTache { font-size: 14px; padding: 8px 10px; margin-top: 6px; white-space: normal; }
 </style>
 </head>
 <body>
@@ -87,7 +90,8 @@
   </div>
   <button class="bleu petit" onclick="moisCourant()">Revenir à aujourd'hui</button>
   <div class="calGrille" id="calGrille"></div>
-  <p class="petitgris">Cliquez sur une tâche pour ouvrir sa fiche. Les fiches « Perdu » n'apparaissent pas.</p>
+  <div id="calJour"></div>
+  <p class="petitgris">Cliquez sur une tâche pour ouvrir sa fiche à la bonne étape. Le bouton « + » affiche toutes les tâches du jour. Les fiches « Perdu » n'apparaissent pas.</p>
 </div>
 
 <div class="carte" id="vueFiche" style="display:none">
@@ -112,7 +116,7 @@
   <label>Notes</label>
   <textarea id="f_notes" rows="3" oninput="champ('notes', this.value)"></textarea>
 
-  <div class="bloc">
+  <div class="bloc" id="bloc-dossier">
     <h3>Dossier de consultation</h3>
     <div class="petitgris">Demande du dossier à l'acheteur, alerte si pas de réponse au bout de 3 jours</div>
     <div id="etatDossier"></div>
@@ -180,19 +184,19 @@
 </main>
 <script>
 const PHASE1 = [
-  { id: "prep", nom: "Préparation", resp: "Chargé d'affaires", contenu: "Lecture du dossier de consultation (DCE) et du cahier des charges, visite du site", j: -21 },
-  { id: "calculs", nom: "Calculs", resp: "Bureau d'études / ingénieur structure", contenu: "Plans et notes de calcul demandés au bureau d'études, descente de charges, plan d'implantation, étude au vent, validation par le bureau de contrôle", j: -14 },
-  { id: "admin", nom: "Pièces administratives", resp: "Chargé d'affaires", contenu: "DC1, DC2 ou DUME, Kbis de moins de 3 mois, attestation URSSAF, régularité fiscale, RC pro, décennale, RIB, références de chantiers similaires, certificats de qualification, acte d'engagement", j: -7 },
-  { id: "offre", nom: "Offre technique et financière", resp: "Chargé d'affaires et bureau d'études", contenu: "Mémoire technique (y compris la mention que les monteurs sont formés), BPU ou DPGF, planning prévisionnel, liste du matériel, jalonnement (moyens humains)", j: -3 },
-  { id: "depot", nom: "Remise de l'offre", resp: "Chargé d'affaires", contenu: "Dépôt de l'offre sur la plateforme : date limite, après c'est refusé", j: 0 }
+  { id: "prep", nom: "Préparation", court: "Prépa", resp: "Chargé d'affaires", contenu: "Lecture du dossier de consultation (DCE) et du cahier des charges, visite du site", j: -21 },
+  { id: "calculs", nom: "Calculs", court: "Calculs", resp: "Bureau d'études / ingénieur structure", contenu: "Plans et notes de calcul demandés au bureau d'études, descente de charges, plan d'implantation, étude au vent, validation par le bureau de contrôle", j: -14 },
+  { id: "admin", nom: "Pièces administratives", court: "Admin", resp: "Chargé d'affaires", contenu: "DC1, DC2 ou DUME, Kbis de moins de 3 mois, attestation URSSAF, régularité fiscale, RC pro, décennale, RIB, références de chantiers similaires, certificats de qualification, acte d'engagement", j: -7 },
+  { id: "offre", nom: "Offre technique et financière", court: "Offre", resp: "Chargé d'affaires et bureau d'études", contenu: "Mémoire technique (y compris la mention que les monteurs sont formés), BPU ou DPGF, planning prévisionnel, liste du matériel, jalonnement (moyens humains)", j: -3 },
+  { id: "depot", nom: "Remise de l'offre", court: "Remise", resp: "Chargé d'affaires", contenu: "Dépôt de l'offre sur la plateforme : date limite, après c'est refusé", j: 0 }
 ];
+// Plan de prévention = PGC + PPSPS + méthodologie (décision de Ben du 01/11/2026)
 const PHASE2 = [
-  { id: "pgc", nom: "PGC (plan général de coordination)", resp: "Chef de projet", contenu: "", j: -30, secu: true },
-  { id: "ppsps", nom: "PPSPS", resp: "Chef de projet", contenu: "Comprend le plan prévisionnel signé", j: -21, secu: true },
-  { id: "securite", nom: "Sécurité", resp: "QSE", contenu: "Habilitations et CACES des monteurs, liste nominative", j: -14, secu: true },
-  { id: "prevention", nom: "Plan de prévention", resp: "Chef de projet", contenu: "", j: -14, secu: true },
-  { id: "methodo", nom: "Méthodologie de travail", resp: "Chef de projet", contenu: "", j: -14, secu: true },
-  { id: "attestation", nom: "Attestation de bon montage", resp: "Chef de chantier", contenu: "Signée par le chef de chantier, remise au client, qui la transmet au bureau de contrôle avec la note de calcul et les plans", j: -2 }
+  { id: "pgc", nom: "PGC (plan général de coordination)", court: "PGC", resp: "Chef de projet", contenu: "", j: -30, secu: true },
+  { id: "ppsps", nom: "PPSPS", court: "PPSPS", resp: "Chef de projet", contenu: "Comprend le plan prévisionnel signé", j: -21, secu: true },
+  { id: "securite", nom: "Sécurité", court: "Sécurité", resp: "Chef de projet", contenu: "Habilitations et CACES des monteurs, liste nominative", j: -14, secu: true },
+  { id: "methodo", nom: "Méthodologie de travail", court: "Méthodo", resp: "Chef de projet", contenu: "", j: -14, secu: true },
+  { id: "attestation", nom: "Attestation de bon montage", court: "Attestation", resp: "Chef de chantier", contenu: "Signée par le chef de chantier, remise au client, qui la transmet au bureau de contrôle avec la note de calcul et les plans", j: -2 }
 ];
 const ETATS = ["À faire", "En cours", "Document manquant", "Fait", "Validé"];
 
@@ -202,6 +206,7 @@ const JOURS_SANS_REPONSE = 3;
 let fiches = [];
 let courante = null;
 let moisCal = null;
+let tachesCal = {};
 
 /* ---------- Dates en heure locale ---------- */
 function pad(n) { return String(n).padStart(2, "0"); }
@@ -215,9 +220,6 @@ function esc(t) { return (t || "").toString().replace(/&/g, "&amp;").replace(/"/
 
 function sauver() { localStorage.setItem("fiches", JSON.stringify(fiches)); }
 function fiche() { return fiches.find(f => f.id === courante); }
-
-/* ===== FIN DU MORCEAU 1 ===== */
-/* ===== DÉBUT DU MORCEAU 2 ===== */
 
 /* ---------- Lien de l'annonce cliquable ---------- */
 function ouvrirLien() {
@@ -298,6 +300,14 @@ function modifContact(id, cle, val) {
   f.contact[id][cle] = val;
   sauver();
 }
+// Confier une étape à quelqu'un d'autre que le responsable du dossier (rien n'est effacé)
+function deleguer(id, oui) {
+  const f = fiche();
+  f.contact[id] = f.contact[id] || {};
+  f.contact[id].delegue = oui;
+  if (oui && f.contact[id].poste === undefined) f.contact[id].poste = "";
+  sauver(); dessiner();
+}
 function setEtat(id, val) { fiche().etat[id] = val; sauver(); dessiner(); }
 function modifierDate(id, val) {
   const f = fiche();
@@ -306,7 +316,7 @@ function modifierDate(id, val) {
 }
 function remettreAuto(id) { delete fiche().manuel[id]; sauver(); dessiner(); }
 
-function ouvrir(id) {
+function ouvrir(id, cible) {
   courante = id;
   const f = fiche();
   if (!f) return;
@@ -321,6 +331,19 @@ function ouvrir(id) {
   });
   dessiner();
   window.scrollTo(0, 0);
+  if (cible) allerA(cible);
+}
+
+// Fait défiler la fiche jusqu'à l'étape cliquée dans le calendrier, encadrée en orange
+function allerA(cible) {
+  const idEl = cible === "dossier" ? "bloc-dossier" : (cible === "evenement" ? "f_evenement" : "etape-" + cible);
+  setTimeout(() => {
+    const el = document.getElementById(idEl);
+    if (!el) return;
+    el.scrollIntoView({ behavior: "smooth", block: "center" });
+    el.classList.add("cible");
+    setTimeout(() => el.classList.remove("cible"), 3000);
+  }, 80);
 }
 
 function retourListe() {
@@ -335,9 +358,6 @@ function supprimerFiche() {
   if (!confirm("Supprimer définitivement cette fiche ?")) return;
   fiches = fiches.filter(f => f.id !== courante); sauver(); retourListe();
 }
-
-/* ===== FIN DU MORCEAU 2 ===== */
-/* ===== DÉBUT DU MORCEAU 3 ===== */
 
 /* ---------- Demande du dossier de consultation ---------- */
 function joursSansReponse(f) {
@@ -382,43 +402,29 @@ function annulerDemande() {
   const f = fiche(); f.demande_dossier = ""; f.relance_dossier = ""; sauver(); dessinerDossier();
 }
 
-/* ===== FIN DU MORCEAU 3 ===== */
-/* ===== DÉBUT DU MORCEAU 4 ===== */
-
 function dessinerDossier() {
   const f = fiche();
   const div = document.getElementById("etatDossier");
   let h = "";
   if (f.dossier_recu) {
-    h = ` ✔ Dossier reçu le ${fr(f.dossier_recu)}
-      `;
+    h = `<div class="suiveur">✔ Dossier reçu le ${fr(f.dossier_recu)}</div>
+      <button class="gris petit" onclick="annulerRecu()">Annuler « reçu »</button>`;
   } else if (f.demande_dossier) {
-    h = ` Demandé par mail le ${fr(f.demande_dossier)}${f.relance_dossier ? ", relancé le " + fr(f.relance_dossier) : ""}. `;
-    if (aRelancer(f)) h += ` Pas de réponse depuis ${joursSansReponse(f)} jours : relancez ou appelez l'acheteur. `;
-    h += ` `;
+    h = `<div class="suiveur">Demandé par mail le ${fr(f.demande_dossier)}${f.relance_dossier ? ", relancé le " + fr(f.relance_dossier) : ""}.</div>`;
+    if (aRelancer(f)) h += `<div class="alerteNoire">Pas de réponse depuis ${joursSansReponse(f)} jours : relancez ou appelez l'acheteur.</div>`;
+    h += `<div class="ligne">
+        <button class="orange petit" onclick="demanderDossier(true)">Relancer par mail</button>
+        <button class="bleu petit" onclick="appelerAcheteur()">Appeler l'acheteur</button>
+        <button class="bleu petit" onclick="dossierRecu()">Dossier reçu</button>
+        <button class="gris petit" onclick="annulerDemande()">Annuler la demande</button>
+      </div>`;
   } else {
-    h = ` Pas encore demandé.
-      `;
-  }
-  div.innerHTML = h;
-}
-
-/* ===== DÉBUT DU MORCEAU 4 ===== */
-
-function dessinerDossier() {
-  const f = fiche();
-  const div = document.getElementById("etatDossier");
-  let h = "";
-  if (f.dossier_recu) {
-    h = ` ✔ Dossier reçu le ${fr(f.dossier_recu)}
-      `;
-  } else if (f.demande_dossier) {
-    h = ` Demandé par mail le ${fr(f.demande_dossier)}${f.relance_dossier ? ", relancé le " + fr(f.relance_dossier) : ""}. `;
-    if (aRelancer(f)) h += ` Pas de réponse depuis ${joursSansReponse(f)} jours : relancez ou appelez l'acheteur. `;
-    h += ` `;
-  } else {
-    h = ` Pas encore demandé.
-      `;
+    h = `<div class="suiveur">Pas encore demandé.</div>
+      <div class="ligne">
+        <button class="orange petit" onclick="demanderDossier(false)">Demander le dossier par mail</button>
+        <button class="bleu petit" onclick="appelerAcheteur()">Appeler l'acheteur</button>
+        <button class="bleu petit" onclick="dossierRecu()">Dossier reçu</button>
+      </div>`;
   }
   div.innerHTML = h;
 }
@@ -428,9 +434,6 @@ function dateEtape(f, e, ref) {
   if (f.manuel[e.id]) return f.manuel[e.id];
   return ref ? decaler(ref, e.j) : "";
 }
-
-/* ===== FIN DU MORCEAU 4 ===== */
-/* ===== DÉBUT DU MORCEAU 5 ===== */
 
 function carte(f, e, ref, phase, precedente) {
   const d = dateEtape(f, e, ref);
@@ -452,19 +455,17 @@ function carte(f, e, ref, phase, precedente) {
   if (d && phase === 2 && f.remise && d <= f.remise) alertes.push("avant la remise des offres");
 
   let quand = "";
-  if (retard) quand = `en retard de ${-jours} j`;
-  else if (proche) quand = `${jours === 0 ? "aujourd'hui" : "dans " + jours + " j"}`;
-
-/* ===== FIN DU MORCEAU 5 ===== */
-  /* ===== DÉBUT DU MORCEAU 6 ===== */
+  if (retard) quand = `<span class="alerte">en retard de ${-jours} j</span>`;
+  else if (proche) quand = `<span class="alerte">${jours === 0 ? "aujourd'hui" : "dans " + jours + " j"}</span>`;
 
   const suiveur = phase === 1 ? "Chargé d'affaires" : "Chef de projet";
+  const c = f.contact[e.id] || {};
   let resp;
-  if (e.resp === suiveur) {
-    const c = phase === 1 ? f.ca : f.cp;
-    resp = `<div class="suiveur">Responsable : <b>${suiveur}</b>${c.nom ? " — " + esc(c.nom) : ""} (suit le dossier)</div>`;
+  if (e.resp === suiveur && !c.delegue) {
+    const s = phase === 1 ? f.ca : f.cp;
+    resp = `<div class="suiveur">Responsable : <b>${suiveur}</b>${s.nom ? " — " + esc(s.nom) : ""} (suit le dossier)</div>
+      <button class="gris petit" onclick="deleguer('${e.id}', true)">Confier à quelqu'un d'autre</button>`;
   } else {
-    const c = f.contact[e.id] || {};
     const poste = c.poste !== undefined ? c.poste : e.resp;
     resp = `<div class="ligne">
         <input placeholder="Poste" value="${esc(poste)}" oninput="modifContact('${e.id}', 'poste', this.value)">
@@ -476,18 +477,16 @@ function carte(f, e, ref, phase, precedente) {
         <button class="orange petit" onclick="rappel('${e.id}', ${phase}, 'mail')">Rappel mail</button>
         <button class="orange petit" onclick="rappel('${e.id}', ${phase}, 'sms')">Rappel SMS</button>
         <button class="bleu petit" onclick="rappel('${e.id}', ${phase}, 'tel')">Appeler</button>
+        ${c.delegue ? `<button class="gris petit" onclick="deleguer('${e.id}', false)">Rendre au ${suiveur.toLowerCase()}</button>` : ""}
       </div>`;
   }
-
-/* ===== FIN DU MORCEAU 6 ===== */
-  /* ===== DÉBUT DU MORCEAU 7 ===== */
 
   const synthese = e.id === "prep" ? `<div class="synthese">
       <label>Synthèse du dossier (faite dans Claude, à coller ici)</label>
       <textarea placeholder="Collez ici la synthèse du dossier de consultation et du cahier des charges" oninput="champ('synthese', this.value)">${esc(f.synthese)}</textarea>
     </div>` : "";
 
-  const html = `<div class="etape ${classe}">
+  const html = `<div class="etape ${classe}" id="etape-${e.id}">
     <h4>${e.nom} ${quand}</h4>
     ${e.contenu ? `<p class="contenu">${e.contenu}</p>` : ""}
     ${alertes.length ? `<div class="alerte">⚠ ${alertes.join(", ")}</div>` : ""}
@@ -506,7 +505,7 @@ function listeEtapes(idDiv, etapes, ref, phase) {
   const f = fiche();
   let html = "", prec = "", secu = false;
   etapes.forEach(e => {
-    if (e.secu && !secu) { html += '<div class="sous">Dossier sécurité</div>'; secu = true; }
+    if (e.secu && !secu) { html += '<div class="sous">Dossier sécurité — plan de prévention (PGC, PPSPS, méthodologie)</div>'; secu = true; }
     if (!e.secu && secu) { html += '<hr style="margin-top:16px">'; secu = false; }
     const r = carte(f, e, ref, phase, prec);
     html += r.html;
@@ -514,9 +513,6 @@ function listeEtapes(idDiv, etapes, ref, phase) {
   });
   document.getElementById(idDiv).innerHTML = html;
 }
-
-/* ===== FIN DU MORCEAU 7 ===== */
-  /* ===== DÉBUT DU MORCEAU 8 ===== */
 
 /* ---------- Rappels (vouvoiement) ---------- */
 function rappel(id, phase, type) {
@@ -552,12 +548,22 @@ function rappel(id, phase, type) {
   }
 }
 
-/* ===== FIN DU MORCEAU 8 ===== */
-  /* ===== DÉBUT DU MORCEAU 9 ===== */
-
 /* ---------- Calendrier ---------- */
 const MOIS = ["janvier", "février", "mars", "avril", "mai", "juin", "juillet", "août", "septembre", "octobre", "novembre", "décembre"];
 const JOURS = ["Lun", "Mar", "Mer", "Jeu", "Ven", "Sam", "Dim"];
+const MAX_PAR_CASE = 3;
+// Ordre d'affichage dans une case : les plus urgentes d'abord
+const PRIO = { retard: 0, proche: 1, evt: 2, manquant: 3, "": 4, vert: 5 };
+const PETITS_MOTS = ["a", "à", "au", "aux", "de", "du", "des", "la", "le", "les", "l", "d", "et", "en", "un", "une", "pour", "sur"];
+
+// Nom de projet raccourci : « Noël à Festes » devient « Noël Festes »
+function nomCourt(t) {
+  const mots = (t || "").replace(/[«»"'’]/g, " ").split(/\s+/)
+    .filter(m => m && !PETITS_MOTS.includes(m.toLowerCase()));
+  let s = mots.slice(0, 2).join(" ");
+  if (s.length > 18) s = s.slice(0, 17) + "…";
+  return s || "Sans titre";
+}
 
 function voirCalendrier() {
   courante = null;
@@ -592,35 +598,36 @@ function tachesCalendrier() {
   fiches.forEach(f => {
     if (f.resultat === "Perdu") return;
     const nom = f.titre || "Sans titre";
-    PHASE1.forEach(e => {
-      const d = dateEtape(f, e, f.remise);
-      ajout(d, { id: f.id, texte: e.nom + " – " + nom, classe: classeTache(f, d, f.etat[e.id] || "À faire") });
-    });
-    if (f.resultat === "Gagné") {
-      PHASE2.forEach(e => {
-        const d = dateEtape(f, e, f.evenement);
-        ajout(d, { id: f.id, texte: e.nom + " – " + nom, classe: classeTache(f, d, f.etat[e.id] || "À faire") });
-      });
-    }
-    if (f.evenement) ajout(f.evenement, { id: f.id, texte: "Événement – " + nom, classe: "evt" });
+    const court = nomCourt(nom);
+    const etapes = f.resultat === "Gagné" ? [[PHASE1, f.remise], [PHASE2, f.evenement]] : [[PHASE1, f.remise]];
+    etapes.forEach(([liste, ref]) => liste.forEach(e => {
+      const d = dateEtape(f, e, ref);
+      ajout(d, { id: f.id, etape: e.id, court: e.court + " · " + court, long: e.nom + " – " + nom,
+                 classe: classeTache(f, d, f.etat[e.id] || "À faire") });
+    }));
+    if (f.evenement) ajout(f.evenement, { id: f.id, etape: "evenement", court: "Événement · " + court, long: "Événement – " + nom, classe: "evt" });
     if (f.demande_dossier && !f.dossier_recu) {
       const d = decaler(f.relance_dossier || f.demande_dossier, JOURS_SANS_REPONSE);
-      ajout(d, { id: f.id, texte: "Relancer l'acheteur – " + nom, classe: classeTache(f, d, "À faire") });
+      ajout(d, { id: f.id, etape: "dossier", court: "Relance · " + court, long: "Relancer l'acheteur – " + nom,
+                 classe: classeTache(f, d, "À faire") });
     }
   });
+  Object.values(t).forEach(l => l.sort((x, y) => PRIO[x.classe] - PRIO[y.classe]));
   return t;
 }
 
-/* ===== FIN DU MORCEAU 9 ===== */
-  /* ===== DÉBUT DU MORCEAU 10 ===== */
+function boutonTache(x, texte) {
+  return `<button class="calTache ${x.classe}" title="${esc(x.long)}" onclick="ouvrir('${x.id}', '${x.etape}')">${esc(texte)}</button>`;
+}
 
 function dessinerCalendrier() {
   const a = moisCal.getFullYear(), m = moisCal.getMonth();
   document.getElementById("calTitre").textContent = MOIS[m] + " " + a;
+  document.getElementById("calJour").innerHTML = "";
   const decal = (new Date(a, m, 1).getDay() + 6) % 7;
   const nbJours = new Date(a, m + 1, 0).getDate();
   const nbCases = Math.ceil((decal + nbJours) / 7) * 7;
-  const taches = tachesCalendrier();
+  tachesCal = tachesCalendrier();
   const today = auj();
   let html = JOURS.map(j => `<div class="calJourNom">${j}</div>`).join("");
   for (let i = 0; i < nbCases; i++) {
@@ -629,11 +636,24 @@ function dessinerCalendrier() {
     let classe = "calCase";
     if (d.getMonth() !== m) classe += " horsMois";
     if (s === today) classe += " aujourdhui";
-    const liste = (taches[s] || []).map(x =>
-      `<button class="calTache ${x.classe}" onclick="ouvrir('${x.id}')">${esc(x.texte)}</button>`).join("");
-    html += `<div class="${classe}"><div class="calNum">${d.getDate()}</div>${liste}</div>`;
+    const liste = tachesCal[s] || [];
+    let contenu = liste.slice(0, MAX_PAR_CASE).map(x => boutonTache(x, x.court)).join("");
+    if (liste.length > MAX_PAR_CASE) contenu += `<button class="calPlus" onclick="voirJour('${s}')">+ ${liste.length - MAX_PAR_CASE}</button>`;
+    html += `<div class="${classe}"><div class="calNum">${d.getDate()}</div>${contenu}</div>`;
   }
   document.getElementById("calGrille").innerHTML = html;
+}
+
+// Toutes les tâches d'un jour, chacune cliquable : aucune ne disparaît
+function voirJour(s) {
+  const liste = tachesCal[s] || [];
+  const div = document.getElementById("calJour");
+  div.innerHTML = `<div class="bloc jourListe">
+      <h3>Toutes les tâches du ${fr(s)} (${liste.length})</h3>
+      ${liste.map(x => boutonTache(x, x.long)).join("")}
+      <button class="gris petit" onclick="document.getElementById('calJour').innerHTML = ''">Fermer</button>
+    </div>`;
+  div.scrollIntoView({ behavior: "smooth", block: "start" });
 }
 
 /* ---------- Affichage ---------- */
@@ -660,9 +680,6 @@ function dessiner() {
 
   document.getElementById("blocPerdu").style.display = f.resultat === "Perdu" ? "block" : "none";
 }
-
-/* ===== FIN DU MORCEAU 10 ===== */
-  /* ===== DÉBUT DU MORCEAU 11 ===== */
 
 function afficherListe() {
   const div = document.getElementById("liste");
