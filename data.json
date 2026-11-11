@@ -110,6 +110,59 @@
   "reference": "27ME -001"
  },
  {
+  "id": "26-109500",
+  "objet": "Mise en place d'échafaudages pour la réalisation technique de la Fête du Citron 2027",
+  "acheteur": "Office de Tourisme de la ville de Menton",
+  "departement": "6",
+  "parution": "2026-11-10",
+  "date_limite": "2026-12-07T12:00:00+00:00",
+  "lien": "https://www.boamp.fr/pages/avis/?q=idweb:26-109500",
+  "dossier": "https://www.achatpublic.com/sdm/ent/gen/ent_detail.do?PCSLID=CSL_2026_66_iAv6end",
+  "plateforme": "AchatPublic",
+  "lien_direct": false,
+  "reference": "",
+  "mail_acheteur": "virginie.bar@ville-menton.fr",
+  "tel_acheteur": "04 92 41 76 27",
+  "mots": [
+   "echafaudage",
+   "fete"
+  ],
+  "lots_fl": [
+   "Mise en place d'échafaudages pour la réalisation technique de la Fête du Citron 2027 45223800 EUR 0."
+  ],
+  "montant": null,
+  "statut": "sans montant",
+  "procedure": "Procédure Ouverte",
+  "famille": "Marchés entre 90 k€ et seuils européens"
+ },
+ {
+  "id": "26-109303",
+  "objet": "Mise en place de tribunes dans le cadre des cérémonies de sorties des élèves officiers et commissaires",
+  "acheteur": "Ecole Nationale Superieure de la Police",
+  "departement": "69 77",
+  "parution": "2026-11-11",
+  "date_limite": "2026-12-10T11:00:00+00:00",
+  "lien": "https://www.boamp.fr/pages/avis/?q=idweb:26-109303",
+  "dossier": "https://www.marches-publics.gouv.fr/entreprise/consultation/3101867?orgAcronyme=g6l",
+  "plateforme": "PLACE",
+  "lien_direct": true,
+  "reference": "2SCCE-2026-TRIBUNES",
+  "mail_acheteur": "ensp-service-juridique@interieur.gouv.fr",
+  "tel_acheteur": "04 72 53 18 80",
+  "mots": [
+   "tribune",
+   "evenementiel",
+   "ceremonie"
+  ],
+  "lots_fl": [
+   "Lot"
+  ],
+  "montant": null,
+  "statut": "sans montant",
+  "procedure": "Procédure Ouverte",
+  "famille": "Marchés européens"
+ },
+ {
   "id": "26-102524",
   "objet": "Marché global de performance relatif à l'extension du Stade Gilbert Brutus",
   "acheteur": "Mairie de Perpignan",
