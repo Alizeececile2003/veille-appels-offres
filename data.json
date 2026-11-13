@@ -163,6 +163,32 @@
   "famille": "Marchés européens"
  },
  {
+  "id": "26-110104",
+  "objet": "Organisation du spectacle de Noël pour des établissements du GHT SOMME LITTORAL SUD",
+  "acheteur": "CHU Amiens-Picardie (Etablissement support du GHT SLS)",
+  "departement": "80",
+  "parution": "2026-11-12",
+  "date_limite": "2026-12-10T12:00:00+00:00",
+  "lien": "https://www.boamp.fr/pages/avis/?q=idweb:26-110104",
+  "dossier": "https://www.marches-publics.gouv.fr/entreprise",
+  "plateforme": "PLACE",
+  "lien_direct": false,
+  "reference": "",
+  "mail_acheteur": "direction.achats-ght@chu-amiens.fr",
+  "tel_acheteur": "03 22 08 86 30",
+  "mots": [
+   "scene",
+   "spectacle"
+  ],
+  "lots_fl": [
+   "Lot unique (non précisé)"
+  ],
+  "montant": null,
+  "statut": "sans montant",
+  "procedure": "Procédure Adaptée",
+  "famille": "Marchés <90 k€ (MAPA)"
+ },
+ {
   "id": "26-102524",
   "objet": "Marché global de performance relatif à l'extension du Stade Gilbert Brutus",
   "acheteur": "Mairie de Perpignan",
