@@ -189,58 +189,6 @@
   "famille": "Marchés <90 k€ (MAPA)"
  },
  {
-  "id": "26-102524",
-  "objet": "Marché global de performance relatif à l'extension du Stade Gilbert Brutus",
-  "acheteur": "Mairie de Perpignan",
-  "departement": "66",
-  "parution": "2026-10-23",
-  "date_limite": "",
-  "lien": "https://www.boamp.fr/pages/avis/?q=idweb:26-102524",
-  "mots": [
-   "tribune",
-   "stade"
-  ],
-  "lots_fl": [
-   "Lot"
-  ],
-  "montant": null,
-  "statut": "sans montant",
-  "procedure": "Procédure Dialogue compétitif",
-  "famille": "Marchés européens",
-  "dossier": "https://www.marches-publics.info",
-  "plateforme": "marches-publics.info",
-  "lien_direct": false,
-  "mail_acheteur": "publications-joue@aws-france.com",
-  "tel_acheteur": "04 80 04 12 60",
-  "reference": "T-PF-1617184"
- },
- {
-  "id": "26-103314",
-  "objet": "FESTIVITES DE NOEL 2026",
-  "acheteur": "Mairie de Salon de Provence",
-  "departement": "13 30 34 83",
-  "parution": "2026-10-23",
-  "date_limite": "",
-  "lien": "https://www.boamp.fr/pages/avis/?q=idweb:26-103314",
-  "mots": [
-   "scene",
-   "concert",
-   "production",
-   "festivites",
-   "salon"
-  ],
-  "lots_fl": [
-   "Lot unique (non précisé)"
-  ],
-  "montant": null,
-  "statut": "sans montant",
-  "procedure": "Procédure NC",
-  "famille": "Marchés entre 90 k€ et seuils européens",
-  "mail_acheteur": "catherine.pietri@paca.gouv.fr",
-  "plateforme": "non indiquée",
-  "lien_direct": false
- },
- {
   "id": "26-106209",
   "objet": "Fournitures et services pour l'évènement des Florilèges 2026",
   "acheteur": "COMMUNE DU TAMPON",
