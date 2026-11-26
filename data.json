@@ -1,31 +1,5 @@
 [
  {
-  "id": "26-101725",
-  "objet": "Prestation de régie générale et technique du Festival Rio Loco",
-  "acheteur": "Societe Publique Locale du Metronum",
-  "departement": "31",
-  "parution": "2026-10-21",
-  "date_limite": "2026-11-25T11:00:00+00:00",
-  "lien": "https://www.boamp.fr/pages/avis/?q=idweb:26-101725",
-  "mots": [
-   "regie generale",
-   "festival"
-  ],
-  "lots_fl": [
-   "Lot"
-  ],
-  "montant": null,
-  "statut": "sans montant",
-  "procedure": "Procédure Ouverte",
-  "famille": "Marchés européens",
-  "dossier": "https://spl-metronum.e-marchespublics.com/pack/annonce_marche_public_31508_1188447.html",
-  "plateforme": "e-marchespublics",
-  "lien_direct": false,
-  "mail_acheteur": "auriane.vigourous@lemetronum.fr",
-  "tel_acheteur": "06 30 95 47 58",
-  "reference": "27ME -001"
- },
- {
   "id": "26-109500",
   "objet": "Mise en place d'échafaudages pour la réalisation technique de la Fête du Citron 2027",
   "acheteur": "Office de Tourisme de la ville de Menton",
@@ -103,6 +77,34 @@
   "statut": "sans montant",
   "procedure": "Procédure Adaptée",
   "famille": "Marchés <90 k€ (MAPA)"
+ },
+ {
+  "id": "26-114201",
+  "objet": "Location et installation de structures évènementielles temporaires (Echafaudages et poutres structures)",
+  "acheteur": "CITIA",
+  "departement": "74",
+  "parution": "2026-11-26",
+  "date_limite": "2027-01-05T10:00:00+00:00",
+  "lien": "https://www.boamp.fr/pages/avis/?q=idweb:26-114201",
+  "dossier": "https://www.achatpublic.com/sdm/ent2/gen/ficheCsl.action?PCSLID=CSL_2026_Ttg12-jccW",
+  "plateforme": "AchatPublic",
+  "lien_direct": false,
+  "reference": "CIT-2611-12",
+  "mail_acheteur": "cecilepetitvallaud@citia.org",
+  "tel_acheteur": "04 50 10 09 00",
+  "mots": [
+   "echafaudage",
+   "festival",
+   "evenementielle"
+  ],
+  "lots_fl": [
+   "Lot",
+   "Lot"
+  ],
+  "montant": null,
+  "statut": "sans montant",
+  "procedure": "Procédure Ouverte",
+  "famille": "Marchés européens"
  },
  {
   "id": "26-106209",
